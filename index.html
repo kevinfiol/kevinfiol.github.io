@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+
+<head>
+	<title>Kevin Fiol</title>
+	<meta charset='utf-8'> 
+	<link href="css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+	<img src="images/logo.png" alt="Kevin Fiol" width="600" height="263"/>
+
+	<nav>
+	<p id="nav">
+		<a href="#">ABOUT</a> &nbsp; &nbsp; <a href="#work">WORK</a></nav>
+
+	<div id="aboutme">
+		<h1>About Me</h1>
+		<p>I'm a student currently attending Florida Atlantic University in Boca Raton, where I am majoring in Computer Science and English. As you can see, this site is under construction.
+		</p>
+		<p>
+		I started by doing simple PhotoShoppin' when I was 14. I spent too much time on video game forum sites and I wanted to have neat banners with my name on them. They had to look exactly how I wanted, so, obviously, I couldn't let anyone else do it for me. Those banners, signatures, and avatars I made back then really were something awful.
+		</p>
+		<p>
+		Delving into an internet culture composed of teenagers (mostly from the U.K., for some reason) sharing computer graphics with each other, and competing in "Designs Of The Week"'s eventually led me to web-programming -- and then, just programming.
+		</p>
+		<p>
+		Naturally, I started my own now-defunct forum site with InvisionFree where I tried to attract as many users as possible so that we could talk about video games, web graphics, and not do anything productive. I had fun doing all designing for that site, but obviously, it was still all quite bad, and the site ran as well as a pre-teen in Middle School could do.
+		</p>
+		<p>
+		I'd like to think my taste in design has matured, but perhaps I'm not the best judge; anyway, I'm more a programmer than a designer. Calling myself either feels pretentious. But I'd like to share things I can say I made. Maybe you'll like them. <br /><br /><br />
+
+		<em>kevin</em>
+		</p>
+	</div>
+
+	<div id="workex">
+		<h1>Work Examples</h1>
+		<a href="https://dl.dropboxusercontent.com/u/9161585/ffu/index.html">
+			<img src="images/example1.jpg" alt="example1" /></a>
+		<p><i>Page design made for a Final Fantasy Fansite concept.</i>
+		</p>
+
+		<a href="https://dl.dropboxusercontent.com/u/9161585/pivot/index.html">
+			<img src="images/example2.jpg" alt="example2" /></a>
+		<p><i>Portfolio/Project-oriented design.</i>
+		</p>
+		
+		<img src="images/example3.jpg" alt="example3" />
+		<p><i>Portfolio site design ~ IN PROGRESS.</i>
+		</p>
+
+	</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+
+$('#aboutme').css('display', 'none')
+$('#workex').css('display', 'none')
+
+$("#aboutme").fadeIn(400);
+
+$("a[href='#work']").click(function(event){
+    $("#aboutme").fadeOut(400, function(){
+       
+   		$("#workex").fadeIn(400)
+
+    });
+});
+
+
+$("a[href='#']").click(function(event){
+    $("#workex").fadeOut(400, function(){
+       
+   		$("#aboutme").fadeIn(400)
+
+    });
+});
+
+</script>
+
+</body>
+
+</html>
