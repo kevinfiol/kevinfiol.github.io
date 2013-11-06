@@ -12,7 +12,7 @@ body {
 }
 
 .wrapper {
-	width: 55%;
+	width: 900px;
 	padding: 20px;
 	margin: 0 auto;
 }
@@ -26,6 +26,8 @@ section {
 
 	section img {
 		border: 5px solid #eaeaea;
+    width: auto;
+    height: auto;
 		margin: 0px auto 0px auto;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -178,5 +180,13 @@ svg:not(:root) {
     padding:0.4in;
     font-size:12pt;
     color:#444;
+  }
+}
+
+/* phone queries */
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .wrapper {
+    width: 400px;
   }
 }
