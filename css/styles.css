@@ -189,4 +189,9 @@ svg:not(:root) {
   .wrapper {
     width: 400px;
   }
+  
+  html, body {
+    width: 400px;
+  }
+
 }
