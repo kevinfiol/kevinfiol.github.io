@@ -12,13 +12,13 @@ body {
 }
 
 .wrapper {
-	width: 900px;
+	width: 55%;
 	padding: 20px;
 	margin: 0 auto;
 }
 
 section {
-	width: 500px;
+	width: 60%;
 	float: right;
 	padding-bottom: 20px;
 	font-size: 14px;
@@ -40,6 +40,10 @@ section {
 		font-size: 12px;
 	}
 
+  #maintext {
+    width: 500px;
+  }
+
 footer {
 	width: 270px;
 	float: left;
@@ -52,7 +56,7 @@ small {
 }
 
 header {
-	width: 270px;
+	width: 30%;
 	float: left;
 	position: fixed;
 }
