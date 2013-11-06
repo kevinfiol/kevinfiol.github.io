@@ -18,16 +18,15 @@ body {
 }
 
 section {
-	width: 60%;
+	width: 500px;
 	float: right;
 	padding-bottom: 20px;
 	font-size: 14px;
 }
 
 	section img {
+    max-width: 100%;
 		border: 5px solid #eaeaea;
-    width: auto;
-    height: auto;
 		margin: 0px auto 0px auto;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -42,10 +41,6 @@ section {
 		font-size: 12px;
 	}
 
-  #maintext {
-    width: 500px;
-  }
-
 footer {
 	width: 270px;
 	float: left;
@@ -58,7 +53,7 @@ small {
 }
 
 header {
-	width: 30%;
+	width: 270px;
 	float: left;
 	position: fixed;
 }
@@ -181,17 +176,4 @@ svg:not(:root) {
     font-size:12pt;
     color:#444;
   }
-}
-
-/* phone queries */
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-  .wrapper {
-    width: 400px;
-  }
-  
-  html, body {
-    width: 400px;
-  }
-
 }
