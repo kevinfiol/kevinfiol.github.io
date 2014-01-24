@@ -17,6 +17,10 @@ body {
 	margin: 0 auto;
 }
 
+.gitlink {
+  font-size: 12px;
+}
+
 /*.img-container { text-align: center; }*/
 
 section {
