@@ -2,6 +2,10 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
+html {
+  overflow-y: scroll;
+}
+
 body {
 	background-color: #f7f7f7;
 	padding: 50px;
