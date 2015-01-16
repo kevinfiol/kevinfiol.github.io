@@ -1,43 +1,31 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+title: Kevin Fiol
+---
 
-<head>
-	<title>Kevin Fiol</title>
-	<meta charset='utf-8'> 
-	<meta http-equiv="X-UA-Compatible" content="chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="chromesniffer" id="chromesniffer_meta" content="{"jQuery":1.6.2"}">
-	<link href="css/styles.css" type="text/css" rel="stylesheet" />
-	<link rel="shortcut icon" href="/favicon2.ico" type="image/x-icon"/>
-</head>
+<section id="main">
+	{% for post in paginator.posts %}
+	<div class="post">
+		<div class="blog_title" id="home">
+			<a href="{{ post.url }}"><h2>{{ post.title }}</h2></a>
+			<time>{{ post.date | date: '%B %d, %Y' }}</time>
+		</div>
+			{{ post.content }}
+	</div>
+	{% endfor %}
 
-<body>
+	<div class="pagination">
+	  {% if paginator.previous_page %}
+	    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+	  {% else %}
+	    <span class="previous">Previous</span>
+	  {% endif %}
+	  <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+	  {% if paginator.next_page %}
+	    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+	  {% else %}
+	    <span class="next ">Next</span>
+	  {% endif %}
+	</div>
+</section>
 
-<div class="wrapper">
-	<header>
-		<h1><a href="index.html">kevin fiol</a></h1>
-		<p class="view"><a href="about.html">About</a></p>
-		<p class="view"><a href="http://github.com/kevinfiol/">Github</a></p>
-		<p class="view"><a href="http://www.behance.net/kevinfiol">Design</a></p>
-		<p class="view"><a href="https://dl.dropboxusercontent.com/u/9161585/Kevin%20Fiol%20-%20Resume.pdf">Résumé</a></p>
-		<p class="view"><a href="http://webdevkev.blogspot.com/">Blog</a></p>
-	</header>
-
-	<section id="main">
-		<div class="img-container"><img src="images/photo3.jpg" /></div>
-		<p>Hey, I'm Kevin. I studied Computer Science and English Literature at Florida Atlantic University. I love games, lomo saltado, and <a href="http://www.sublimetext.com/">Sublime Text.</a></p>
-		<p style="font-size: 12px; text-align: center;">contact: <a href="mailto:fiolkevin@gmail.com">fiolkevin@gmail.com</a></p>
-	</section>
-
-	<footer>
-		<small>Hosted on <a href="http://www.github.com">Github</a>.</small>
-	</footer>
-
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-</script>
-
-</body>
-</html>

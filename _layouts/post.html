@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<section id="main">
+	<div class="post">	
+		<div class="blog_title">
+			<h2>{{ page.title }}</h2>
+			<time>{{ page.date | date: '%B %d, %Y' }}</time>
+		</div>
+		{{content}}
+	</div>
+
+	<div class="pagination">
+		<a href="{{ site.baseurl }}/archive.html">« Archive</a>
+	</div>
+</section>
