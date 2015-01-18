@@ -217,6 +217,10 @@ svg:not(:root) {
   body {
     padding:0px;
   }
+
+  div.wrapper {
+    padding: 15px;
+  }
   
   header ul {
     display:none;
