@@ -215,7 +215,7 @@ svg:not(:root) {
 
 @media print, screen and (max-width: 480px) {
   body {
-    padding:15px;
+    padding:0px;
   }
   
   header ul {
