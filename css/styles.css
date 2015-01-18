@@ -73,6 +73,11 @@ section {
 }
   section .blog_title {
     font-size: 14px;
+    font-weight: 100;
+  }
+
+  section .post {
+    font-weight: 400;
   }
 
 	section img, iframe {
