@@ -1,4 +1,4 @@
-/*@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700,700italic,600,400italic,300italic,600italic);*/
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700,700italic,600,400italic,300italic,600italic);
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
@@ -11,7 +11,7 @@ body {
 	padding: 50px;
 	font-weight: 300;
 	color: #777;
-	font-family: "Open Sans", Lato, Arial, "Helvetica Neue", sans-serif;
+	font-family: "Open Sans", Calibri, Arial, sans-serif;
 
 }
 
@@ -155,7 +155,7 @@ svg:not(:root) {
 
 /* CSS @media calls */
 
-@media print, screen and (max-width: 960px) {
+@media print, screen and (max-width: 1120px) {
   
   div.wrapper {
     width:auto;
@@ -166,6 +166,7 @@ svg:not(:root) {
     float:none;
     position:static;
     width:auto;
+    height: auto;
   }
   
   header {
@@ -193,6 +194,10 @@ svg:not(:root) {
 @media print, screen and (max-width: 720px) {
   body {
     word-wrap:break-word;
+  }
+
+  .blog_title h2 {
+    line-height: normal;
   }
   
   header {
