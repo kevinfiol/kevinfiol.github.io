@@ -7,8 +7,10 @@
 	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta name="chromesniffer" id="chromesniffer_meta" content="{"jQuery":1.6.2"}">
-	<link href="{{ site.baseurl }}/css/styles.css" type="text/css" rel="stylesheet" />
 	<link rel="shortcut icon" href="{{ site.baseurl }}/favicon2.ico" type="image/x-icon"/>
+	<link rel="stylesheet" href="{{ site.baseurl }}/css/responsive-nav.css">
+	<link href="{{ site.baseurl }}/css/styles.css" type="text/css" rel="stylesheet" />
+	<script src="{{ site.baseurl }}/js/responsive-nav.min.js"></script>
 </head>
 
 <body>
@@ -16,11 +18,13 @@
 <div class="wrapper">
 	<header>
 		<h1 id="title"><a href="{{ site.baseurl }}/">keb's site</a></h1>
-		<ul class="nav">
-			<li><a href="{{ site.baseurl }}/about.html">About</a></li>
-			<li><a href="http://github.com/kevinfiol/">Github</a></li>
-			<li><a href="http://www.behance.net/kevinfiol">Design</a></li>
-			<li><a href="https://dl.dropboxusercontent.com/u/9161585/Kevin%20Fiol%20-%20Resume.pdf">Résumé</a></li>
-			<li><a href="{{ site.baseurl }}/archive.html">Archive</a></li>
-		</ul>
+		<nav class="nav-collapse">
+			<ul class="nav">
+				<li><a href="{{ site.baseurl }}/about.html">About</a></li>
+				<li><a href="http://github.com/kevinfiol/">Github</a></li>
+				<li><a href="http://www.behance.net/kevinfiol">Design</a></li>
+				<li><a href="https://dl.dropboxusercontent.com/u/9161585/Kevin%20Fiol%20-%20Resume.pdf">Résumé</a></li>
+				<li><a href="{{ site.baseurl }}/archive.html">Archive</a></li>
+			</ul>
+		</nav>
 	</header>
