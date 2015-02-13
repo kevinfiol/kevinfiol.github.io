@@ -225,7 +225,7 @@ svg:not(:root) {
   }*/
 }
 
-@media print, screen and (max-width: 720px) {
+@media print, screen and (max-width: 800px) {
   body {
     word-wrap:break-word;
   }
@@ -233,7 +233,55 @@ svg:not(:root) {
   .blog_title h1, h2 {
     line-height: normal;
   }
-  
+
+  #title {
+    float: left;
+    line-height: 20px;
+  }
+
+ .nav-toggle {
+    float: right;
+    font-size: 28px;
+    line-height: 22px;
+ }
+
+ .nav-collapse, .nav-collapse ul, .nav-collapse li {
+    margin: 0;
+    padding: 0;
+ }
+
+ .nav-collapse {
+    display: block;
+    top: 15px;
+    width: 100%;
+ }
+
+ .nav-collapse ul {
+    width: 100%;
+ }
+
+ .nav-collapse li {
+    width: 100%;
+    background-color: #eeeeee;
+    display: block;
+    padding: 10px 20px 10px 0px;
+    transition: background-color .35s ease-in-out;
+    -moz-transition: background-color .35s ease-in-out;
+    -webkit-transition: background-color .35s ease-in-out;
+ }
+
+ .nav-collapse li:hover {
+    background-color: #eaeaea;
+    transition: background-color .35s ease-in-out;
+    -moz-transition: background-color .35s ease-in-out;
+    -webkit-transition: background-color .35s ease-in-out;
+ }
+
+ .nav-collapse a {
+    padding: 6px;
+    display: block;
+ }
+
 /*  header {
     padding:0;
   }
