@@ -264,7 +264,7 @@ svg:not(:root) {
     width: 100%;
     background-color: #eeeeee;
     display: block;
-    padding: 10px 20px 10px 0px;
+    padding: 0;
     transition: background-color .35s ease-in-out;
     -moz-transition: background-color .35s ease-in-out;
     -webkit-transition: background-color .35s ease-in-out;
@@ -278,7 +278,7 @@ svg:not(:root) {
  }
 
  .nav-collapse a {
-    padding: 6px;
+    padding: 18px;
     display: block;
  }
 
@@ -297,7 +297,7 @@ svg:not(:root) {
 
 @media print, screen and (max-width: 480px) {
   body {
-    padding:0px;
+    padding: 20px 0 0 0;
   }
 
   div.wrapper {
