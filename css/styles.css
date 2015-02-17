@@ -304,7 +304,7 @@ svg:not(:root) {
     padding: 5px;
   }
 
-  .post p {
+  #main p {
     font-size: 14px;
   }
   
