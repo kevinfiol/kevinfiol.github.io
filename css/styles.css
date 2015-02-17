@@ -301,7 +301,11 @@ svg:not(:root) {
   }
 
   div.wrapper {
-    padding: 15px;
+    padding: 5px;
+  }
+
+  .post p {
+    font-size: 14px;
   }
   
 /*  header ul {
