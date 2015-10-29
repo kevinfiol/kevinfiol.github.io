@@ -9,5 +9,6 @@ My personal projects have taken an eternal halt. Inspiration has completely esca
 
 I'll try to update again.
 
-<iframe width="420" height="315" src="//www.youtube.com/watch?v=mU1UPpeGZdI" frameborder="0" allowfullscreen></iframe>
-
+<div class="img-container">
+<iframe width="420" height="315" src="//www.youtube.com/embed/mU1UPpeGZdI" frameborder="0" allowfullscreen></iframe>
+</div>
