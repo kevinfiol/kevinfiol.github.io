@@ -38,7 +38,7 @@ body {
   -webkit-transition: background-color .35s ease-in-out;
 }
 
-.img-container { text-align: center; }
+.img-container { text-align: center; margin: 10px 0px; }
 
 .post {
   margin-bottom: 36px;
