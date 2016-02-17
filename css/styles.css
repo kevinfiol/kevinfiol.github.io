@@ -141,6 +141,10 @@ header {
   margin: 0 10px 0 10px;
 }
 
+.nav-collapse ul {
+  margin: 5px 0px 0px 0px;
+}
+
 h1,h2,h3 {
 	font-weight: 400;
 	color: #404040;
