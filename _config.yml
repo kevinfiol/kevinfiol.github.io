@@ -1,2 +1,4 @@
 paginate: 3
+gems: [jekyll-paginate]
+# highlighter: rouge
 # paginate_path: "blog/page:num/"
