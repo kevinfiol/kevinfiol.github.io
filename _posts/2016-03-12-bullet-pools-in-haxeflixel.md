@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Bullet Pools with HaxeFlixel
+title: Bullet Pools with Timers in HaxeFlixel
 ---
 
-One of the more useful features of the flixel library is the inclusion of the `FlxTypedGroup` class, which makes it easier to organize, update, and render multiple instances of an `FlxBasic` object. A few getter methods provide useful information such as the length of the group, or an array of every member in an instantiated group.
+One of the more useful features of the flixel library is the inclusion of the [FlxTypedGroup](http://api.haxeflixel.com/flixel/group/FlxTypedGroup.html) class, which makes it easier to organize, update, and render multiple instances of an FlxBasic object. A few getter methods provide useful information such as the length of the group, or an array of every member in an instantiated group.
 
-A practical application of `FlxTypedGroup` can be found in the ['Asteroids' demo](https://github.com/HaxeFlixel/flixel-demos/tree/master/Arcade/FlxTeroids/source) available via the HaxeFlixel repository. Through use of `FlxTypedGroup`'s `recycle` method, we can reuse bullet objects without having to destroy and recreate them, reallocating memory each time. Instead, bullets can be respawned from the queue after the pool has been "expended."
+A practical application of FlxTypedGroup can be found in the ['Asteroids' demo](https://github.com/HaxeFlixel/flixel-demos/tree/master/Arcade/FlxTeroids/source) available via the HaxeFlixel repository. FlxTypedGroup's `recycle` method allows us to resuse bullet objects without having to destroy, recreate, and reallocate memory each time. Instead, bullets can be respawned from the queue after the pool has been "expended."
 
 >Note: In the demo example available in the HaxeFlixel repository, the properties of each bullet are initialized on the fly within `PlayState.hx`. For my example, I have created a separate `Bullet` class for the sake of convenience.
 
@@ -40,16 +40,16 @@ override public function create():Void
 ...
 ```
 
-Now, from within your Player class (or wherever you wish to trigger the bullet spawning), simply reference your main FlxState's `bullets` pool to recycle `bullet` objects. 
-Note: in this example, I have omitted the logic which handles bullet velocity:
+Within our Player class, we can then just reference the main PlayState's `bullets` pool to recycle `bullet` objects. 
 
 ```haxe
 if(FlxG.keys.justPressed.Z){
 	var bullet:Bullet = PlayState.bullets.recycle();
+	//YOUR BULLET VELOCITY CODE GOES HERE
 }
 ```
 
-After this, you can just add your standard logic that handles bullet velocity, acceleration, or how, when, and where your Sprite class may spawn bullet objects. As seen in the example below, only 3 bullets may be on the screen at one time, with the earliest spawned bullet being replaced.
+After this, we just add our standard logic that handles bullet velocity, acceleration, or how, when, and where your Sprite class may spawn bullet objects. As seen in the example below, only 3 bullets may be on the screen at one time, with the earliest spawned bullet being replaced.
 
 <div class="img-container">
 	<video autoplay="autoplay" loop="loop" src="{{ site.url }}/assets/webm/1.webm"></video>
@@ -57,9 +57,9 @@ After this, you can just add your standard logic that handles bullet velocity, a
 
 Building on the example of the original Asteroids arcade game, we can give each bullet a limited lifetime, meaning if the bullet does not collide with another asteroid or enemy sprite, it should cease to exist after a certain period of time. Otherwise, it would continue travelling endlessly.
 
-I will be using HaxeFlixel's `FlxTimer` class, however, you may also use `Timer` class included in the Haxe Toolkit.
+I was able to do this using HaxeFlixel's [FlxTimer](http://api.haxeflixel.com/flixel/util/FlxTimer.html) class, however, you may also use the standard [Timer](http://api.haxe.org/haxe/Timer.html) class included in the Haxe Toolkit.
 
-Within my `Bullet.hx` class, I declare and initialize a new `FlxTimer` object in the class constructor. 
+Within my `Bullet.hx` class, I declare `timer` and initialize it as an FlxTimer object in the class constructor. 
 
 ```haxe
 class Bullet extends FlxSprite
@@ -73,19 +73,26 @@ class Bullet extends FlxSprite
 	}
 	override public function update(elapsed:Float):Void
 	{
-		FlxSpriteUtil.screenWrap(this);
-		super.update(elapsed);
+		...
 	}
 }
 ```
 
-Instead of creating a new `FlxTimer` object each time a bullet is recycled, the existing one is simply reset when needed.
+Instead of creating a new FlxTimer object each time a bullet is recycled, the existing one is simply reset when needed.
 
-Now back in the `Player.hx` class, we simply set and start the `FlxTimer` object for each bullet as they fire. The `start` method of an `FlxTimer` object takes three arguments: 
+Now back in the `Player.hx` class, we simply set and start the FlxTimer object for each bullet as they fire. The `start` method of an FlxTimer object [takes three arguments](http://api.haxeflixel.com/flixel/util/FlxTimer.html#start): 
 
-1. The first argument, a Float, `2.0` signifies the amount of time in seconds it will take until the timer is complete. 
-2. The second argument signifies a function which will be triggered upon the timer's completion; in this example, I pass an anonymous function that sets the current bullet's `exists` flag to `false`.
-3. The third argument signifies how many times the timer will loop. In this case, I only want it to trigger once, so I pass a Int, `1`.
+```haxe
+start(Time:Float = 1, ?OnComplete:FlxTimer‑>Void, Loops:Int = 1):FlxTimer
+```
+
+>**Time:Float** How many seconds it takes for the timer to go off. If 0 then timer will fire OnComplete callback only once at the first call of update method (which means that Loops argument will be ignored).
+
+>**OnComplete:FlxTimer->Void** Optional, triggered whenever the time runs out, once for each loop. Callback should be formed "onTimer(Timer:FlxTimer);"
+
+>**Loops:Int** How many times the timer should go off. 0 means "looping forever".
+
+In the example below, I pass `2.0` for `Time`, an anonymous function for `OnComplete` that switches the bullets `exists` flag to `false`, and `1` for `Loops` so that the function only triggers once.
 
 ```haxe
 if(FlxG.keys.justPressed.Z){
@@ -100,7 +107,7 @@ if(FlxG.keys.justPressed.Z){
 }
 ```
 
-So now, not only do you limit the amount of bullets that can be on the screen at once, but you can limit the duration for said bullets! It's a very neat and useful mechanic that can be applied to any pool of FlxBasic objects you may need, whether it be enemies, ammunition, etc.
+So now, not only do you limit the amount of bullets that can be on the screen at once, but you can limit the duration for said bullets! It's a very neat and useful mechanic for balancing your game that can be applied to any pool of FlxBasic objects you may need, whether it be enemies, ammunition, or environmental objects.
 
 <div class="img-container">
 	<video autoplay="autoplay" loop="loop" src="{{ site.url }}/assets/webm/2.webm"></video>
