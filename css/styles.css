@@ -199,11 +199,11 @@ pre {
   border-radius: 3px;
 }
 
-code {
+/*code {
   -webkit-box-shadow: inset 6px 2px 95px -46px rgba(0,0,0,0.75);
   -moz-box-shadow: inset 6px 2px 95px -46px rgba(0,0,0,0.75);
   box-shadow: inset 6px 2px 95px -46px rgba(0,0,0,0.75);
-}
+}*/
 
 .hljs {
   padding: 20px;
