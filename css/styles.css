@@ -4,6 +4,10 @@ html {
   overflow-y: scroll;
 }
 
+code {
+  font-size: 14px;
+}
+
 body {
 	background-color: #f7f7f7;
 	padding: 50px;
@@ -12,6 +16,8 @@ body {
 	font-family: "Merriweather", Cambria, serif;
 
 }
+
+li { margin: 8px 0 8px 0; }
 
 .wrapper {
 	width: 780px;
@@ -45,7 +51,6 @@ body {
 }
 
 .blog_title {
-  /*background-color: #eaeaea;*/
   padding: 16px 8px;
   transition: background-color .35s ease-in-out;
   -moz-transition: background-color .35s ease-in-out;
@@ -94,21 +99,12 @@ section {
 		font-size: 12px;
 	}
 
-footer {
-/*	float: left;
-	position: fixed;
-	bottom: 30px;*/
-}
-
 small {
 	font-size: 10px;
 }
 
 header {
   margin: 0 auto 35px auto;
-/*	width: 200px;
-	float: left;
-	position: fixed;*/
 }
 
 #title {
@@ -148,7 +144,6 @@ header {
 h1,h2,h3 {
 	font-weight: 400;
 	color: #404040;
-	/*text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);*/
 }
 
 h1 a {
@@ -234,33 +229,9 @@ svg:not(:root) {
     margin:0;
   }
   
-/*  header, section, footer {
-    float:none;
-    position:static;
-    width:auto;
-    height: auto;
-  }
-  
-  header {
-    padding-right:320px;
-  }
-  
-  section {
-    border:1px solid #e5e5e5;
-    border-width:1px 0;
-    padding:20px 0;
-    margin:0 0 20px;
-  }
-  */
   header a small {
     display:inline;
   }
-  
-/*  header ul {
-    position:absolute;
-    right:50px;
-    top:52px;
-  }*/
 }
 
 @media print, screen and (max-width: 800px) {
@@ -319,14 +290,6 @@ svg:not(:root) {
     padding: 18px;
     display: block;
  }
-
-/*  header {
-    padding:0;
-  }
-  
-  header ul, header p.view {
-    position:static;
-  }*/
   
   pre, code {
     word-wrap:normal;
@@ -349,10 +312,7 @@ svg:not(:root) {
   #archive_date {
     width: 95px;
   }
-  
-/*  header ul {
-    display:none;
-  }*/
+
 }
 
 @media print {
