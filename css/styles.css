@@ -205,15 +205,11 @@ pre {
   box-shadow: inset 6px 2px 95px -46px rgba(0,0,0,0.75);
 }*/
 
-.hljs {
-  padding: 20px;
-}
-
-.highlighter-rouge {
+p>.highlighter-rouge {
   background: #2d2d2d;
   color: #cccccc;
-  padding: 0.4em;
-  border-radius: 5px;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
 }
 
 svg:not(:root) {
