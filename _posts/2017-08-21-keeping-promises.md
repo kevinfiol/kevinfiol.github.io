@@ -45,9 +45,11 @@ firetool.createPage(page)
 	})
 ```
 
-This works just fine, but the more I looked at it, the more I wanted to isolate logic to `firetool.js`, and keep the workload off `pages.js`.
+This works just fine, but the more I looked at it, the more I wanted to isolate logic to `firetool.js`, and keep the workload off `pages.js`. Additionally, I need to be able to check if the page exists before I attempt to create it.
 
-The problem becomes that the state of `pages.js` needs to know when to set the vnode data, and update the view. Simultaneously, I want `firetool.createPage` to be agnostic, and extensible. Eventually, it made more sense to wrap the existing Firebase promise within my own:
+The problem becomes that the state of `pages.js` needs to know when to set the vnode data, and update the view.
+
+Eventually, it made more sense to wrap the existing Firebase promise within my own:
 
 ```javascript
 // firetool.js
@@ -87,6 +89,7 @@ firetool.createPage(page)
 	})
 	.catch((err) => {
 		vnode.state.message = err;
+		m.redraw();
 	})
 ```
 
