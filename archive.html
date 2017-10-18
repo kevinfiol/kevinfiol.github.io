@@ -8,7 +8,7 @@ title: Kevin Fiol
 	<hr>
 
 	{% for post in site.posts %}
-	<p> <span id="archive_date">{{ post.date | date_to_string }}</span> » <a id="archive_link" href="{{ post.url }}">{{ post.title }}</a></p>
+	<p> <span class="archive-date">{{ post.date | date_to_string }}</span> » <a class="archive-link" href="{{ post.url }}">{{ post.title }}</a></p>
 	{% endfor %}
 	
 </section>
