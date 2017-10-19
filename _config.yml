@@ -26,6 +26,7 @@ github_username:  kevinfiol
 markdown: kramdown
 theme: minima
 paginate: 3
+paginate_path: "/blog/page:num/"
 plugins:
   - jekyll-feed
   - jekyll-paginate

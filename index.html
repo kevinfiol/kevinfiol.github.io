@@ -1,32 +1,34 @@
 ---
-layout: default
+layout: home
 title: Kevin Fiol
 ---
 
-<section id="main">
-	{% for post in paginator.posts %}
-	<div class="post">
-		<hr>
-		<div class="blog-title" id="home">
-			<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-			<time>{{ post.date | date: '%B %d, %Y' }}</time>
-		</div>
-			{{ post.content }}
-	</div>
-	{% endfor %}
+<section class="home">
+	<div class="home-container">
+			<header>
+					<h1 class="title">kevin f.</h1>
+					<hr>
+			</header>
 
-	<div class="pagination">
-	  {% if paginator.previous_page %}
-	    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
-	  {% else %}
-	    <span class="previous">Previous</span>
-	  {% endif %}
-	  <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
-	  {% if paginator.next_page %}
-	    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
-	  {% else %}
-	    <span class="next ">Next</span>
-	  {% endif %}
+			<ul class="nav">
+				<li><a href="{{ site.base.url }}/blog/">blog</a></li>/
+				<li><a href="https://github.com/kevinfiol/">github</a></li>/
+				<li><a href="https://drive.google.com/file/d/0B4bGU-voZesnSXE0d1JESm1wRjA/view?usp=sharing">résumé</a></li>
+			</ul>
+
+			<p>Hi, I'm Kevin. I hold degrees in Computer Science and English Literature.</p>
+			<p>
+				I primarily work with JavaScript, Python, and Haxe.
+				Some tools I use are <a href="https://mithril.js.org/">Mithril.js</a>,
+				<a href="https://lodash.com/">Lodash</a>, <a href="http://flask.pocoo.org/">Flask</a>,
+				and every once in a while, just plain ol' PHP.
+			</p>
+			<p>
+				When I'm not working, I like playing board games, sinking time into PS1/SNES-era JRPGS and Platformers,
+				discovering new genres of music, and drinking coffee while catching up on current events.
+			</p>
+
+			<p style="font-size: 12px; text-align: center;">contact: <a href="mailto:fiolkevin@gmail.com">fiolkevin@gmail.com</a></p>
 	</div>
 </section>
 
