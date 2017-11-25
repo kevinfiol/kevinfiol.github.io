@@ -10,7 +10,7 @@ These libraries were [Flixel](http://www.flixel.org) and [Flashpunk](http://www.
 Why is this relevant? Well, Flashpunk and Flixel were the first times I tried a game framework --- and it looks like I've come full circle in the form of [HaxeFlixel](http://haxeflixel.com/). 
 
 <div class="img-container">
-<img src="{{ site.url }}/static/assets/haxeflixel.png" />
+<img class="blog-media" src="{{ site.url }}/static/assets/haxeflixel.png" />
 </div>
 
 Adobe has effectively killed all support for flash, ActionScript 4 was abandoned, and AIR support for Linux was cut. Enter OpenFL, an open-source alternative to the Flash API completely rewritten in glorious Haxe, the cross-platform toolkit that'll compile straight to Flash, JavaScript, or desktop applications all quickly, and accurately. The language itself is rich and truly object-oriented, with support for classes, interfaces, and inheritance; it's strongly-typed and it has the option for dynamic typecasting. It looks good and it feels good to write, and coupled with Lime and OpenFL, my Haxe code compiles to Flash or Windows, Mac, Linux, and Mobile all running consistently.

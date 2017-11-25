@@ -11,7 +11,7 @@ body {
     font-family: "Merriweather", Cambria, serif;
 }
 
-.title { text-align: center; font-size: 2.5em; margin: 0.50em auto; }
+.title { text-align: center; font-size: 2.5em; margin: 0 0 0.5em 0; }
 .container { max-width: 720px; margin: 0.25em auto; }
 
 .nav { list-style: none; text-align: center; padding: 0; }
@@ -28,7 +28,7 @@ body {
 .blog-title h1, h2 { font-weight: bold; }
 .img-container { text-align: center; margin: 10px 0px; }
 code { font-size: 14px; }
-img, iframe, video {
+.blog-media {
     max-width: 100%;
 		border: 5px solid #eaeaea;
 		margin: 0px auto 0px auto;
@@ -56,6 +56,8 @@ p > .highlighter-rouge {
     padding: 0.2em 0.4em;
     border-radius: 3px;
 }
+.content-list { text-align: center; }
+.content-list > li { display: inline; padding-right: 2em; }
 
 footer { height: 25px; text-align: right; }
 
