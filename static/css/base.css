@@ -30,7 +30,7 @@ body {
 code { font-size: 14px; }
 .blog-media {
     max-width: 100%;
-		border: 5px solid #eaeaea;
+		/* border: 5px solid #eaeaea; */
 		margin: 0px auto 0px auto;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
