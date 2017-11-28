@@ -1,0 +1,72 @@
+# Kevin Fiol
+
+---
+
+|                   |                                                         |
+|-------------------|--------------------------------------------------------:|
+| 10 Stonehenge Ln  | [kevinfiol.com](http://www.kevinfiol.com)               |
+| Albany, NY        | [github.com/kevinfiol](http://www.github.com/kevinfiol) |
+| 12203             | [fiolkevin@gmail.com](mailto:fiolkevin@gmail.com)       |
+
+---
+
+### Experience
+
+* **Cendyn** • *Software Developer* • __09/2016 to Present__
+    \> Maintaining and developing new features for Cendyn Hospitality Marketing Cloud Suite.
+    \> Developing full-stack applications using JavaScript, jQuery, ASP.NET WebForms, MVC, and T-SQL.
+    \> Writing SQL scripts/routines to assist with database migrations, using SQL Management Studio.
+
+* **AOD Software** • *Software Developer* • __12/2014 to 02/2016__
+    \> Developed reporting software for Point of Sale SaaS to generate data in PDF/XML formats.
+    \> Implemented data entry software to ease the importation of external sources to database.
+    \> Created application to upload images by signature pad to remote server written in JavaScript.
+
+* **Verio** • *Development Support Intern* • __05/2014 to 08/2014__
+    \> Assisted with product provisioning conflicts within relational database management systems.
+    \> Wrote server-side scripts to batch test or resolve common provisioning errors.
+    \> Collaborated with developers & QA teams in research and composition of internal documents.
+
+---
+
+### Open Source Projects
+
+* **Steam Web API Application** • [github.com/kevinfiol/djangosteam](https://github.com/kevinfiol/djangosteam)
+    \> Built Steam Storefront, Internet Game DB wrappers used to abstract access to their respective APIs.
+    \> Implemented methods to facilitate CRUD cycle. Data persists to PostgreSQL database.
+    \> Allows users to view Steam profile statistics, and calculate their total account cost
+    \> Displays information for user libraries including cost, completion, play times, and Metacritic scores.
+
+* **Genius.com Lyrics Generator** • [github.com/kevinfiol/node-markov-lyrics](https://github.com/kevinfiol/node-markov-lyrics)
+    \> CLI application built with Node.js to generate song lyrics.
+    \> Web-scraping with 'request.js' and 'cheerio.js' npm libraries.
+    \> Lyrics are combined by forming dictionaries of prefix/suffix structures using Markov chains.
+
+* **Web Chat** • [github.com/kevinfiol/kevchat](https://github.com/kevinfiol/kevchat)
+    \> Chat Server/Client
+    \> Allows users to communicate in auto-generated chatroom instances.
+    \> Chatrooms easily accessible through shareable URLs w/ randomly-generated room IDs.
+    \> Demo on Heroku Cloud Platform.
+
+---
+
+### Skills
+
+1. JavaScript / ES6 / Node / jQuery
+1. NPM / Yarn / Webpack
+1. Python / Flask
+1. HTML5 / CSS3
+1. PHP / Composer
+1. MySQL / PostgreSQL
+1. REST / JSON / HTTP
+1. Git / SVN
+
+---
+
+### Education
+
+* **Bachelor of Science in Computer Science** • __2014__
+    Florida Atlantic University, Boca Raton, FL • 3.56, Cum Laude
+
+* **Bachelor of Arts in English Literature** • __2014__
+    Florida Atlantic University, Boca Raton, FL • 3.56, Cum Laude
