@@ -32,8 +32,8 @@
 ### Open Source Projects
 
 * **Steam Friend Tool** • [demo](https://kevinfiol.herokuapp.com/steam/)
-    \> A single-page application using Valve's Steam API that allows users to compare what games they have in common with friends.
-    \> Allows the user to filter search results by game platform, and genres, without page reloads.
+    \> Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
+    \> Filter search results by game platforms and/or genres, without page reloads.
     \> Entries for each game are stored and retrieved with PostgreSQL, allowing for faster load times.
 
 * **Markdown Page Generator** • [demo](https://kevinfiol.herokuapp.com/pages/)
@@ -44,7 +44,7 @@
 * **Firefox New Tab Add-on** • [add-on page](https://addons.mozilla.org/en-US/firefox/addon/colm/)
     \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout.
     \> Allows users to customize the width, height, colors, background, and fonts via an options menu.
-    \> Includes a Custom CSS Editor, menu for uploading local user files, hotkey support, and the ability to export user configurations to JSON
+    \> Includes a custom CSS Editor, menu for uploading local user files, hotkey support, and the ability to export user configurations to a JSON file, which can then be re-imported at a later time.
 
 ---
 
