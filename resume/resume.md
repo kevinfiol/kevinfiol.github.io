@@ -13,8 +13,8 @@
 ### Experience
 
 * **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to Present__
-    \> Recreated search application providing information on all New York State Educational Institutions.
-    \> Built a RESTful web service API with PHP7 in conjunction with a JavaScript view library to create a single-page user interface.
+    \> Rewrote legacy search application that provides information on all New York State Educational Institutions.
+    \> Built RESTful web service API with PHP7 in conjunction with JavaScript to create a single-page user interface.
     \> Wrote a PHP fuzzy-search library and employed Redis for result-caching to optimize search results.
 
 * **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
@@ -32,18 +32,17 @@
 ### Open Source Projects
 
 * **Steam Friend Tool** • [demo](https://kevinfiol.herokuapp.com/steam/)
-    \> Created a single-page application using Valve's Steam API that allows users to compare what games they have in common with friends.
+    \> A single-page application using Valve's Steam API that allows users to compare what games they have in common with friends.
     \> Allows the user to filter search results by game platform, and genres, without page reloads.
-    \> Entries for each game are stored and retrieved in a PostgreSQL database, allowing for faster load times.
-    \> Front-end built with Webpack, Babel, ESLint, and Mithril.js
+    \> Entries for each game are stored and retrieved with PostgreSQL, allowing for faster load times.
 
 * **Markdown Page Generator** • [demo](https://kevinfiol.herokuapp.com/pages/)
     \> A Markdown-powered webpage generator that allows users to create custom pages on the fly.
     \> Uses a simple, but flexible text-editor built with JavaScript to update page content.
     \> Assigns a unique subdomain chosen by the user, where all content is stored via Google Firebase's realtime database.
 
-* **colm: Firefox New Tab Add-on** • [add-on page](https://addons.mozilla.org/en-US/firefox/addon/colm/)
-    \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout
+* **Firefox New Tab Add-on** • [add-on page](https://addons.mozilla.org/en-US/firefox/addon/colm/)
+    \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout.
     \> Allows users to customize the width, height, colors, background, and fonts via an options menu.
     \> Includes a Custom CSS Editor, menu for uploading local user files, hotkey support, and the ability to export user configurations to JSON
 
