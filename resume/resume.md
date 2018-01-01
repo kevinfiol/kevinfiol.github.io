@@ -12,41 +12,40 @@
 
 ### Experience
 
-* **Cendyn** • *Software Developer* • __09/2016 to Present__
-    \> Maintaining and developing new features for Cendyn Hospitality Marketing Cloud Suite.
-    \> Developing full-stack applications using JavaScript, jQuery, ASP.NET WebForms, MVC, and T-SQL.
-    \> Writing SQL scripts/routines to assist with database migrations, using SQL Management Studio.
+* **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to Present__
+    \> Recreated search application providing information on all New York State Educational Institutions.
+    \> Built a RESTful web service API with PHP7 in conjunction with a JavaScript view library to create a single-page user interface.
+    \> Wrote a PHP fuzzy-search library and employed Redis for result-caching to optimize search results.
+
+* **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
+    \> Maintained and developed new features for Cendyn's Cloud Suite.
+    \> Created CRUD interface for hotel administration user management using jQuery.
+    \> Wrote SQL scripts/store procedures to assist with database migrations, using SQL Management Studio.
 
 * **AOD Software** • *Software Developer* • __12/2014 to 02/2016__
-    \> Developed reporting software for Point of Sale SaaS to generate data in PDF/XML formats.
-    \> Implemented data entry software to ease the importation of external sources to database.
-    \> Created application to upload images by signature pad to remote server written in JavaScript.
-
-* **Verio** • *Development Support Intern* • __05/2014 to 08/2014__
-    \> Assisted with product provisioning conflicts within relational database management systems.
-    \> Wrote server-side scripts to batch test or resolve common provisioning errors.
-    \> Collaborated with developers & QA teams in research and composition of internal documents.
+    \> Developed reporting software for Point of Sale SaaS to export large datasets to PDF/XML formats.
+    \> Created data entry interface to ease the importation of external source files to Pervasive SQL database.
+    \> Created application to upload images by signature pad to remote server using JavaScript (ES5).
 
 ---
 
 ### Open Source Projects
 
-* **Steam Web API Application** • [github.com/kevinfiol/djangosteam](https://github.com/kevinfiol/djangosteam)
-    \> Built Steam Storefront, Internet Game DB wrappers used to abstract access to their respective APIs.
-    \> Implemented methods to facilitate CRUD cycle. Data persists to PostgreSQL database.
-    \> Allows users to view Steam profile statistics, and calculate their total account cost
-    \> Displays information for user libraries including cost, completion, play times, and Metacritic scores.
+* **Steam Friend Tool** • [demo](https://kevinfiol.herokuapp.com/steam/)
+    \> Created a single-page application using Valve's Steam API that allows users to compare what games they have in common with friends.
+    \> Allows the user to filter search results by game platform, and genres, without page reloads.
+    \> Entries for each game are stored and retrieved in a PostgreSQL database, allowing for faster load times.
+    \> Front-end built with Webpack, Babel, ESLint, and Mithril.js
 
-* **Genius.com Lyrics Generator** • [github.com/kevinfiol/node-markov-lyrics](https://github.com/kevinfiol/node-markov-lyrics)
-    \> CLI application built with Node.js to generate song lyrics.
-    \> Web-scraping with 'request.js' and 'cheerio.js' npm libraries.
-    \> Lyrics are combined by forming dictionaries of prefix/suffix structures using Markov chains.
+* **Markdown Page Generator** • [demo](https://kevinfiol.herokuapp.com/pages/)
+    \> A Markdown-powered webpage generator that allows users to create custom pages on the fly.
+    \> Uses a simple, but flexible text-editor built with JavaScript to update page content.
+    \> Assigns a unique subdomain chosen by the user, where all content is stored via Google Firebase's realtime database.
 
-* **Web Chat** • [github.com/kevinfiol/kevchat](https://github.com/kevinfiol/kevchat)
-    \> Chat Server/Client
-    \> Allows users to communicate in auto-generated chatroom instances.
-    \> Chatrooms easily accessible through shareable URLs w/ randomly-generated room IDs.
-    \> Demo on Heroku Cloud Platform.
+* **colm: Firefox New Tab Add-on** • [add-on page](https://addons.mozilla.org/en-US/firefox/addon/colm/)
+    \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout
+    \> Allows users to customize the width, height, colors, background, and fonts via an options menu.
+    \> Includes a Custom CSS Editor, menu for uploading local user files, hotkey support, and the ability to export user configurations to JSON
 
 ---
 
