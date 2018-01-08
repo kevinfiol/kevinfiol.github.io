@@ -20,12 +20,16 @@ hr { height: 1px; margin: 0 auto; padding: 0; border: 0; border-top: 1px solid #
 
 @media print {
 	@page { size: auto; margin: 0mm; }
-	* { font-size: 15px; }
+	* { font-size: 13px; }
 	body { background-color: none; margin: 3em; line-height: 1; }
-	h3 { margin: 12px 0 9px 0; }
+	h3 { margin: 12px 0 9px 0; font-size: 1.2em; }
 	ul, ol, li, p { line-height: 20px; margin-top: 0px; }
+	p, em, strong, a { font-size: 13px; }
 	
 	/** Position Address and Links to top right **/
 	hr:first-of-type { display: none; }
 	table { width: 40%; position: absolute; top: 20px; left: 445px; }
+
+	/** Remove PDF Button **/
+	#download-pdf { display: none; }
 }
