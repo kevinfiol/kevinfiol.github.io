@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>otto</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet">
+	<link rel="shortcut icon" href="../static/favicon.png" type="image/x-icon"/>
+    <link href="../static/css/base.css" type="text/css" rel="stylesheet" />
+    <!-- <script src="../static/js/prism.js"></script>
+    <link href="../static/css/prism.css" type="text/css" rel="stylesheet" /> -->
+    <style>
+        .demo { width: 700px; margin: 0 auto; }
+        .otto-div { border: 1px solid lightgrey; -webkit-transition: width 0.5s; transition: width 0.5s;  }
+        .otto-ul { padding: 0; margin: 0; }
+        .otto-li { padding: 0.7em; margin: 0; }
+        .otto-selected { background-color: #f2f2f2; }
+        .otto-demo { width: 100%; margin: 0 auto; height: 2.2em; padding: 0.5em; font-size: 1em; }
+        
+        /* pre, code { width: 100%; margin: 0 auto; border-radius: 0; }
+        pre { background: #272822;  color: white; padding: 0.7em 0.5em; margin: 2em auto;  } */
+    </style>
+</head>
+
+<body>
+	<div class="container">
+
+        <header>
+            <h1 class="title">otto.js</h1>
+            <div style="text-align: center;">
+                <p>A simple, lightweight, vanilla JavaScript autocomplete plugin</p>
+                <p>that weighs under 2kb gzipped.</p>
+            </div>
+        </header>
+
+
+        <hr>
+        <h3>Local Data</h3>
+        <div class="demo">
+            <input id="demo1" class="otto-demo" type="text"></input>
+            <pre><code class="language-javascript">var choices = ['Alabama', 'Alaska', 'Michigan', 'Minnesota', 'Wyoming'];
+var otto = new Otto(document.getElementById('demo1'), { minChars: 2 }, choices);</code></pre>
+        </div>
+
+
+        <hr>
+        <h3>XHR / AJAX</h3>
+        <p>Search Star Wars character names. Provided by <a href="https://swapi.co/">Star Wars API.</a></p>
+        <p>Note: When using AJAX to retrieve results, it's a good idea to abort unfinished requests before creating new ones.</p>
+        <div class="demo">
+            <input id="demo2" class="otto-demo" type="text"></input>
+            <pre><code class="language-javascript">var xhr = null;
+var sourceFunc = function(query, done) {
+    if (xhr) {
+        xhr.abort();
+    }
+
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://swapi.co/api/people/?search=' + query, true);
+
+    // Parse data
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 400) {
+            done(JSON.parse(xhr.responseText));
+        } else {
+            // Else return empty array
+            done([]);
+        }
+    };
+
+    // Returns empty array onerror
+    xhr.onerror = function() { 
+        done([]);
+    };
+    
+    xhr.send();
+};
+
+var otto = Otto(document.getElementById('demo2'), { 
+    minChars: 3, 
+    source: sourceFunc 
+});</code></pre>
+        </div>
+
+
+    </div>
+    <script src="../static/js/otto.min.js"></script>
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState === 'interactive') {
+                var choices = ['Alabama', 'Alaska', 'Michigan', 'Minnesota', 'Wyoming'];
+                var demo1 = new Otto(document.getElementById('demo1'), { minChars: 2 }, choices);
+
+
+                var request;
+                var source = function(query, done) {
+                    if (request) {
+                        request.abort();
+                    }
+                    request = new XMLHttpRequest();
+                    request.open('GET', 'https://swapi.co/api/people/?search=' + query, true);
+                    request.onerror = function() { done([]); };
+                    request.onload = function () {
+                        if (request.status >= 200 && request.status < 400) {
+                            var choices = [];
+                            // Parse Results
+                            var json = JSON.parse(request.responseText);
+                            json.results.forEach(function(person) {
+                                choices.push(person.name);
+                            });
+                            done(choices);
+                        } else {
+                            done([]);
+                        }
+                    };
+                    
+                    request.send();
+                };
+
+                var demo2 = new Otto(document.getElementById('demo2'), { minChars: 3, maxResults: 5, source: source });
+                
+            }
+        }
+    </script>
+</body>
+</html>
+
+
