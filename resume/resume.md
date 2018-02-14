@@ -36,10 +36,10 @@
     \> Filter search results by game platforms and/or genres, without page reloads.
     \> Entries for each game are stored and retrieved with PostgreSQL, allowing for faster load times.
 
-* **Markdown Page Generator** • [Demo](https://kevinfiol.herokuapp.com/pages/)
-    \> A Markdown-powered webpage generator that allows users to create custom pages on the fly.
-    \> Uses a simple, but flexible text-editor built with JavaScript to update page content.
-    \> Assigns a unique subdomain chosen by the user, where all content is stored via Google Firebase's realtime database.
+* **Automatic Suggestion Library** • [Demo](https://kevinfiol.com/otto/)
+    \> A lightweight search-suggestion library written in Vanilla JavaScript / ES5 with zero dependencies.
+    \> Allows local or remote sources via AJAX to be loaded on keypress, while caching results to reduce server load.
+    \> Responsive, easily configurable styles, and robust options to allow for custom event handlers.
 
 * **Firefox New Tab Add-On** • [Add-On](https://addons.mozilla.org/en-US/firefox/addon/colm/)
     \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout.
