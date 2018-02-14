@@ -17,7 +17,7 @@
         .otto-li { padding: 0.7em; margin: 0; }
         .otto-selected { background-color: #f2f2f2; }
         .otto-demo { width: 100%; margin: 0 auto; height: 2.2em; padding: 0.5em; font-size: 1em; }
-        hr { margin: 2.5em 0; }
+        hr { margin: 2.2em 0; }
     </style>
 </head>
 
@@ -73,7 +73,7 @@ var sourceFunc = function(query, done) {
         if (xhr.status >= 200 && xhr.status < 400) {
             // Parse the response here...
             var choices = [];
-            var json = JSON.parse(request.responseText);
+            var json = JSON.parse(xhr.responseText);
 
             json.results.forEach(function(person) {
                 choices.push(person.name);
@@ -94,7 +94,7 @@ var sourceFunc = function(query, done) {
     xhr.send();
 };
 
-var otto = Otto(document.getElementById('demo2'), { 
+var otto = new Otto(document.getElementById('demo2'), { 
     minChars: 3, 
     source: sourceFunc 
 });</code></pre>
