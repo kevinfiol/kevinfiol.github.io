@@ -13,19 +13,19 @@
 ### Experience
 
 * **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to Present__
-    \> Rewrote legacy search application that provides information on all New York State Educational Institutions.
-    \> Built RESTful web service API with PHP7 in conjunction with JavaScript to create a single-page user interface.
-    \> Wrote a PHP fuzzy-search library and employed Redis for result-caching to optimize search results.
+    \> Implemented public RESTful API serving Public Education data (JSON) to over 30,000 New York State Institutions.
+    \> Designed single-page, mobile responsive search application with auto-predicting and criteria filtering features.  
+    \> Created PHP full-text search library and employed Redis for object-caching, improving result speeds by 6x.
 
 * **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
-    \> Maintained and developed new features for Cendyn's Cloud Suite.
-    \> Created CRUD interface for hotel administration user management using jQuery.
-    \> Wrote SQL scripts/stored procedures to assist with database migrations, using SQL Management Studio.
+    \> Coordinated with dev team to improve documentation and style consistency by applying PSR-2 Coding Standards.
+    \> Applied S.O.L.I.D. design paradigms and refactored monolithic codebases to improve code modularity.
+    \> Collaborated with QA Team to resolve bugs, and propose / implement UX enhancements.
 
 * **AOD Software** • *Software Developer* • __12/2014 to 02/2016__
-    \> Developed reporting software for Point of Sale SaaS to export large datasets to PDF/XML formats.
-    \> Created data entry interface to ease the importation of external source files to Pervasive SQL database.
-    \> Created application to upload images by signature pad to remote server using JavaScript (ES5).
+    \> Developed reporting tool for Point of Sale SaaS to export datasets of >1000 SQL rows to PDF/XML formats.
+    \> Minimized web browser payloads and increased application speeds by reducing & rewriting JavaScript dependencies. 
+    \> Created data entry interface to ease the importation of CSV & XML files to PSQL database.
 
 ---
 
@@ -34,17 +34,17 @@
 * **Steam Friend Tool** • [Demo](https://kevinfiol.herokuapp.com/steam/)
     \> Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
     \> Filter search results by game platforms and/or genres, without page reloads.
-    \> Entries for each game are stored and retrieved with PostgreSQL, allowing for faster load times.
+    \> Entries for each game are stored and retrieved in a PostgreSQL Herkou Database, allowing for faster load times.
 
-* **Automatic Suggestion Library** • [Demo](https://kevinfiol.com/otto/)
+* **Search Suggestion Library** • [Demo](https://kevinfiol.com/otto/)
     \> A lightweight search-suggestion library written in Vanilla JavaScript / ES5 with zero dependencies.
     \> Allows local or remote sources via AJAX to be loaded on keypress, while caching results to reduce server load.
     \> Responsive, easily configurable styles, and robust options to allow for custom event handlers.
 
 * **Firefox New Tab Add-On** • [Add-On](https://addons.mozilla.org/en-US/firefox/addon/colm/)
     \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout.
-    \> Allows users to customize the width, height, colors, background, and fonts via an options menu.
-    \> Includes a custom CSS Editor, menu for uploading local user files, hotkey support, and the ability to export user configurations to a JSON file, which can then be re-imported at a later time.
+    \> Allows users to customize the width, height, colors, background, hotkeys, local images, and fonts via an options menu.
+    \> Includes a custom CSS Editor, and the ability to export user configurations to a shareable JSON files.
 
 ---
 
