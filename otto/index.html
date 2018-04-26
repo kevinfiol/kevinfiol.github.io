@@ -61,7 +61,14 @@
         <h3>Local Data</h3>
         <div class="demo">
             <input id="demo1" class="otto-demo" type="text"></input>
-            <pre><code class="language-javascript">var choices = ['Alabama', 'Alaska', 'Michigan', 'Minnesota', 'Wyoming'];
+            <pre><code class="language-javascript">var choices = [
+    { label: 'Alabama' },
+    { label: 'Alaska' },
+    { label: 'Michigan' },
+    { label: 'Minnesota' },
+    { label: 'Wyoming' }
+];
+
 var otto = new Otto(document.getElementById('demo1'), { minChars: 2 }, choices);</code></pre>
         </div>
 
@@ -88,7 +95,7 @@ var sourceFunc = function(query, done) {
             var json = JSON.parse(xhr.responseText);
 
             json.results.forEach(function(person) {
-                choices.push(person.name);
+                choices.push({ label: person.name });
             });
 
             done(choices);
@@ -119,9 +126,15 @@ var otto = new Otto(document.getElementById('demo2'), {
         document.onreadystatechange = function () {
             if (document.readyState === 'interactive') {
                 setTimeout(function() {
-                    var choices = ['Alabama', 'Alaska', 'Michigan', 'Minnesota', 'Wyoming'];
-                    var demo1 = new Otto(document.getElementById('demo1'), { minChars: 2 }, choices);
+                    var choices = [
+                        { label: 'Alabama' },
+                        { label: 'Alaska' },
+                        { label: 'Michigan' },
+                        { label: 'Minnesota' },
+                        { label: 'Wyoming' }
+                    ];
 
+                    var demo1 = new Otto(document.getElementById('demo1'), { minChars: 2 }, choices);
 
                     var request;
                     var source = function(query, done) {
@@ -137,7 +150,7 @@ var otto = new Otto(document.getElementById('demo2'), {
                                 // Parse Results
                                 var json = JSON.parse(request.responseText);
                                 json.results.forEach(function(person) {
-                                    choices.push(person.name);
+                                    choices.push({ label: person.name });
                                 });
                                 done(choices);
                             } else {
