@@ -5,7 +5,7 @@
 |                   |                                                         |
 |-------------------|--------------------------------------------------------:|
 | 10 Stonehenge Ln  | [kevinfiol.com](http://www.kevinfiol.com)               |
-| Albany, NY        | [github.com/kevinfiol](http://www.github.com/kevinfiol) |
+| Albany, NY        | [gitlab.com/kevinfiol](http://www.gitlab.com/kevinfiol) |
 | 12203             | [fiolkevin@gmail.com](mailto:fiolkevin@gmail.com)       |
 
 ---
@@ -31,7 +31,7 @@
 
 ### Open Source Projects
 
-* **Steam Friend Tool** • [Demo](https://kevinfiol.herokuapp.com/steam/)
+* **Steam Friend Tool** • [Demo](https://sfn.herokuapp.com/)
     \> Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
     \> Filter search results by game platforms and/or genres, without page reloads.
     \> Entries for each game are stored and retrieved in a PostgreSQL Heroku Database, allowing for faster load times.
@@ -64,7 +64,7 @@
 ### Education
 
 * **Bachelor of Science in Computer Science** • __2014__
-    Florida Atlantic University, Boca Raton, FL • 3.56, Cum Laude
+    Florida Atlantic University, Boca Raton, FL • Cum Laude
 
 * **Bachelor of Arts in English Literature** • __2014__
-    Florida Atlantic University, Boca Raton, FL • 3.56, Cum Laude
+    Florida Atlantic University, Boca Raton, FL • Cum Laude
