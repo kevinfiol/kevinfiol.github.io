@@ -31,20 +31,20 @@
 
 ### Open Source Projects
 
-* **Steam Friend Tool** • [Demo](https://sfn.herokuapp.com/)
-    \> Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
-    \> Filter search results by game platforms and/or genres, without page reloads.
-    \> Entries for each game are stored and retrieved in a PostgreSQL Heroku Database, allowing for faster load times.
+* **Enhanced GOG Plugin** • [Demo](https://gitlab.com/kevinfiol/enhanced-gog)
+    \> A JavaScript user plugin for GOG.com that automatically fetches pricing data and history while browsing.
+    \> Compares prices across multiple websites to present current lowest pricing, and features a country & region selector.
+    \> Developed with a single 1KB dependency, and maintained with feedback from the GOG.com community.
 
 * **Search Suggestion Library** • [Demo](https://kevinfiol.com/otto/)
     \> A lightweight search-suggestion library written in Vanilla JavaScript / ES5 with zero dependencies.
     \> Allows local or remote sources via AJAX to be loaded on keypress, while caching results to reduce server load.
     \> Responsive, easily configurable styles, and robust options to allow for custom event handlers.
 
-* **Firefox New Tab Add-On** • [Add-On](https://addons.mozilla.org/en-US/firefox/addon/colm/)
-    \> A FireFox browser extension that replaces the 'new tab' with a minimal, customizable, Markdown-powered layout.
-    \> Allows users to customize the width, height, colors, background, hotkeys, local images, and fonts via an options menu.
-    \> Includes a custom CSS Editor, and the ability to export user configurations to shareable JSON files.
+* **Steam Friend Tool** • [Demo](https://sfn.herokuapp.com/)
+    \> Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
+    \> Filter search results by game platforms and/or genres, without page reloads.
+    \> Entries for each game are stored and retrieved in a PostgreSQL Heroku Database, allowing for faster load times.
 
 ---
 
