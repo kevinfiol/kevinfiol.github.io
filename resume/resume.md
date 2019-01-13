@@ -4,9 +4,9 @@
 
 |                   |                                                         |
 |-------------------|--------------------------------------------------------:|
-| 10 Stonehenge Ln  | [kevinfiol.com](http://www.kevinfiol.com)               |
-| Albany, NY        | [gitlab.com/kevinfiol](http://www.gitlab.com/kevinfiol) |
-| 12203             | [fiolkevin@gmail.com](mailto:fiolkevin@gmail.com)       |
+| (802) 753-0369    | [kevinfiol.com](http://www.kevinfiol.com)               |
+| Sunrise, FL       | [gitlab.com/kevinfiol](http://www.gitlab.com/kevinfiol) |
+| 33326             | [fiolkevin@gmail.com](mailto:fiolkevin@gmail.com)       |
 
 ---
 
@@ -26,10 +26,10 @@
 ### Education
 
 * **Bachelor of Science in Computer Science** • __2014__
-    Florida Atlantic University, Boca Raton, FL • Cum Laude
+    Florida Atlantic University, Boca Raton, FL
 
 * **Bachelor of Arts in English Literature** • __2014__
-    Florida Atlantic University, Boca Raton, FL • Cum Laude
+    Florida Atlantic University, Boca Raton, FL
 
 ---
 
