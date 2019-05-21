@@ -1,0 +1,16 @@
+{
+  "name": "kevinfiol.github.io",
+  "version": "1.0.0",
+  "description": "homepage",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": "git@github.com:kevinfiol/kevinfiol.github.io.git",
+  "author": "'Kevin <'keb@protonmail.com'>",
+  "license": "MIT",
+  "devDependencies": {
+    "marked": "^0.6.2",
+    "pug": "^2.0.3"
+  }
+}

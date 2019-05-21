@@ -1,0 +1,39 @@
+.resume { max-width: 800px; margin: 3em auto; }
+.download-pdf { max-width: 800px; margin: 2.5em auto 0 auto; text-align: right; }
+.download-pdf > a { padding: 0.8em; border-radius: 3px; background: #ebebeb; }
+
+* { font-size: 14px; }
+body { background-color: #f7f7f7; font-family: Georgia, Palatino, serif; color: #444444; line-height: 1; }
+
+h1, h3 { color: #111; font-family: Vollkorn, Georgia, serif; font-weight: 400; }
+h1 { font-size: 3em; margin: 20px 0; }
+h3 { font-size: 1.2em; }
+
+a { color: #0099ff; margin: 0; padding: 0; vertical-align: baseline; text-decoration: none; }
+a:hover { text-decoration: none; color: #ff6600; }
+
+table { width: 100%; padding: 0.7em 0; }
+td:empty { visibility: hidden; }
+
+ul, ol { line-height: 22px; list-style-type: none; font-size: 1em; }
+ul { padding: 0; margin: 0; }
+ol { columns: 2; }
+li { line-height: 24px; margin-left: 44px; }
+
+hr { height: 1px; margin: 0 auto; padding: 0; border: 0; border-top: 1px solid #e0e0e0; }
+
+@media print {
+	@page { size: auto; margin: 0mm; }
+	* { font-size: 13px; }
+	body { background-color: none; margin: 3em; line-height: 1; }
+	h3 { margin: 12px 0 9px 0; font-size: 1.2em; }
+	ul, ol, li, p { line-height: 20px; margin-top: 0px; }
+	p, em, strong, a { font-size: 13px; }
+	
+	/** Position Address and Links to top right **/
+	hr:first-of-type { display: none; }
+	table { width: 40%; position: absolute; top: 20px; left: 445px; }
+
+	/** Remove PDF Button **/
+	#download-pdf { display: none; }
+}
