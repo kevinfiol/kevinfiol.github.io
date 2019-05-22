@@ -1,3 +1,7 @@
+.resume { max-width: 800px; margin: 3em auto; }
+.download-pdf { max-width: 800px; margin: 2.5em auto 0 auto; text-align: right; }
+.download-pdf > a { padding: 0.8em; border-radius: 3px; background: #ebebeb; }
+
 * { font-size: 14px; }
 body { background-color: #f7f7f7; font-family: Georgia, Palatino, serif; color: #444444; line-height: 1; }
 
