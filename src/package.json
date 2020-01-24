@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "eleventy --output=../",
+    "build": "node clean.js && eleventy",
     "serve": "eleventy --serve",
-    "clean": "rimraf _site/"
+    "clean": "node clean.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
