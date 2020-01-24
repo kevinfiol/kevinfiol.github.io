@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "eleventy",
+    "build": "eleventy --output=../",
     "serve": "eleventy --serve",
     "clean": "rimraf _site/"
   },
