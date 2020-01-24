@@ -1,18 +1,10 @@
 {
-  "name": "kevinfiol.github.io",
-  "version": "1.0.0",
-  "description": "homepage",
-  "main": "index.js",
   "scripts": {
-    "build": "node build.js"
+    "build": "eleventy --output=../",
+    "serve": "eleventy --serve"
   },
-  "repository": "git@github.com:kevinfiol/kevinfiol.github.io.git",
-  "author": "'Kevin Fiol <'fiolkevin@gmail.com'>",
-  "license": "MIT",
   "devDependencies": {
-    "fs-extra": "^8.1.0",
-    "marked": "^0.7.0",
-    "pug": "^2.0.4"
-  },
-  "dependencies": {}
+    "@11ty/eleventy": "^0.10.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1"
+  }
 }
