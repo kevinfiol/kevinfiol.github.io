@@ -1,14 +1,20 @@
 ---
 layout: base.pug
 title: kevin fiol
+pagination:
+    data: collections.post
+    size: 3
+    alias: posts
+    reverse: true
 ---
 
 - let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 - let formatDate = d => `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-- let posts = collections.post.reverse();
 
 div
-    img(style='max-width: 200px; min-width: 200px' src='/assets/spes.png' alt='astronaut sitting at a computer')
+    div(style='width: 200px; height: 200px;')
+        img.fade-in(style='width: 100%; height: 100%;' src='/assets/spes.png' alt='astronaut sitting at a computer')
+    //- img(style='max-width: 200px; min-width: 200px' src='/assets/spes.png' alt='astronaut sitting at a computer')
     h1.mb0(style='font-weight: 400') kevin f.
     ul.list-reset
         li.inline-block.mr2
@@ -25,3 +31,8 @@ each post in posts
         h2.mb1
             a(href=post.url) #{post.data.title}
         span.h5.p0.m0.light-subdue #{formatDate(post.date)}
+nav.py3(aria-labelledby="pagination")
+    if pagination.href.previous
+        a.mr2(href=pagination.href.previous) ← previous
+    if pagination.href.next
+        a(href=pagination.href.next) next →
