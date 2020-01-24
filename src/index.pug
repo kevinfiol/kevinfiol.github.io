@@ -1,0 +1,27 @@
+---
+layout: base.pug
+title: kevin fiol
+---
+
+- let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+- let formatDate = d => `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+- let posts = collections.post.reverse();
+
+div
+    img(style='max-width: 200px; min-width: 200px' src='/assets/spes.png' alt='astronaut sitting at a computer')
+    h1.mb0(style='font-weight: 400') kevin f.
+    ul.list-reset
+        li.inline-block.mr2
+            a(href='https://github.com/kevinfiol') github
+        li.inline-block.mr2
+            a(href='/demos/') demos
+        li.inline-block
+            a(href='/resume/') résumé
+    p.italic(style='font-size: 0.9em') contact:
+        a(href='mailto:fiolkevin@gmail.com') fiolkevin@gmail.com
+hr
+each post in posts
+    div
+        h2.mb1
+            a(href=post.url) #{post.data.title}
+        span.h5.p0.m0.light-subdue #{formatDate(post.date)}
