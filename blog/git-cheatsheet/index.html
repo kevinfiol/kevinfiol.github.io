@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono&amp;display=swap"/><link rel="stylesheet" href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css"/><link rel="stylesheet" href="/css/main.css"/><link rel="stylesheet" href="/css/prism-material-dark.css"/><title>Git Cheatsheet</title></head><body><div class="max-width-3 mx-auto p3 fade-in"><div class="controls px1"><a href="git-cheatsheet.md">edit</a></div><p class="h3"><a href="/">kevin f.</a></p><span class="h5 p0 m0 light-subdue">May 21, 2019</span><div class="page-content"><h1>Git Cheatsheet</h1>
+<p>This is a collection of <code>git</code> commands that I use frequently. May or may not be useful to you, but it's useful to me, goddammit.</p>
+<h3>Clone repository / respective branch:</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> clone -b <span class="token operator">&lt;</span>branch name<span class="token operator">></span> <span class="token operator">&lt;</span>host<span class="token operator">></span></code></pre>
+<h3>Delete Local and Remote Branch</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> push origin --delete <span class="token operator">&lt;</span>branch_name<span class="token operator">></span><br>$ <span class="token function">git</span> branch -d <span class="token operator">&lt;</span>branch_name<span class="token operator">></span></code></pre>
+<h3>Merge to Master</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> checkout master<br>$ <span class="token function">git</span> pull origin master<br>$ <span class="token function">git</span> merge --no-ff <span class="token builtin class-name">test</span><br>$ <span class="token function">git</span> push origin master</code></pre>
+<h3>Merge into some other branch</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> checkout production<br>$ <span class="token function">git</span> merge development<br>$ <span class="token function">git</span> push origin production</code></pre>
+<h3>Create a new branch and push it to the remote repo</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> checkout -b myFeature dev<br>$ <span class="token function">git</span> push origin myFeature</code></pre>
+<h3>Stashing Work In Progress (WIP) changes</h3>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> stash</code></pre>
+<p>And to get it back:</p>
+<pre class="language-bash"><code class="language-bash">$ <span class="token function">git</span> stash pop</code></pre>
+</div></div></body></html>
