@@ -31,19 +31,8 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
     line-height: 28.5px;
 }
 
-@media (max-width: 768px) {
-    .main-content { padding: 1.2rem; }
-
-    .page-content p,
-    .page-content ul,
-    .page-content table {
-        font-size: 16px;
-        line-height: 24.5px;
-    }
-}
-
 .page-content img {
-    max-width: 75%;
+    max-width: 85%;
     display: block;
     margin: 2em auto 2em auto;
     border: 3px solid #dedede;
@@ -51,3 +40,18 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
 
 .controls { position: fixed; top: 0; right: 0; opacity: 0; }
 .controls:hover { opacity: 1; }
+
+@media (max-width: 768px) {
+    .main-content { padding: 0.9rem; }
+
+    .page-content p,
+    .page-content ul,
+    .page-content table {
+        font-size: 16px;
+        line-height: 26.5px;
+    }
+
+    .page-content img {
+        max-width: 100%;
+    }
+}
