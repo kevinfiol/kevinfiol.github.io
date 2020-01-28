@@ -33,6 +33,10 @@ a {
 
 a:hover { color: #5c5fb1; border-color: #3d3f80; }
 
+@media (max-width: 992px) {
+    .resume { padding:0 1em; font-size: 10pt; }
+}
+
 @media print {
     @page {
         size: auto;
