@@ -7,7 +7,7 @@ date: 2019-07-31
 
 # Simple State Management in Mithril.js
 
-[Mithril.js](https://mithril.js.org) is a lighttweight JavaScript framework that has become a staple in my development stack after I discovered it two years ago. At the time, I was looking for a simpler, zero-dependency alternative to [React.js](https://reactjs.org/) that could help me learn modern JavaScript UI development without needing to simultaneously learn and understand various build tools and framework plugins.
+[Mithril.js](https://mithril.js.org) is a lightweight JavaScript framework that has become a staple in my development stack after I discovered it two years ago. At the time, I was looking for a simpler, zero-dependency alternative to [React.js](https://reactjs.org/) that could help me learn modern JavaScript UI development without needing to simultaneously learn and understand various build tools and framework plugins.
 
 I've since learned React and have come to appreciate it for its influence on modern web development. However, I find that Mithril, a framework that sits at half the size of React whilst containing more features, has remained my go-to.
 
