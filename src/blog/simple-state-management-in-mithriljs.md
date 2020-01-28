@@ -1,11 +1,11 @@
 ---
 layout: post.pug
 tags: post
-title: Simple Stater Management in Mithril.js
+title: Simple State Management in Mithril.js
 date: 2019-07-31
 ---
 
-# Simple Stater Management in Mithril.js
+# Simple State Management in Mithril.js
 
 [Mithril.js](https://mithril.js.org) is a lightweight JavaScript framework that has become a staple in my development stack after I discovered it two years ago. At the time, I was looking for a simpler, zero-dependency alternative to [React.js](https://reactjs.org/) that could help me learn modern JavaScript UI development without needing to simultaneously learn and understand various build tools and framework plugins.
 
