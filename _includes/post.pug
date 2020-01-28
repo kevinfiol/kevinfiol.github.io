@@ -14,9 +14,9 @@ html(lang="en")
         link(rel='stylesheet' href='/css/prism-material-dark.css')
         title #{title}
     body
-        .max-width-3.mx-auto.p3.fade-in
+        .main-content.max-width-3.mx-auto.fade-in
             .controls.px1
-                a(href='' + page.fileSlug + '.md') edit
+                a(href='https://github.com/kevinfiol/kevinfiol.com/edit/master/blog/' + page.fileSlug + '.md') edit
             p.h3
                 a(href='/') kevin f.
             span.h5.p0.m0.light-subdue #{formatDate(page.date)}

@@ -3,6 +3,7 @@
 
 body { font-family: 'Fira Mono', monospace; background: #f7f7f7; color: #424242; }
 hr { border: 0; margin: 0; height: 1px; background: rgba(0, 0, 0, 0.1); }
+.main-content { padding: 2rem; }
 
 a {
     color: #4e5192;
@@ -30,6 +31,8 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
 }
 
 @media (max-width: 768px) {
+    .main-content { padding: 1.2rem; }
+
     .page-content p,
     .page-content ul,
     .page-content table {
