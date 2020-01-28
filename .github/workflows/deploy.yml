@@ -3,7 +3,7 @@ name: deploy changes
 on:
   push:
     paths: 
-      - "src/blog"
+      - "src/blog/**"
 
 jobs:
   build:
