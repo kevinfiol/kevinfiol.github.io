@@ -80,7 +80,7 @@ const state   = State();
 const actions = Actions(state);
 ```
 
-Passing these to a Mithril component is trivial as well using the `attrs` property and object destructuring (analogous to `props` in React). Notice that our Counter component remains virtually unchanged:
+Passing these to a Mithril component is trivial using the `attrs` property and object destructuring (analogous to `props` in React). Notice that our Counter component remains virtually unchanged:
 
 ```js
 const Counter = {
