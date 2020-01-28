@@ -1,7 +1,7 @@
 ---
 layout: post.pug
 tags: post
-title: Simple State Management in Mithril.js
+title: Simple Stater Management in Mithril.js
 date: 2019-07-31
 ---
 
