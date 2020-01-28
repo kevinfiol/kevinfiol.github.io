@@ -1,6 +1,9 @@
-name: DEPLOY
+name: deploy changes
 
-on: [push]
+on:
+  push:
+    paths: 
+      - "src/blog"
 
 jobs:
   build:
@@ -19,10 +22,10 @@ jobs:
         yarn run build
     - name: commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "github action"
+        git config --local user.email "fiolkevin@gmail.com"
+        git config --local user.name "kevinfiol"
         git add -A
-        git commit -m "update master"
+        git commit -m "update blog"
     - name: push changes
       uses: ad-m/github-push-action@master
       with:
