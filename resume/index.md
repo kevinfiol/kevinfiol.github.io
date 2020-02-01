@@ -64,7 +64,7 @@ title: resume
     * Compares prices across multiple websites to present current lowest pricing, and features a country & region selector.
     * Developed with a single 1KB dependency, and maintained with feedback from the GOG.com community.
 
-* **Search Suggestion Library** • [Demo](https://kevinfiol.com/otto/)
+* **Search Suggestion Library** • [Demo](https://kevinfiol.github.io/otto/)
     * A lightweight search-suggestion library written in Vanilla JavaScript / ES5 with zero dependencies.
     * Allows local or remote sources via AJAX to be loaded on keypress, while caching results to reduce server load.
     * Responsive, easily configurable styles, and robust options to allow for custom event handlers.
