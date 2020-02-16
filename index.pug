@@ -14,7 +14,7 @@ pagination:
 .controls.px1
     a(href='https://github.com/kevinfiol/kevinfiol.com/new/master/blog') new
 
-div
+header
     div(style='width: 200px; height: 200px;')
         img.fade-in(style='width: 100%; height: 100%;' src='/assets/spes.png' alt='astronaut sitting at a computer')
     //- img(style='max-width: 200px; min-width: 200px' src='/assets/spes.png' alt='astronaut sitting at a computer')
@@ -30,10 +30,11 @@ div
         a(href='mailto:fiolkevin@gmail.com') fiolkevin@gmail.com
 hr
 each post in posts
-    div
-        h2.mb1
-            a(href=post.url) #{post.data.title}
-        span.h5.p0.m0.light-subdue #{formatDate(post.date)}
+    article
+        header
+            h2.mb1
+                a(href=post.url) #{post.data.title}
+        small.h5.p0.m0.light-subdue #{formatDate(post.date)}
 nav.py3(aria-labelledby="pagination")
     if pagination.href.previous
         a.mr2(href=pagination.href.previous) ← previous
