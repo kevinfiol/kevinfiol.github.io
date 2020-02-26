@@ -7,7 +7,12 @@ html(lang="en")
         link(rel='shortcut icon' href='/assets/favicon.png' type='image/x-icon')
         link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono&display=swap')
         link(rel='stylesheet' href='https://unpkg.com/basscss@8.0.2/css/basscss.min.css')
+        link(rel='stylesheet' href='/css/dark-mode.css')
         link(rel='stylesheet' href='/css/main.css')
         title #{title}
     body
+        div
+            input#darkSwitch(type='checkbox')
+            label.dark-mode-btn(for='darkSwitch') 🌒
         main.main-content.max-width-3.mx-auto.fade-in !{content}
+        script(src="/js/dark-mode-switch.min.js")
