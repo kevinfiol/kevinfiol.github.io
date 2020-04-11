@@ -37,7 +37,7 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
     max-width: 85%;
     display: block;
     margin: 2em auto 2em auto;
-    border: 3px solid #dedede;
+    border: 3px solid rgba(0, 0, 0, 0.2);
 }
 
 .controls { position: fixed; top: 0; right: 0; opacity: 0; }
