@@ -4,14 +4,14 @@ body {
 }
 
 .resume {
-    font-family: 'Georgia', serif;
+    font-family: 'Georgia', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
     font-size: 11pt;
     line-height: 16pt;
     max-width: 800px;
     margin: 3em auto;
 }
 
-h1, h3 { font-family: 'Fira Mono', monospace; font-weight: 600; }
+h1, h3 { font-family: 'Fira Mono', 'Courier New', Courier, monospace; font-weight: 600; }
 ul { list-style-type: none; padding-left: 20px; margin-bottom: 20px; }
 ul ul { list-style-type: disc }
 ul p { margin-top: 3pt; margin-bottom: 3pt; }
