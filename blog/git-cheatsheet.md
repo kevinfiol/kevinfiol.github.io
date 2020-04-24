@@ -62,3 +62,22 @@ And to get it back:
 ```bash
 $ git stash pop
 ```
+
+### So you forked a Repo and want to keep your fork updated
+
+```bash
+$ git remote add upstream git@github.com:company/projectyourforkedfrom.git
+```
+
+To update:
+
+```bash
+$ git fetch upstream
+$ git rebase upstream/master
+```
+
+If you have commit rights to the upstream repo, you can create a local `upstream` branch and do work that will go to upstream there.
+
+```bash
+$ git checkout -b upstream upstream/master
+```
