@@ -36,7 +36,7 @@ $ git merge --no-ff test
 $ git push origin master
 ```
 
-### Merge into some other branch
+## Merge into some other branch
 
 ```bash
 $ git checkout production
