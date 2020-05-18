@@ -28,5 +28,5 @@ A userscript for Last.fm to add a 'Compare Artists' functionality to user profil
 ## [steam friend night](https://sfn.herokuapp.com/)
 A web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Mithril.js, Flask, and PostgreSQL.
 
-### [parasite](https://keb.itch.io/parasite)
+## [parasite](https://keb.itch.io/parasite)
 A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration.
