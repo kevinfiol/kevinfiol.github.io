@@ -7,7 +7,7 @@ date: 2019-05-22
 
 # Git Cheatsheet
 
-This is a collection of `git` commands that I use frequently. May or may not be useful to you, but it's useful to me, goddammit.
+This is a collection of `git` commands that I use frequently. May or may not be useful to you, but it's useful to me, dammit.
 
 ## Git Add Interactive Mode
 ```bash
