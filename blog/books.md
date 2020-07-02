@@ -9,30 +9,14 @@ date: 2020-07-02
 
 A collection of (free) web books, guides, and references by category.
 
-## Misc.
+## General Programming
 
-* [Project Gutenberg](https://www.gutenberg.org/)
-	* *An online library of over 60,000 public domain books, ranging on topics from literature, to cookbooks, and history.*
-* [Wikibooks](https://en.wikibooks.org/wiki/Main_Page)
-	* *As the title suggests, these are open-content wiki-like textbooks on a myriad of subjects.*
-
-## Literature
-
-* [Standard E-Books](https://standardebooks.org/ebooks/)
-	* *A collection of literature in the public domain, available in multiple formats, with standardized and readable typography.*
-    
-* [Electronic Texts of H.P. Lovecraft](http://www.hplovecraft.com/writings/texts/)
-	* *Collecton of HP Lovecraft writings. A browser plugin or feature to improve readability is recommended (e.g. Firefox Reader Mode).*
-
-## Cooking
-
-* [The Wikimedia Cookbook](https://en.wikibooks.org/wiki/Cookbook:Table_of_Contents)
-	* *A collection of recipes from a number of nationalities and cultures. Editable open-content.*
-
-## Electrical Engineering
-
-* [All About Circuits](https://www.allaboutcircuits.com/textbook/)
-	* *"Starts from the very basic fundamentals of electricity, and builds up to quite complex circuits and their workings."*
+* [Learn X in Y Minutes](https://learnxinyminutes.com/)
+	* *A collection of "tours" for every popular programming language. Intended for those with programming experience to quickly learn new languages.*
+* [Crafting Interpreters](https://www.craftinginterpreters.com/contents.html)
+	* *A book on designing your own language interpreter. By Robert Nystrom, creator of programming languages such as Wren, Finch, and Magpie.*
+* [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
+	* *A legendary text book. Not an easy read. Also see the [JavaScript Adaptation](https://sicp.comp.nus.edu.sg/).*
 
 ## HTML/CSS
 * [MarkSheet](https://marksheet.io/)
@@ -137,21 +121,37 @@ A collection of (free) web books, guides, and references by category.
 * [BYTEPATH](https://github.com/adnzzzzZ/blog/issues/30)
 	* *A book published as a series of Github issues. Guides the user in creating a game using Lua and Love2D, with plenty of exercises.*
 
-## General Programming
-
-* [Learn X in Y Minutes](https://learnxinyminutes.com/)
-	* *A collection of "tours" for every popular programming language. Intended for those with programming experience to quickly learn new languages.*
-* [Crafting Interpreters](https://www.craftinginterpreters.com/contents.html)
-	* *A book on designing your own language interpreter. By Robert Nystrom, creator of programming languages such as Wren, Finch, and Magpie.*
-* [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
-	* *A legendary text book. Not an easy read. Also see the [JavaScript Adaptation](https://sicp.comp.nus.edu.sg/).*
-
 ## Math
 
 * [Calculus Made Easy](http://calculusmadeeasy.org/)
 	* *An accessible and pragmatic introduction to Calculus. Originally published in 1910 by Silvanus P. Thompson.*
 
+## Electrical Engineering
+
+* [All About Circuits](https://www.allaboutcircuits.com/textbook/)
+	* *"Starts from the very basic fundamentals of electricity, and builds up to quite complex circuits and their workings."*
+
+## Literature
+
+* [Standard E-Books](https://standardebooks.org/ebooks/)
+	* *A collection of literature in the public domain, available in multiple formats, with standardized and readable typography.*
+    
+* [Electronic Texts of H.P. Lovecraft](http://www.hplovecraft.com/writings/texts/)
+	* *Collecton of HP Lovecraft writings. A browser plugin or feature to improve readability is recommended (e.g. Firefox Reader Mode).*
+
+## Cooking
+
+* [The Wikimedia Cookbook](https://en.wikibooks.org/wiki/Cookbook:Table_of_Contents)
+	* *A collection of recipes from a number of nationalities and cultures. Editable open-content.*
+
 ## Tech Interview Prep
 
 * [Tech Interview Handbook](https://github.com/yangshun/tech-interview-handbook)
 * [Front End Interview Handbook](https://github.com/yangshun/front-end-interview-handbook)
+
+## Misc.
+
+* [Project Gutenberg](https://www.gutenberg.org/)
+	* *An online library of over 60,000 public domain books, ranging on topics from literature, to cookbooks, and history.*
+* [Wikibooks](https://en.wikibooks.org/wiki/Main_Page)
+	* *As the title suggests, these are open-content wiki-like textbooks on a myriad of subjects.*
