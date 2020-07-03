@@ -38,6 +38,8 @@ A collection of (free) web books, guides, and references by category.
 	* *A series of books focusing on the underlying core mechanisms of JavaScript.*
 * [Functional Light JS](https://github.com/getify/Functional-Light-JS)
 	* *A pragmatic look at Functional Programming with JavaScript. By Kyle Simpson, writer of the You Don't Know JavaScript series.*
+* [Thinking in Ramda](https://randycoulman.com/blog/categories/thinking-in-ramda/)
+	* *A brief, accessible and effective introduction to functional programming using the Ramda JavaScript library. A series of blog posts.*
 * [JavaScript for Impatient Programmers](https://exploringjs.com/impatient-js/index.html)
 	* *A modern guide to JavaScript for those with existing programming knowledge.*
 * [Deep JavaScript](https://exploringjs.com/deep-js/)
