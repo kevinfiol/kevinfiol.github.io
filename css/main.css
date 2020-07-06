@@ -23,7 +23,7 @@ a:hover { color: #5c5fb1; border-color: #3d3f80; }
 pre { padding: 2em; overflow-x: auto; }
 code:not([class]) { font-size: 16px; background: #363636; color: white; padding: 0.15em 0.3em; margin: 0 0.2em; }
 
-.page-content h1 { font-size: 2em;grid-row:  }
+.page-content h1 { font-size: 2em; }
 
 .page-content p,
 .page-content ul,

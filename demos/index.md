@@ -1,10 +1,6 @@
 ---
-layout: base.pug
+layout: page.pug
 title: demos
----
-
-# [kevin f.](/)
-
 ---
 
 ### [otto](https://kevinfiol.github.io/otto)

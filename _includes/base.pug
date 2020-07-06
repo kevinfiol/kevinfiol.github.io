@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        link(rel='shortcut icon' href='/assets/favicon.png' type='image/x-icon')
-        link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono&display=swap')
-        link(rel='stylesheet' href='https://unpkg.com/basscss@8.0.2/css/basscss.min.css')
-        link(rel='stylesheet' href='/css/dark-mode.css')
-        link(rel='stylesheet' href='/css/main.css')
-        title #{title}
-    body
-        .dark-mode-container
-            input#darkSwitch(type='checkbox')
-            label.dark-mode-btn(for='darkSwitch') 🌒
-        main.main-content.max-width-3.mx-auto.fade-in !{content}
-        script(src="/js/dark-mode-switch.min.js")
+extends layout.pug
+
+block content
+    div !{content}
