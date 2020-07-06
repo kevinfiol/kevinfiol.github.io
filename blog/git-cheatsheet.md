@@ -7,27 +7,27 @@ date: 2019-05-22
 
 # Git Cheatsheet
 
-This is a collection of `git` commands that I use frequently. May or may not be useful to you, but it's useful to me, goddammit.
+This is a collection of `git` commands that I use frequently. May or may not be useful to you, but it's useful to me, dammit.
 
-### Git Add Interactive Mode
+## Git Add Interactive Mode
 ```bash
 $ git add -i
 ```
 
-### Clone repository / respective branch:
+## Clone repository / respective branch:
 
 ```bash
 $ git clone -b <branch name> <host>
 ```
 
-### Delete Local and Remote Branch
+## Delete Local and Remote Branch
 
 ```bash
 $ git push origin --delete <branch_name>
 $ git branch -d <branch_name>
 ```
 
-### Merge to Master
+## Merge to Master
 
 ```bash
 $ git checkout master
@@ -36,7 +36,7 @@ $ git merge --no-ff test
 $ git push origin master
 ```
 
-### Merge into some other branch
+## Merge into some other branch
 
 ```bash
 $ git checkout production
@@ -44,14 +44,14 @@ $ git merge development
 $ git push origin production
 ```
 
-### Create a new branch and push it to the remote repo
+## Create a new branch and push it to the remote repo
 
 ```bash
 $ git checkout -b myFeature dev
 $ git push origin myFeature
 ```
 
-### Stashing Work In Progress (WIP) changes
+## Stashing Work In Progress (WIP) changes
 
 ```bash
 $ git stash
@@ -61,4 +61,23 @@ And to get it back:
 
 ```bash
 $ git stash pop
+```
+
+## So you forked a Repo and want to keep your fork updated
+
+```bash
+$ git remote add upstream git@github.com:company/projectyourforkedfrom.git
+```
+
+To update:
+
+```bash
+$ git fetch upstream
+$ git rebase upstream/master
+```
+
+If you have commit rights to the upstream repo, you can create a local `upstream` branch and do work that will go to upstream there.
+
+```bash
+$ git checkout -b upstream upstream/master
 ```
