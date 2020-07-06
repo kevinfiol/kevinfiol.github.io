@@ -1,12 +1,11 @@
-- let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-- let formatDate = d => `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-
 extends layout.pug
 
 block links
     link(rel='stylesheet' href='/css/prism-material-dark.css')
 
 block content
+    - let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    - let formatDate = d => `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
     .controls.px1
         a(href='https://github.com/kevinfiol/kevinfiol.com/edit/master/blog/' + page.fileSlug + '.md') edit
     header
