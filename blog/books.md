@@ -23,6 +23,8 @@ A collection of (free) web books, guides, and references by category.
     * *An introduction to creating webpages with HTML & CSS.*
 * [Learn to Code HTML & CSS](https://learn.shayhowe.com/html-css/)
 	* *Yet another introduction to creating webpage with HTML & CSS. Great for beginners. Good alternative to the famous Jon Duckett book.*
+* [Learn to Code Advanced HTML & CSS](https://learn.shayhowe.com/advanced-html-css/)
+	* *Shay Howe's second online book on HTML & CSS. Logical next step if you finished the book directly above.*
 * [Mozilla Developer Network: HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 	* *Good guide, but may be a bit dense. Great reference material.*
 * [Mozilla Developer Network: CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
