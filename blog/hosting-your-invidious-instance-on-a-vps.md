@@ -109,7 +109,7 @@ $ ./invidious # stop with ctrl c
 $ exit
 ```
 
-It's installed! Now a few administrative stuff. Let's setup the systemd service so that Invidious runs in the background:
+It's installed! Now some administrative stuff. Let's setup the systemd service so that Invidious runs in the background:
 ```bash
 $ sudo cp /home/invidious/invidious/invidious.service /etc/systemd/system/invidious.service
 $ sudo systemctl enable invidious.service
@@ -156,7 +156,7 @@ $ sudo systemctl start nginx.service
 ```
 
 Configure `/etc/nginx/nginx.conf`. Add this additional `server` entry under `http`:
-```
+```bash
 server {
   server_name tube.mydomain.com;
   location / {
@@ -166,7 +166,7 @@ server {
 ```
 
 Next addition is completely optional if you want your root domain to point to a kind of homepage. This is what I wanted, so I'm putting it here partly to document it for myself. I changed the existing default `http.server` entry to point to custom `html` I had written:
-```
+```bash
 server {
   server_name mydomain.com
   
