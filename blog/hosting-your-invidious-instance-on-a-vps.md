@@ -104,8 +104,7 @@ $ sudo -i -u invidious
 $ cd invidious
 $ shards update && shards install
 $ crystal build src/invidious.cr --release
-$ test compiled binary
-$ ./invidious # stop with ctrl c
+$ ./invidious # test compiled binary, stop with ctrl c
 $ exit
 ```
 
