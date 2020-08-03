@@ -183,4 +183,6 @@ server {
 
 I used [EFF's Certbot for this](https://certbot.eff.org/). It is painfully easy to use. Note that if you choose to, it *will* make modifications to your `nginx.conf` for you.
 
-Note that you must enable an option in Invidious's config if you want assets to only be transferred via HTTPS. More information can be found [here](https://github.com/iv-org/invidious/wiki/Configuration).
+You must enable an option in Invidious's config if you want assets to only be transferred via HTTPS. More information can be found [here](https://github.com/iv-org/invidious/wiki/Configuration).
+
+That's all. Hopefully you found this helpful. If you got any questions, shoot me an [email](mailto:fiolkevin@gmail.com). And always, if you liked this post, hit Like and Subscribe! (Haha).
