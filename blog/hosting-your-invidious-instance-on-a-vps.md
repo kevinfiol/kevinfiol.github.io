@@ -11,23 +11,23 @@ date: 2020-08-02
 
 This weekend I spent some time setting up my own instance of Invidious to share with friends. Here's a quick rundown on what I did:
 
-1. Pick a server
+## 1. Pick a server
 
 I went with the $5/mo Nanode over at [Linode](https://linode.com). It's packing a grand total 1GB of RAM, a single CPU, and 25GB of storage. More than enough to run our instance, but not enough to actually compile the damn codebase (we'll get to this in a bit).
 
-2. Get a domain (or not)
+## 2. Get a domain (or not)
 
 I wanted a simple and short domain name for myself and my buddies to be able to use instead of typing an IP address in the address bar every time. Getting a domain isn't terribly important especially if you're hosting this just for your own use.
 
 For the record, I used Namecheap to purchase my domain. I found [this guide](https://web.archive.org/web/20200803032836/https://merelycurious.me/post/connecting-namecheap-domain-to-linode) particularly helpful in setting up my domain with my Linode VPS.
 
-3. Pick a Linux Distribution for your VPS
+## 3. Pick a Linux Distribution for your VPS
 
 Again, not terribly important what you pick. If you plan to use [Invidious Updater](https://github.com/tmiland/Invidious-Updater), know that it only supports Debian, Ubuntu, CentOS, Fedora, and Arch. Originally I attempted to use it on an Alpine Linux installation, but the script promptly failed.
 
 Also, the Invidious docs only provide installation instructions for Arch Linux and Debian/Ubuntu. I went with **Arch Linux**.
 
-4. Pick how you're going to install Invidious
+## 4. Pick how you're going to install Invidious
 
 The [README](https://github.com/iv-org/invidious/blob/master/README.md) provides 3 options:
 
@@ -37,7 +37,7 @@ The [README](https://github.com/iv-org/invidious/blob/master/README.md) provides
 
 All options are simple and easy to do. I went with **1**.
 
-5. Install it!
+## 5. Install it!
 
 Install dependencies:
 ```bash
@@ -132,7 +132,7 @@ $ sudo chmod 0644 /etc/logrotate.d/invidious.logrotate
 
 You now got a running Invidious instance! Navigate to your VPS's IP address on port 3000 to see it up and running. Type `http://<VPS_IP_ADDRESS>:3000` into your browser's address bar, and get to watching some videos!
 
-6. (Optional) Setting up nginx
+## 6. (Optional) Setting up nginx
 
 When I bought my domain, I intended to use it for more than just Invidious. In my case, I wanted a subdomain to serve as my Invidious URL, while I can use the main domain to host a "hub" of sorts to other services.
 
@@ -179,10 +179,12 @@ server {
 }
 ```
 
-7. (Optional) Enabling HTTPS
+## 7. (Optional) Enabling HTTPS
 
 I used [EFF's Certbot for this](https://certbot.eff.org/). It is painfully easy to use. Note that if you choose to, it *will* make modifications to your `nginx.conf` for you.
 
 You must enable an option in Invidious's config if you want assets to only be transferred via HTTPS. More information can be found [here](https://github.com/iv-org/invidious/wiki/Configuration).
 
-That's all. Hopefully you found this helpful. If you got any questions, shoot me an [email](mailto:fiolkevin@gmail.com). And always, if you liked this post, hit Like and Subscribe! (Haha).
+___
+
+That's all. Hopefully you found this helpful. If you got any questions, shoot me an [email](mailto:fiolkevin@gmail.com). And always, if you liked this post, hit Like and Subscribe! (haha).
