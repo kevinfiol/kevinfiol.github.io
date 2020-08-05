@@ -154,27 +154,37 @@ $ sudo systemctl enable nginx.service
 $ sudo systemctl start nginx.service
 ```
 
-Configure `/etc/nginx/nginx.conf`. Add this additional `server` entry under `http`:
+Configure `/etc/nginx/nginx.conf`. Add this additional `server` entry somewhere under `http`:
 ```bash
-server {
-  server_name tube.mydomain.com;
-  location / {
-    proxy_pass http://127.0.0.1:3000;
+http {
+  ...
+
+  server {
+    server_name tube.mydomain.com;
+    location / {
+      proxy_pass http://127.0.0.1:3000;
+    }
   }
+  
+  ...
 }
 ```
 
-Next addition is completely optional if you want your root domain to point to a kind of homepage. This is what I wanted, so I'm putting it here partly to document it for myself. I changed the existing default `http.server` entry to point to custom `html` I had written:
+Next addition is completely optional if you want your root domain to point to a kind of homepage. This is what I wanted, so I'm putting it here partly to document it for myself. I changed the existing, default `http.server` entry to point to custom `html` I had written:
 ```bash
-server {
-  server_name mydomain.com
-  
-  location / {
-    root /sites/mydomain.com
-    index index.html index.htm
+http {
+  server {
+    server_name mydomain.com
+
+    location / {
+      root /sites/mydomain.com
+      index index.html index.htm
+    }
+
+    ... # the rest remained unchanged from the default
   }
   
-  ... # the rest remained unchanged from the default
+  ...
 }
 ```
 
