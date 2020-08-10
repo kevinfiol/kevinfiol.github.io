@@ -28,8 +28,8 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
 .page-content p,
 .page-content ul,
 .page-content table {
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-    font-size: 17px;
+    font-family: "Georgia", serif;
+    font-size: 16px/1.5;
     line-height: 28.5px;
 }
 
