@@ -29,7 +29,7 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
 .page-content ul,
 .page-content table {
     font-family: "Georgia", serif;
-    font-size: 16px/1.5;
+    font-size: 17px;
     line-height: 28.5px;
 }
 
