@@ -11,9 +11,7 @@ date: 2019-07-31
 
 I've since learned React and have come to appreciate it for its influence on modern web development. However, I find that Mithril, a framework that sits at half the size of React whilst containing more features, has remained my go-to.
 
-When it comes to state management, Mithril is as unopinionated as they come. You can use Redux, Mobx, Cerebral, or some implementation of the SAM pattern -- really, the sky is the limit.
-
-Important to note, however, is that Mithril comes with an auto-redraw system. The virtual DOM created by Mithril will diff and synchronize the DOM whenever changes are made to your data layer. Typically, the redraws are triggered after a DOM event handler is called.
+When it comes to state management, Mithril is as unopinionated as they come. You can use Redux, Mobx, Cerebral, some implementation of the SAM pattern, or best of all -- just a plain ol' JavaScript object! Mithril comes with an auto-redraw system. The virtual DOM created by Mithril will diff against and synchronize the DOM whenever changes are made to your data layer. Most commonly, the redraws are triggered after a DOM event.
 
 What this means in practice is that you are free to structure your data however you'd like, and Mithril takes care of the rest. Below is an example of a simple Counter application written with Mithril:
 
@@ -34,7 +32,7 @@ m.mount(document.body, Counter);
 ```
 [Live Example](https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J5YxAAR0ArgwkBeCQAYA3AB00GoXEkBBAA76FE4BokSAbhBgB3RBIAUASgUA+M+YlYHAcgAmEBY+FB6eXr6EAIzBEj4AwrSyjABOPk4haGHm3j76MTIM6aGeOQBG0sTE9DHAEvTUUBDUANb2zm5SiXIA1IqREuyx3WkZWeE+5ZXVFCZ1aA1NrY4u8q6dSRIAtH0DMz6bacVOGqzqmmhY+FhdxA5+tNTSOAz4pbR+AJ4zBvpOKpQgOAwWDUYgQegIHiRABMiGhAA5NkpEEo2BwQJgcHh8NQ4AIaPRGMweGwALpURpoZqQ1AYrh4LAQYiEZLQAHSZLkHgkYj6OCIAD0Atk+maAHMcbQsALGczWVAAALQ-BKfAAZhlTJZ0CuEDQ+H4AOIH303EB1FZ+lErFJrCAA)
 
-For small applications, simple widgets or one-off UI components, the above solution is largely sufficient. What's important about implementing your state management solution is to understand that there is no silver bullet. You will be able to predict your needs more accurately as you work across multiple projects and grow organically. [Redux](https://redux.js.org/) is a brilliant solution for modern UI state management, but the 9/10 times I have attempted to use it out of a desire to do things "the right way", it was absolute overkill. I advise reading [this blog post](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) by Dan Abramov, the creator of Redux.
+Our state is just a single primitive variable! For small applications, simple widgets or one-off UI components, the above solution is largely sufficient. What's important about implementing your state management solution is to understand that there is no silver bullet. You will be able to predict your needs more accurately as you work across multiple projects and grow organically. [Redux](https://redux.js.org/) is a brilliant solution for modern UI state management, but the 9/10 times I have attempted to use it out of a desire to do things "the right way", it was absolute overkill. I advise reading [this blog post](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367) by Dan Abramov, the creator of Redux.
 
 While the above solution is simple and likely sufficient for small use-cases, it introduces one problem - we are modifying the state directly from within the view. It won't take long before this approach proves unwieldy, and you're scanning your templates trying to find where you wrote the logic that is altering your state in (potentially) unpredictable ways.
 
