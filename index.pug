@@ -31,6 +31,9 @@ header
                 a(href='/resume/') résumé
     p.italic(style='font-size: 0.9em') contact:
         a(href='mailto:fiolkevin@gmail.com') fiolkevin@gmail.com
+    small
+        em spaceman mascot by 
+            a(href="https://erijt.tumblr.com") erijt.tumblr.com
 hr
 each post in posts
     article
@@ -43,7 +46,3 @@ nav.py3(aria-labelledby="pagination")
         a.mr2(href=pagination.href.previous) ← previous
     if pagination.href.next
         a(href=pagination.href.next) next →
-footer
-    small
-        em spaceman mascot by 
-            a(href="https://erijt.tumblr.com") erijt.tumblr.com
