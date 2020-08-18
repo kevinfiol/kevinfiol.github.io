@@ -11,7 +11,7 @@ title: resume
 |-------------------|--------------------------------------------------------:|
 | (802) 753-0369    | [kevinfiol.com](https://www.kevinfiol.com)               |
 | Florida           | [github.com/kevinfiol](https://www.github.com/kevinfiol) |
-| 33325             | [fiolkevin@gmail.com](mailto:fiolkevin@gmail.com)       |
+| 33325             | [me@kevinfiol.com](mailto:me@kevinfiol.com)       |
 
 ---
 
