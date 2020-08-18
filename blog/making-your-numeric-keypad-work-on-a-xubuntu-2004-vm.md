@@ -5,7 +5,7 @@ title: Making your numeric keypad work on a Xubuntu 20.04 VM
 date: 2020-08-18
 ---
 
-# Making your numeric keypad work on a Xubuntu 20.04 VM
+# Making your numeric keypad work on a Xubuntu 20.04 VM (Virtualbox)
 
 I fought with this for a good 2 hours before I finally got working. First step is install `numlockx`, if it's not already installed:
 
