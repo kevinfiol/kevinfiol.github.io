@@ -78,7 +78,7 @@ const state   = State();
 const actions = Actions(state);
 ```
 
-Passing these to a Mithril component is trivial using the `attrs` property and object destructuring (analogous to `props` in React). Notice that our Counter component remains virtually unchanged:
+Passing these to a Mithril component is trivial using the `attrs` property (near-equivalent to `props` in React) and object destructuring. Notice that our Counter component remains virtually unchanged:
 
 ```js
 const Counter = {
@@ -97,11 +97,9 @@ m.mount(document.body, {
 ```
 [Live Example](https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4hcYgAIAysQyNJAXkkAKAJRKAfKuCS6AVwaJJABkms1AbgA6aW+KkBBasQj04SyRPkwtO25KSEGjUAE4wOEaqGora3oz4BgySANTKAIwUAZIAJjBhESLG6n7xMIm0hlIAtBm2FjZ2Ie5SZYGesj7qjQ6SGC5uaB7Kzq7uKmVWtvYtkgDClcKhnsDZAG4QMADuxbryxKFwxrplFH0D7ubmMZrZgVgqAOQ5EGuPWWjt7Q+PhOnvkkeCyqMFCjzUHy+9yeAAcAWUKlUIXdvk8AEb6YjEegA3T0ahQCDUADWxn6YyG+GCBUiUnYgJS4MhUJ+GKxOLOeJChJJZIulLyNJE5jOj2q4JRanqjVsWHwWEWxBUOVo1H0tPwaNoOQAnpz1psdtE-A9gUtOV45IwzuTBh4LPUrJQQHAYLB+QgeOkAMyIABMAFY2BwQJgcHhEnABDR6IxmDw2ABdKiEtDEz2oUNcPBYCDEQihaDO-Shcg8EjEGFHAD01cMMOJAHMKlhq7n84WoAABP34Ez4b1tvMF6Dy4L4fjO4g6mHcF1hCAw0SsROsIA)
 
-(P.S. Credit goes to [porsager](https://github.com/porsager) who shared this brilliant solution in the Mithril.js Gitter)
+(P.S. Credit goes to [porsager](https://github.com/porsager) who shared this brilliant solution in the Mithril.js Gitter). **This is my preferred approach to state management in Mithril.** Passing your state and actions to child components would work as you'd expect. Simply pass your state and actions objects further down as `attrs`, or more wisely, be selective of what you choose to expose to child components.
 
-Passing your state and actions to child components would work as you'd expect. Simply pass your state and actions objects further down as `attrs`, or more wisely, be selective of what you choose to expose to child components.
-
-You could also take an approach where your application is composed of solely stateless components. That is, every component is a pure, deterministic function. [Hyperapp](https://github.com/JorgeBucaran/hyperapp) is a JavaScript framework that does not allow for local state in components. Instead, every component returns a portion of your UI that reflects the global state. While I highly recommend checking out Hyperapp (it's only 1kb gzipped!), this post is about Mithril, and you can use a similar approach with Mithril.
+Optional: you could also take an approach where your application is composed of solely stateless components. That is, every component is a pure, deterministic function. [Hyperapp](https://github.com/JorgeBucaran/hyperapp) is a JavaScript framework that does not allow for local state in components. Instead, every component returns a portion of your UI that reflects the global state. While I highly recommend checking out Hyperapp (it's only 1kb gzipped!), this post is about Mithril, and you can use a similar approach with Mithril.
 
 ```js
 const State = () => ({ count: 0 });
@@ -139,4 +137,4 @@ m.mount(document.body, () => {
 ```
 [Live Example](https://flems.io/#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4hcYgAIAysQyNJAXkkAKAJRKAfKuCS6AVwaJJABkms1AbgA6aW+KkBBasQj04SyRPkwtO25KSEGjUAE4wOEaqGora3oz4BgySANTKAIwUAZIAJjBhESLG6n7xMIm0hlIAtBm2FjZ2Ie5SAMKVwqGeKmUUkhgubmhwMZrZWCoA5DkQAG6TWWiBgROThOkLkpPtVTChk2qLy5KrAA6bZRVVh9krUwBG+sTE9Ju69NRQENQA1sYDrnc+GCBUiUnYWxSByOy1Wj2erz67xCX1+-0GQLyoJE5j6k2q0NuklahGgOR6ckYfQBQxG2TUtka9haxNJUBy3V6-Qxw1G4ymM3mMLuawATJttmycoSlrCpuc+pcklIAFSSUU3WUi+EvNBvSQfVF-bmA4bAkLhMG4yEy45wp66-WG77GmmY-KWnEQ-G2yQMtBMtBYfBYDrEFQ5WjUfRg-D3Wg5ACefRKsUkwGyDi8lN8gWUsh86kagSzbuGnmcprgFJ8Vls2XCxH0oSWulmEBgAHdiqNiWG9jWqSbaRpWI0GpQQHAYLAeQgeCZECZqgBmdKIFdsDggTA4PCJOACGj0RjMHhsAC6VC+aB+89QO64eCwEGIhFC0EnzfIPBIxFOcCIAA9EBhinD8ADmFRYEBL5vh+UAAAKivgJj4CusGvu+0AhsE+D8JOxCJqc3BTmEECnKIrAXqwQA)
 
-In the end, always do what feels right to you and makes more sense given your team and/or project. If this has been helpful or if you have any questions, [drop me an email!](mailto:fiolkevin@gmail.com)
+In the end, always do what feels right to you and makes more sense given your team and/or project. If this has been helpful or if you have any questions, [drop me an email!](mailto:me@kevinfiol.com)
