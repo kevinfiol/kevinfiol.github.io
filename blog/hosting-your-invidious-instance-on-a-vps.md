@@ -196,4 +196,4 @@ You must enable an option in Invidious's config if you want assets to only be tr
 
 ___
 
-That's all. Hopefully you found this helpful. If you got any questions, shoot me an [email](mailto:fiolkevin@gmail.com). And always, if you liked this post, hit Like and Subscribe! (haha).
+That's all. Hopefully you found this helpful. If you got any questions, shoot me an [email](mailto:me@kevinfiol.com). And always, if you liked this post, hit Like and Subscribe! (haha).
