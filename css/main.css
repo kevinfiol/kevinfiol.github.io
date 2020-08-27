@@ -40,7 +40,7 @@ code:not([class]) { font-size: 16px; background: #363636; color: white; padding:
     border: 3px solid rgba(0, 0, 0, 0.2);
 }
 
-.controls { position: fixed; top: 0; left: 0; opacity: 0; }
+.controls { position: fixed; bottom: 0; right: 0; opacity: 0; }
 .controls:hover { opacity: 1; }
 
 @media (max-width: 768px) {
