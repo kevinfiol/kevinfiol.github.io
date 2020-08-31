@@ -7,7 +7,7 @@ title: demos
 * A userscript for GOG.com that aims to improve the overall browsing experience by automatically finding and displaying current and historically lowest prices for games across multiple online stores. Built with Hyperapp.
 
 ## [it's drm free](https://github.com/kevinfiol/its-drm-free)
-* A userscript for Steampowered.com that finds and displays latest prices from DRM-free storefronts. Built with Polymer Project's lit-html.
+* A userscript for Steampowered.com that finds and displays latest prices from DRM-free storefronts. Built with lit-html.
 
 ## [etto](https://github.com/kevinfiol/etto)
 * A tiny, framework-agnostic autocomplete and select component for modern JavaScript projects. Extremely customizable with zero dependencies.
@@ -25,4 +25,4 @@ title: demos
 * A userscript for Last.fm to add a 'Compare Artists' functionality to user profiles. Built with Hyperapp.
 
 ## [parasite](https://keb.itch.io/parasite)
-* A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration.
+* A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration. Built with Impact.js.
