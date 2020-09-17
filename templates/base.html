@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="{{ get_url(path="img/favicon.png") }}" type="image/x-icon" />
+        <link rel="stylesheet" href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" />
+        <link rel="stylesheet" href="{{ get_url(path="css/dark-mode.css") }}" />
+        <link rel="stylesheet" href="{{ get_url(path="css/main.css") }}" />
+        {% block links %}
+        {% endblock %}
+
+        {% block rss %}
+          <link rel="alternate" type="application/atom+xml" title="RSS" href='{{ get_url(path="atom.xml", trailing_slash=false) }}'>
+        {% endblock %}
+        <title>
+            {% if section.title %}
+                {{ section.title }}
+            {% elif page.title %}
+                {{ page.title }}
+            {% else %}
+                {{ config.extra.title }}
+            {% endif %}
+        </title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto fade-in">
+            <div>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </main>
+        {% block scripts %}
+        {% endblock scripts %}
+        <script src="{{ get_url(path="js/dark-mode-switch.min.js") }}"></script>
+    </body>
+</html>

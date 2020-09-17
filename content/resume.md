@@ -1,7 +1,7 @@
----
-layout: resume.pug
-title: resume
----
++++
+title = "resume"
+template = "resume.html"
++++
 
 # Kevin Fiol
 

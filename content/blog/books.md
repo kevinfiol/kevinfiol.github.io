@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Books
-date: 2020-07-02
----
++++
+title = "Books"
+date = 2020-07-02
+template = "post.html"
++++
 
 # Books
 

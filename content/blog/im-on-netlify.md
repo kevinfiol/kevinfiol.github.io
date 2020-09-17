@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: I'm on Netlify
-date: 2020-01-29
----
++++
+title = "I'm on Netlify"
+date = 2020-01-29
+template = "post.html"
++++
 
 # I'm on Netlify
 

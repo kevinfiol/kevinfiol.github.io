@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Simple State Management in Mithril.js
-date: 2019-07-31
----
++++
+title = "Simple State Management in Mithril.js"
+date = 2019-07-31
+template = "post.html"
++++
 
 # Simple State Management in Mithril.js
 

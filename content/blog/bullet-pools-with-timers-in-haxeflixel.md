@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Bullet Pools with Timers in HaxeFlixel
-date: 2019-05-18
----
++++
+title = "Bullet Pools with Timers in HaxeFlixel"
+date = 2019-05-18
+template = "post.html"
++++
 
 # Bullet Pools with Timers in HaxeFlixel
 

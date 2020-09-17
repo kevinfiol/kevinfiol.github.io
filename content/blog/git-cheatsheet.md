@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Git Cheatsheet
-date: 2019-05-22
----
++++
+title = "Git Cheatsheet"
+date = 2019-05-22
+template = "post.html"
++++
 
 # Git Cheatsheet
 

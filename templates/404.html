@@ -1,8 +1,6 @@
----
-layout: base.pug
-title: 404
-permalink: 404.html
----
+{% extends "base.html" %}
+
+{% block content %}
 <div class="center max-width-2 mx-auto">
     <p class="h4">
         <a href="/">kevin f.</a>
@@ -10,3 +8,4 @@ permalink: 404.html
         <p>page not found</p>
     </p>
 </div>
+{% endblock content %}

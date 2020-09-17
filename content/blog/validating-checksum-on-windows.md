@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Validating Checksum on Windows
-date: 2019-06-04
----
++++
+title = "Validating Checksum on Windows"
+date = 2019-06-04
+template = "post.html"
++++
 
 # Validating Checksum on Windows
 

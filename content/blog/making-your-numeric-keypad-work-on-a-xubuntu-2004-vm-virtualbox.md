@@ -1,9 +1,8 @@
----
-layout: post.pug
-tags: post
-title: Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)
-date: 2020-08-18
----
++++
+title = "Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)"
+date = 2020-08-18
+template = "post.html"
++++
 
 # Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)
 

@@ -1,7 +1,7 @@
----
-layout: page.pug
-title: demos
----
++++
+title = "demos"
+template = "page.html"
++++
 
 ## [enhanced-gog](https://github.com/kevinfiol/enhanced-gog)
 * A userscript for GOG.com that aims to improve the overall browsing experience by automatically finding and displaying current and historically lowest prices for games across multiple online stores. Built with Hyperapp.
