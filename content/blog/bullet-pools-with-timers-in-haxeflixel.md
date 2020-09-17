@@ -96,11 +96,11 @@ start(Time:Float = 1, ?OnComplete:FlxTimer‑>Void, Loops:Int = 1):FlxTimer
 In the example below, I pass `2.0` for `Time`, an anonymous function for `OnComplete` that switches the bullets `exists` flag to `false`, and `1` for `Loops` so that the function only triggers once.
 
 ```haxe
-if(FlxG.keys.justPressed.Z){
+if (FlxG.keys.justPressed.Z) {
 	var bullet:Bullet = PlayState.bullets.recycle();
 	bullet.timer.start(
 		2.0,
-		function(Timer:FlxTimer){
+		function (Timer:FlxTimer) {
 			bullet.exists = false;
 		},
 		1
