@@ -35,7 +35,7 @@ Navigate to your repository and run:
 git config credential.helper store
 ```
 
-This will then prompt you for your remote credentials. Now try running a `git pull` and marvel at now having to be bothered by a pop-up!
+This will then prompt you for your remote credentials. Now try running a `git pull` and marvel at not having to be bothered by a pop-up!
 
 ## Why are you using Windows?
 
