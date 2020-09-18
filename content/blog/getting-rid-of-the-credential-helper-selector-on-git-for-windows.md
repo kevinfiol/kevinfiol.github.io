@@ -6,7 +6,7 @@ template = "post.html"
 
 # Getting rid of the Credential Helper Selector on Git for Windows
 
-If you're ever been tormented by the following pop-up when trying to push or pull from an HTTPS Git origin:
+If you've ever been tormented by the following pop-up when trying to push or pull from an HTTPS Git origin:
 
 ![Windows Credential Helper Selector](/img/blog/helper.jpg)
 
