@@ -1,3 +1,3 @@
 # [kevinfiol.com](https://kevinfiol.com)
 
-Homepage.
+Homepage built with [zola](https://www.getzola.org/).
