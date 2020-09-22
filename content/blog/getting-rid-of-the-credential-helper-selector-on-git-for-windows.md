@@ -39,4 +39,4 @@ This will then prompt you for your remote credentials. Now try running a `git pu
 
 ## Why are you using Windows?
 
-I never claimed to make wise decisions. But yes, this issue is nonexistent on my Linux Mint-based laptop.
+I never claimed to make wise decisions. But yes, this issue is nonexistent on my Ubuntu-based laptop, and probably on your Macbook Pro too.
