@@ -1,5 +1,5 @@
 +++
-title = "brew candy"
+title = "Brew Candy Review"
 date = 2019-06-17
 template = "post.html"
 +++
