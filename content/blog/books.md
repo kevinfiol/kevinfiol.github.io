@@ -16,6 +16,8 @@ A collection of (free) web books, guides, and references by category.
 	* *A book on designing your own language interpreter. By Robert Nystrom, creator of programming languages such as Wren, Finch, and Magpie.*
 * [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html)
 	* *A legendary text book. Not an easy read. Also see the [JavaScript Adaptation](https://sicp.comp.nus.edu.sg/).*
+* [Nature of Code](https://natureofcode.com/book/)
+	* *"This book focuses on a range of programming strategies and techniques behind computer simulations of natural systems, from elementary concepts in mathematics and physics to more advanced algorithms that enable sophisticated visual results."*
 
 ## HTML/CSS
 * [MarkSheet](https://marksheet.io/)
@@ -28,6 +30,8 @@ A collection of (free) web books, guides, and references by category.
 	* *Good guide, but may be a bit dense. Great reference material.*
 * [Mozilla Developer Network: CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 	* *Like the HTML guide. Great reference material.*
+* [HTML Tips](https://thomasorus.com/html-tips.html)
+	* *A collection of beginner and advanced tips on HTML & CSS by [Thomasorus](https://github.com/thomasorus).*
 
 ## JavaScript
 
@@ -115,6 +119,10 @@ A collection of (free) web books, guides, and references by category.
 * [Functional Programming in OCaml](http://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/)
 	* *An introduction to Functional Programming with OCaml, adapted from Cornell CS3110.*
 
+## Racket
+* [Beautiful Racket](https://beautifulracket.com/)
+	* *"An introduction to language-oriented programming using Racket."*
+
 ## Game Development
 
 * [Harvard CS50 Introduction to Game Development](https://cs50.harvard.edu/games/)
@@ -122,7 +130,14 @@ A collection of (free) web books, guides, and references by category.
 * [Game Programming Patterns](https://gameprogrammingpatterns.com/contents.html)
 	* *A collection of game development-related design patterns. By the great Robert Nystrom.*
 * [BYTEPATH](https://github.com/adnzzzzZ/blog/issues/30)
-	* *A book published as a series of Github issues. Guides the user in creating a game using Lua and Love2D, with plenty of exercises.*
+	* *A book published as a series of Github issues. Guides the user in creating a game using Lua and Love2D, with plenty of exercises. Intended for those with programming experience.*
+* [How to LÖVE](https://sheepolution.com/learn/book/contents)
+	* *A gentle introduction to programming **and** game development using Lua and the Love2D game library.*
+
+## Game Design
+
+* [Riot Games Game Design Curriculum](https://www.riotgames.com/en/urf-academy/curriculum-guide)
+	* *"Riot Games’ Game Design Curriculum is an entry-level course that teaches high school students the fundamental elements of game design using a framework and interactive workshops created by our own game designers."*
 
 ## Math
 
