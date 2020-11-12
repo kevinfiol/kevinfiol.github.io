@@ -80,3 +80,19 @@ If you have commit rights to the upstream repo, you can create a local `upstream
 ```bash
 $ git checkout -b upstream upstream/master
 ```
+
+## Sometimes, you want to locally (or temporarily) ignore a file but don't want to add it to `.gitignore`
+
+Be careful with this, because if you ignore a file, and then do a `git pull` after the file was changed upstream, you'll get a conflict. And you'll be confused because Git will tell you to stash your changes, all the while `git status` is showing no changes.
+
+Ignore it:
+
+```bash
+git update-index --assume-unchanged <file>
+```
+
+Unignore it:
+
+```bash
+git update-index --no-assume-unchanged <file>
+````
