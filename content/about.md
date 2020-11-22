@@ -7,4 +7,4 @@ I'm a programmer currently working from home. I use this site as a personal past
 
 Aside from programming, I enjoy music, video games, and playing guitar.
 
-![me standing by a river](/img/me.jpg)
+{{ img(src="/img/me.jpg", alt="me standing by a river") }}

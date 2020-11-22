@@ -54,7 +54,7 @@ if (FlxG.keys.justPressed.Z) {
 
 After this, we just add our standard logic that handles bullet velocity, acceleration, or how, when, and where your Sprite class may spawn bullet objects. As seen in the example below, only 3 bullets may be on the screen at one time, with the earliest spawned bullet being replaced.
 
-![asteroids animation](/img/blog/haxeflixel-bullet-timers/1.gif)
+{{ img(src="/img/blog/haxeflixel-bullet-timers/1.gif", alt="asteroids animation") }}
 
 Building on the example of the original Asteroids arcade game, we can give each bullet a limited lifetime, meaning if the bullet does not collide with another asteroid or enemy sprite, it should cease to exist after a certain period of time. Otherwise, it would continue travelling endlessly.
 
@@ -110,4 +110,4 @@ if (FlxG.keys.justPressed.Z) {
 
 So now, not only do you limit the amount of bullets that can be on the screen at once, but you can limit the duration for said bullets! It's a very neat and useful mechanic for balancing your game that can be applied to any pool of FlxBasic objects you may need, whether it be enemies, ammunition, or environmental objects.
 
-![asteroids animation](/img/blog/haxeflixel-bullet-timers/2.gif)
+{{ img(src="/img/blog/haxeflixel-bullet-timers/2.gif", alt="asteroids animation") }}
