@@ -40,83 +40,83 @@ All options are simple and easy to do. I went with **1**.
 
 Install dependencies:
 ```bash
-$ sudo pacman -Syu base-devel shards crystal librsvg postgresql nano
+sudo pacman -Syu base-devel shards crystal librsvg postgresql nano
 ```
 
 Create Invidious user:
 ```bash
-$ useradd -m invidious
-$ sudo -i -u invidious
-$ git clone https://github.com/iv-org/invidious
-$ exit
+useradd -m invidious
+sudo -i -u invidious
+git clone https://github.com/iv-org/invidious
+exit
 ```
 
 Setup Postgres:
 ```bash
-$ sudo systemctl enable postgresql
-$ sudo systemctl start postgresql
-$ sudo -i -u postgres
-$ psql -c "CREATE USER kemal WITH PASSWORD 'kemal';" # Change 'kemal' here to a stronger password, and update `password` in config/$ config.yml
-$ createdb -O kemal invidious
-$ psql invidious kemal < /home
-$ exit
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+sudo -i -u postgres
+psql -c "CREATE USER kemal WITH PASSWORD 'kemal';" # Change 'kemal' here to a stronger password, and update `password` in config/config.yml
+createdb -O kemal invidious
+psql invidious kemal < /home
+exit
 ```
 
 I was only able to run the following commands as root. Make sure the postgresql service is running:
 ```bash
-$ psql invidious kemal < /home/invidious/invidious/config/sql/channels.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/videos.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/channel_videos.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/users.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/session_ids.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/nonces.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/annotations.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/playlists.sql
-$ psql invidious kemal < /home/invidious/invidious/config/sql/playlist_videos.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/channels.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/videos.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/channel_videos.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/users.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/session_ids.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/nonces.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/annotations.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/playlists.sql
+psql invidious kemal < /home/invidious/invidious/config/sql/playlist_videos.sql
 ```
 
 The next steps to install Invidious involve compiling the project code. On my measly 1GB of RAM, the compilation choked. In order to prepare for this, I used `systemd-swap` to create a swapfile. There are other ways to create a swapfile or a swap partition on Linux. See: [Swap on Arch Linux Wiki](https://wiki.archlinux.org/index.php/Swap). I found using `systemd-swap` the simplest. [This guide by Ricosta Cruz](https://web.archive.org/web/20200803033711/https://ricostacruz.com/til/after-installing-arch-linux) was very helpful.
 
 I did as follows:
 ```bash
-$ sudo pacman -Syu systemd-swap
+sudo pacman -Syu systemd-swap
 ```
 
 Then I edited the config file to enable `zram_enabled=1` and `swapfc_enabled=1`:
 ```bash
-$ sudo nano /etc/systemd/swap.conf
+sudo nano /etc/systemd/swap.conf
 ```
 
 Then enable `systemd-swap.service`:
 ```bash
-$ sudo systemctl enable --now systemd-swap
+sudo systemctl enable --now systemd-swap
 ```
 
 Finally add the swapfile to `/etc/fstab` so it'll be used on every boot. Add this: `/swapfile none swap defaults 0 0` to the end of the file:
 ```bash
-$ sudo nano /etc/fstab
+sudo nano /etc/fstab
 ```
 
 Finally, you won't run out of RAM to setup Invidious. Let's go back and finally install it:
 ```bash
-$ sudo -i -u invidious
-$ cd invidious
-$ shards update && shards install
-$ crystal build src/invidious.cr --release
-$ ./invidious # test compiled binary, stop with ctrl c
-$ exit
+sudo -i -u invidious
+cd invidious
+shards update && shards install
+crystal build src/invidious.cr --release
+./invidious # test compiled binary, stop with ctrl c
+exit
 ```
 
 It's installed! Now some administrative stuff. Let's setup the systemd service so that Invidious runs in the background:
 ```bash
-$ sudo cp /home/invidious/invidious/invidious.service /etc/systemd/system/invidious.service
-$ sudo systemctl enable invidious.service
-$ sudo systemctl start invidious.service
+sudo cp /home/invidious/invidious/invidious.service /etc/systemd/system/invidious.service
+sudo systemctl enable invidious.service
+sudo systemctl start invidious.service
 ```
 
 And lets rotate the logs so that they don't balloon in size:
 ```bash
-$ sudo echo "/home/invidious/invidious/invidious.log {
+sudo echo "/home/invidious/invidious/invidious.log {
 rotate 4
 weekly
 notifempty
@@ -125,7 +125,7 @@ compress
 minsize 1048576
 }" | tee /etc/logrotate.d/invidious.logrotate
 
-$ sudo chmod 0644 /etc/logrotate.d/invidious.logrotate
+sudo chmod 0644 /etc/logrotate.d/invidious.logrotate
 ```
 
 You now got a running Invidious instance! Navigate to your VPS's IP address on port 3000 to see it up and running. Type `http://<VPS_IP_ADDRESS>:3000` into your browser's address bar, and get to watching some videos!
@@ -144,13 +144,13 @@ I was able to do this easily using nginx reverse proxies. Here are the steps I t
 
 Install nginx:
 ```bash
-$ pacman -Syu nginx-mainline
+pacman -Syu nginx-mainline
 ```
 
 Enable and start nginx service:
 ```bash
-$ sudo systemctl enable nginx.service
-$ sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+sudo systemctl start nginx.service
 ```
 
 Configure `/etc/nginx/nginx.conf`. Add this additional `server` entry somewhere under `http`:
