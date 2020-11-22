@@ -88,11 +88,11 @@ Be careful with this, because if you ignore a file, and then do a `git pull` aft
 Ignore it:
 
 ```bash
-git update-index --assume-unchanged <file>
+$ git update-index --assume-unchanged <file>
 ```
 
 Unignore it:
 
 ```bash
-git update-index --no-assume-unchanged <file>
+$ git update-index --no-assume-unchanged <file>
 ````
