@@ -69,6 +69,8 @@ A collection of (free) web books, guides, and references by category.
 	* *As the title implies, a collection of "common tasks of managing HTML DOM with vanilla JavaScript.*
 * [Mixu's Node book](http://book.mixu.net/node/single.html)
 	* *A dated (2012), but beginner friendly introduction to server-side JavaScript with Node.js.*
+* [PureScript By Example](https://leanpub.com/purescript/read)
+	* *An introduction to a Haskell-influenced functional programming language that transpiles to JavaScript.*
 
 ## C#
 
