@@ -47,7 +47,7 @@ A few things to note:
 
   * I am binding the side button on my mouse `b:8` to the Control key on my keyboard using `xdotool`. This may or may not work for you if you already bind your Control key to something else. What this means in practice is that holding your mouse button is essentially like holding the Control key.
     * This is a particular point of frustration on Linux, as it seems xbindkeys is very selective of what keys can be used as modifiers. The manpage lists `Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
-Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll).` as available modifiers.
+Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll)` as available modifiers.
 
   * The commands `pactl -- set-sink-volume 0 -5%` and `pactl -- set-sink-volume 0 +5%` assumes you are using the PulseAudio sound driver. These commands may not work for you if you're using the ALSA sound driver, in which case, you may use commands like `amixer -q sset Master 5%-` and `amixer -q sset Master 5%+` respectively.
   
