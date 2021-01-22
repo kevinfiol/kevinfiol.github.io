@@ -8,7 +8,7 @@ template = "post.html"
 
 ## Some Context
 
-About six years ago, I purchased ROCCAT Savu gaming mouse to serve as my daily driver. The mouse itself was mediocre, but the bundled Windows-only software included a feature that I enabled on a whim that allowed the user to hold a button on the side of the mouse and use the scroll wheel to control the system volume. At first, I didn't think much of the feature, but still used it regularly. A couple years later when my Savu finally died, I replaced it with a Logitech G203, only to find that controlling the system volume with the scroll wheel had become second nature.
+About six years ago, I purchased a ROCCAT Savu gaming mouse to serve as my daily driver. The mouse itself was mediocre, but the bundled Windows-only software included a feature that I enabled on a whim that allowed the user to hold a button on the side of the mouse and use the scroll wheel to control the system volume. At first, I didn't think much of the feature, but still used it regularly. A couple years later when my Savu finally died, I replaced it with a Logitech G203, only to find that controlling the system volume with the scroll wheel had become second nature.
 
 ## Windows
 
