@@ -45,7 +45,7 @@ Run `killall xbindkeys && xbindkeys` to restart xbindkeys.
 A few things to note:
   * You may find xbindkeys keycodes using `xbindkeys --key` or mouse button codes using `xev`.
 
-  * I am binding the side button on my mouse `b:8` to the Control key on my keyboard using `xdotool`. This may or may not work for you if you already bind your Control key to something else. What this means in practice is that holding your mouse button is essentially like holding the control key.
+  * I am binding the side button on my mouse `b:8` to the Control key on my keyboard using `xdotool`. This may or may not work for you if you already bind your Control key to something else. What this means in practice is that holding your mouse button is essentially like holding the Control key.
     * This is a particular point of frustration on Linux, as it seems xbindkeys is very selective of what keys can be used as modifiers. The manpage lists `Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
 Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll).` as available modifiers.
 
