@@ -16,7 +16,7 @@ There may be a way out of your misery. Initially I thought that if I added my Gi
 
 First off, you can simply choose to not install the Helper Selector by unchecking a box during the installation process of Git for Windows. This is assuming you are installing Git in this manner, and also that you are willing to reinstall Git for Windows entirely or re-run the installer. But what if this doesn't apply to you?
 
-I installed Git using [scoop.sh](https://scoop.sh), so my installation process took place entirely via CLI. However, I guess this option also assumes you want the Credential Helper since I don't remember every specifying I wanted it. So what now?
+I installed Git using [scoop.sh](https://scoop.sh), so my installation process took place entirely via CLI. However, I guess this option also assumes you want the Credential Helper since I don't remember ever specifying I wanted it. So what now?
 
 ### Unset the credential helper system-wide
 
