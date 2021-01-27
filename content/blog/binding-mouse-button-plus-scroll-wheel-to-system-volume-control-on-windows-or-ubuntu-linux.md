@@ -18,12 +18,12 @@ Fortunately, Logitech's software included ways to bind keys to mouse buttons, an
 
 The state of consumer-grade peripheral software on Linux is getting better by the day, but still severely lacking compared to Windows. For the most part, you should be fine with [Piper](https://github.com/libratbag/piper/) for your gaming mouse needs on Linux. However, Piper itself is insufficient for our goals.
 
-In the end, I was able to achieve similar functionality to the Autohotkey script above using `xbindkeys`, which you can install using your package manager:
+In the end, I was able to achieve similar functionality to the Autohotkey script above using `xbindkeys` and `xdotool`, both of which you can install using your package manager:
 
 ```bash
 # Ubuntu
 sudo apt update
-sudo apt install xbindkeys
+sudo apt install xbindkeys xdotool
 ```
 
 Create `~/.xbindkeysrc` in your home directory and paste:
@@ -36,6 +36,7 @@ Create `~/.xbindkeysrc` in your home directory and paste:
 
 "pactl -- set-sink-volume 0 -5%"
     control + b:5
+
 "pactl -- set-sink-volume 0 +5%"
     control + b:4
 ```
@@ -49,7 +50,7 @@ A few things to note:
     * This is a particular point of frustration on Linux, as it seems xbindkeys is very selective of what keys can be used as modifiers. The manpage lists `Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
 Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll)` as available modifiers.
 
-  * The commands `pactl -- set-sink-volume 0 -5%` and `pactl -- set-sink-volume 0 +5%` assume you are using the PulseAudio sound driver. These commands may not work for you if you're using the ALSA sound driver, in which case, you may use commands like `amixer -q sset Master 5%-` and `amixer -q sset Master 5%+` respectively.
+  * The commands `pactl -- set-sink-volume 0 -5%` and `pactl -- set-sink-volume 0 +5%` assume you are using the PulseAudio sound driver. These commands may not work for you if you're using the ALSA sound driver, in which case, you may use commands like `amixer -q sset Master 5%-` and `amixer -q sset Master 5%+` respectively. If neither of these work, try `amixer -q -D pulse sset Master 5%+` and `amixer -q -D pulse sset Master 5%-`, or research how to control your master volume by command line on your system.
   
 ## Helpful related reading
 
