@@ -16,7 +16,7 @@ template = "page.html"
 * A web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. Server code [here](https://github.com/kevinfiol/sfn-server).
 
 ## [fireblog](https://fireblog.now.sh/)
-* A blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js.
+* *Deprecated.* A blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
 
 ## [colm](https://addons.mozilla.org/en-US/firefox/addon/colm/)
 * A Firefox browser extension to create a custom newtab page using Markdown. Built with Mithril.js.
