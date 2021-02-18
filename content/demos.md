@@ -12,7 +12,7 @@ template = "page.html"
 ## [etto](https://github.com/kevinfiol/etto)
 * A tiny, framework-agnostic autocomplete and select component for modern JavaScript projects. Extremely customizable with zero dependencies.
 
-## [steam friend night](https://github.com/kevinfiol/sfn-client)
+## [steam friend night](https://sfn.now.sh)
 * A web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. Server code [here](https://github.com/kevinfiol/sfn-server).
 
 ## [fireblog](https://fireblog.now.sh/)
