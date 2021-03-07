@@ -25,10 +25,10 @@
     <hr/>
 
     {% set blog = get_section(path="blog/_index.md") %}
-    {% for post in blog.pages %}
+    {% for post in blog.pages | slice(start=0, end=6) %}
         <article>
             <header>
-                <h2 class="mb1">
+                <h2 class="mb1 blog-title">
                     <a href="{{ post.permalink }}">
                         {{ post.title }}
                     </a>
@@ -40,17 +40,7 @@
         </article>
     {% endfor %}
 
-    <nav class="py3" aria-labelledby="pagination">
-        {% if paginator.previous %}
-            <a href="{{ paginator.previous }}" class="mr2">
-                ← previous
-            </a>
-        {% endif %}
-
-        {% if paginator.next %}
-            <a href="{{ paginator.next }}" class="mr2">
-                next →
-            </a>
-        {% endif %}
+    <nav class="py3">
+        <a href="/archive/">archive →</a>
     </nav>
 {% endblock content %}

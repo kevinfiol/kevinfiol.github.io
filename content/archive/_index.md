@@ -1,7 +1,8 @@
 +++
-title = "blog"
+title = "archive"
 sort_by = "date"
 insert_anchor_links = "left"
-redirect_to = "/"
+render = true
+template = "archive.html"
 transparent = true
 +++

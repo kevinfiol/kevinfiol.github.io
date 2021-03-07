@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        <a href="/">kevin f.</a>
+    </h1>
+    <hr />
+    <h2>archive</h2>
+    {% set blog = get_section(path="blog/_index.md") %}
+    {% for post in blog.pages %}
+        <div class="archive-link">
+            <span>{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</span>
+            -
+            <span><a href="{{ post.permalink }}">{{ post.title }}</a></span>
+        </div>
+    {% endfor %}
+{% endblock content %}
