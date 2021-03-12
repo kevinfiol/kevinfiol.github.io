@@ -1,10 +1,10 @@
 +++
-title = "Binding Mouse Button + Scroll Wheel to System Volume Control on Windows or Ubuntu Linux"
+title = "Binding Mouse Button + Scroll Wheel to System Volume Control"
 date = 2021-01-22
 template = "post.html"
 +++
 
-# Binding Mouse Button + Scroll Wheel to System Volume Control on Windows or Ubuntu Linux
+# Binding Mouse Button + Scroll Wheel to System Volume Control (on Windows or Ubuntu Linux)
 
 ## Some Context
 
