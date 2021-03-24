@@ -3,26 +3,26 @@ title = "demos"
 template = "page.html"
 +++
 
-## [enhanced-gog](https://github.com/kevinfiol/enhanced-gog)
-* A userscript for GOG.com that aims to improve the overall browsing experience by automatically finding and displaying current and historically lowest prices for games across multiple online stores. Built with Hyperapp.
+A collection of stuff I've worked on or made. Visit my [Github](https://github.com/kevinfiol) for more.
 
-## [it's drm free](https://github.com/kevinfiol/its-drm-free)
-* A userscript for Steampowered.com that finds and displays latest prices from DRM-free storefronts. Built with lit-html.
+[enhanced-gog](https://github.com/kevinfiol/enhanced-gog) - a userscript for [GOG.com](https://gog.com) that aims to improve the overall browsing experience by automatically finding and displaying current and historically lowest prices for games across multiple online stores. Enjoyed by many in the GOG community. Built with Hyperapp.
 
-## [etto](https://github.com/kevinfiol/etto)
-* A tiny, framework-agnostic autocomplete and select component for modern JavaScript projects. Extremely customizable with zero dependencies.
+[it's drm free](https://github.com/kevinfiol/its-drm-free) - a userscript for [steampowered.com](https://steampowered.com) that finds and displays latest prices from DRM-free storefronts. Built with lit-html.
 
-## [steam friend night](https://sfn.now.sh)
-* A web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. Server code [here](https://github.com/kevinfiol/sfn-server).
+[etto](https://github.com/kevinfiol/etto) - tiny, framework-agnostic autocomplete and select component for modern JavaScript projects. Extremely customizable with zero dependencies, and CJS/ESM exports.
 
-## [fireblog](https://fireblog.now.sh/)
-* *Deprecated.* A blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
+[steam friend night](https://sfn.now.sh) - a web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. Server code [here](https://github.com/kevinfiol/sfn-server).
 
-## [colm](https://addons.mozilla.org/en-US/firefox/addon/colm/)
-* A Firefox browser extension to create a custom newtab page using Markdown. Built with Mithril.js.
+[steam-service](https://github.com/kevinfiol/steam-service) - a REST API service that serves data from the Steam Web and Storefront API in JSON format. Used for the above-mentioned steam-friend-night. Caches game data in Postgres DB. Built with PHP7, Slim, and Doctrine ORM.
 
-## [last.fm userscript](https://gitlab.com/kevinfiol/lastfm-artists-userscript)
-* A userscript for Last.fm to add a 'Compare Artists' functionality to user profiles. Built with Hyperapp.
+[mithril-pres](https://mithril.netlify.app/) - a presentation full of practical examples demonstrating [Mithril.js](https://mithril.js.org), including client-side routing, stream data-types, third-party library integration, and JSX. Source code [here](https://github.com/kevinfiol/mithril-pres).
 
-## [parasite](https://keb.itch.io/parasite)
-* A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration. Built with Impact.js.
+[mithril.js](https://github.com/MithrilJS/mithril.js) - *Contributor*. PR to fix annoying bug where `m.request` was not properly rejecting on XHR timeout.
+
+[fireblog](https://fireblog.now.sh/) - *Deprecated.* a blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
+
+[colm](https://addons.mozilla.org/en-US/firefox/addon/colm/) - a Firefox browser extension to create a custom newtab page using Markdown. Built with Mithril.js.
+
+[last.fm userscript](https://gitlab.com/kevinfiol/lastfm-artists-userscript) - a userscript for Last.fm to add a 'Compare Artists' functionality to user profiles. Built with Hyperapp.
+
+[parasite](https://keb.itch.io/parasite) - A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration. Built with Impact.js.
