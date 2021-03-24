@@ -3,7 +3,7 @@ title = "demos"
 template = "page.html"
 +++
 
-A collection of stuff I've worked on or made. Visit my [Github](https://github.com/kevinfiol) for more.
+A collection of stuff I've worked on or made. Visit my [Github page](https://github.com/kevinfiol) for more.
 
 [enhanced-gog](https://github.com/kevinfiol/enhanced-gog) - a userscript for [GOG.com](https://gog.com) that aims to improve the overall browsing experience by automatically finding and displaying current and historically lowest prices for games across multiple online stores. Enjoyed by many in the GOG community. Built with Hyperapp.
 
@@ -26,3 +26,5 @@ A collection of stuff I've worked on or made. Visit my [Github](https://github.c
 [last.fm userscript](https://gitlab.com/kevinfiol/lastfm-artists-userscript) - a userscript for Last.fm to add a 'Compare Artists' functionality to user profiles. Built with Hyperapp.
 
 [parasite](https://keb.itch.io/parasite) - A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration. Built with Impact.js.
+
+[kevinfiol.com](https://github.com/kevinfiol/kevinfiol.com) - *This site!* Built with Zola & Markdown. 11ty and Jekyll before then. Personal sites are a great vehicle for exploring static-site generators 🙂.
