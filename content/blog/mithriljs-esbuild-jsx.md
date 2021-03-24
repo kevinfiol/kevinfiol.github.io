@@ -43,3 +43,5 @@ var JSX = {
     }
 };
 ```
+
+For reference, you can see my full esbuild config and my bundle scripts [here](https://github.com/kevinfiol/mithril-pres/tree/master/scripts). Direct any questions to [me@kevinfiol.com](mailto:me@kevinfiol.com) and I'd be happy to answer them.
