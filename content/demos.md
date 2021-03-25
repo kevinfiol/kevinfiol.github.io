@@ -13,7 +13,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [steam friend night](https://sfn.now.sh) - a web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. Server code [here](https://github.com/kevinfiol/sfn-server).
 
-[steam-service](https://github.com/kevinfiol/steam-service) - a REST API service that serves data from the Steam Web and Storefront API in JSON format. Used for the above-mentioned steam-friend-night. Caches game data in Postgres DB. Built with PHP7, Slim, and Doctrine ORM.
+[steam-service](https://github.com/kevinfiol/steam-service) - a REST API that serves data from the Steam Web and Storefront API. Used for the above-mentioned steam-friend-night. Caches game data with Postgres. Built with PHP7, Slim, and Doctrine ORM.
 
 [mithril-pres](https://mithril.netlify.app/) - a presentation full of practical examples demonstrating [Mithril.js](https://mithril.js.org), including client-side routing, stream data-types, third-party library integration, and JSX. Source code [here](https://github.com/kevinfiol/mithril-pres).
 
