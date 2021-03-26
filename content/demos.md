@@ -17,7 +17,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [mithril-pres](https://mithril.netlify.app/) - a presentation full of practical examples demonstrating [Mithril.js](https://mithril.js.org), including client-side routing, stream data-types, third-party library integration, and JSX. Source code [here](https://github.com/kevinfiol/mithril-pres).
 
-[mithril.js](https://github.com/MithrilJS/mithril.js) - *Contributor*. PR to fix annoying bug where `m.request` was not properly rejecting on XHR timeout.
+[backlog](https://github.com/kevinfiol/backlog) - a tiny tool written in JavaScript to help manage video game backlogs. Built with Polka, Preact, and SQLite. [Demo hosted on my Raspberry Pi](https://backlog.sheev.net/).
 
 [fireblog](https://fireblog.now.sh/) - *Deprecated.* a blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
 
@@ -28,3 +28,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 [parasite](https://keb.itch.io/parasite) - A game and interactive poem created for a Literary Studies course. Includes a brief essay on its meaning and inspiration. Built with Impact.js.
 
 [kevinfiol.com](https://github.com/kevinfiol/kevinfiol.com) - *This site!* Built with Zola & Markdown. 11ty and Jekyll before then. Personal sites are a great vehicle for exploring static-site generators 🙂.
+
+## Contributions
+
+[mithril.js](https://github.com/MithrilJS/mithril.js) - *Contributor*. PR to fix annoying bug where `m.request` was not properly rejecting on XHR timeout.
