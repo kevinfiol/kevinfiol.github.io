@@ -17,7 +17,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [mithril-pres](https://mithril.netlify.app/) - a presentation full of practical examples demonstrating [Mithril.js](https://mithril.js.org), including client-side routing, stream data-types, third-party library integration, and JSX. Source code [here](https://github.com/kevinfiol/mithril-pres).
 
-[backlog](https://github.com/kevinfiol/backlog) - a tiny tool written in JavaScript to help manage video game backlogs. Built with Polka, Preact, and SQLite. [Demo hosted on my Raspberry Pi](https://backlog.sheev.net/).
+[backlog](https://github.com/kevinfiol/backlog) - a small web application to help manage video game backlogs. Built with Polka, Preact, and SQLite. [Demo hosted on my Raspberry Pi](https://backlog.sheev.net/).
 
 [fireblog](https://fireblog.now.sh/) - *Deprecated.* a blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
 
