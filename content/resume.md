@@ -18,9 +18,9 @@ template = "resume.html"
 ### Experience
 
 * **ICF** • *Web Developer III* • __03/2019 to Present__
-    * Led or was a primary front-end developer on multiple .gov and .org site redesigns including opa.hhs.gov, stopalcoholabuse.gov, womenshealth.gov, and region8cc.org.
-    * Responsibilities included translating design elements into modular SASS components, using BEM methodology to improve CSS maintainability, integrating external APIs, and writing UI components and widgets.
-    * Assisted back-end developers when necessary to balance workload, writing custom Drupal modules, assisting with ASP.NET WebForms backend, and providing MSSQL database migration scripts.
+    * Primary front-end developer on opa.hhs.gov, stopalcoholabuse.gov, womenshealth.gov, and region8cc.org.
+    * Responsibilities include: translating design wireframes to SASS components, employing BEM methodolody, creating custom UI components with JavaScript, integrating external APIs, and ensuring 508 Accessibility Compliance.
+    * Regularly assisted back-end developers to balance workload, writing custom Drupal modules, developing ASP.NET WebForms backend, and providing MSSQL database migration scripts.
     * Gave multiple presentations to audiences of up to 40 employees on topics such as React.js, Mithril.js, Cypress Testing Framework, and Drupal Custom Module Development.
 
 * **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to 03/2019__
@@ -49,8 +49,8 @@ template = "resume.html"
 
 ### Skills
 
-1. JavaScript, PHP, Python
-1. Rollup, ESbuild, Webpack
+1. (Strong) JavaScript, (Familiar) PHP, Python, Lua
+1. Node.js build tools, including Rollup, ESbuild, Gulp
 1. REST API design & development
 1. HTML/CSS, including flexbox & CSS Grid
 1. Practical Database experience, ORMs, MySQL, Postgres
