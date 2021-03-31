@@ -49,7 +49,7 @@ template = "resume.html"
 
 ### Skills
 
-1. Client & Server-Side JavaScript
+1. JavaScript, PHP, Python
 1. Rollup, ESbuild, Webpack
 1. REST API design & development
 1. HTML/CSS, including flexbox & CSS Grid
