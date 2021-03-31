@@ -15,16 +15,46 @@ template = "resume.html"
 
 ---
 
+### Experience
+
+* **ICF** • *Web Developer III* • __03/2019 to Present__
+    * Led or was a primary front-end developer on multiple .gov and .org site redesigns including opa.hhs.gov, stopalcoholabuse.gov, womenshealth.gov, and region8cc.org.
+    * Responsibilities included translating design elements into modular SASS components, using BEM methodology to improve CSS maintainability, integrating external APIs, and writing UI components and widgets.
+    * Assisted back-end developers when necessary to balance workload, writing custom Drupal modules, assisting with ASP.NET WebForms backend, and providing MSSQL database migration scripts.
+    * Gave multiple presentations to audiences of up to 40 employees on topics such as React.js, Mithril.js, Cypress Testing Framework, and Drupal Custom Module Development.
+
+* **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to 03/2019__
+    * One of two developers responsible for data.nysed.gov, a public-facing data-driven site housing report card, enrollment, and administrative data for all districts and public schools of New York State.
+    * Provided front-end enhancements such as result autocomplete; participated in code reviews and pair programming sessions; Engaged in regular codebase readability/maintainability improvements.
+    * Designed internal REST Search API and accompanying single-page search application with auto-predicting and criteria filtering features using React, Slim Framework, and Redis.
+
+* **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
+    * Coordinated with dev team to improve documentation and style consistency by applying C# Coding Conventions.
+    * Followed S.O.L.I.D. design paradigms by Robert C. Martin to write and refactor codebases.
+    * Collaborated with QA Team to resolve bugs, and propose / implement UX enhancements.
+
+---
+
+### Open Source
+
+* **enhanced-gog** • A JavaScript plugin for GOG.com that fetches and displays current and historically lowest prices from multiple storefronts while you browse. Enjoyed by many users in the GOG.com community.
+
+* **steam friend night** • A Svelte app to find the intersection between you and your friends' Steam libraries; allows filtering results by supported operating systems, or categories (such as Multiplayer games).
+
+* **etto** • A small, framework-agnostic autocomplete and select component for modern JavaScript projects with zero dependencies. Available for browsers or on NPM.
+
+* **fireblog** • A single-page blogging application powered by Google Firebase Realtime Database, complete with user authentication, profile pages, and a Markdown editor. 
+
+---
+
 ### Skills
 
-1. JavaScript / ES6 / Node / jQuery
-1. NPM / Yarn / Webpack
-1. C# / .NET
-1. HTML5 / CSS3
-1. PHP / Composer
-1. MySQL / T-SQL / PostgreSQL
-1. REST / JSON / HTTP
-1. Git / SVN
+1. Client & Server-Side JavaScript
+1. Rollup, ESbuild, Webpack
+1. REST API design & development
+1. HTML/CSS, including flexbox & CSS Grid
+1. Practical Database experience, ORMs, MySQL, Postgres
+1. Familiarity with Linux, Docker, and Git workflows
 
 ---
 
@@ -35,41 +65,3 @@ template = "resume.html"
 
 * **Bachelor of Arts in English Literature** • __2014__
     * Florida Atlantic University, Boca Raton, FL
-
----
-
-### Experience
-
-* **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to Present__
-    * Implemented public RESTful API using Slim PHP framework to serve State Public Education data (JSON).
-    * Designed SPA search application with auto-predicting and criteria filtering features using ES6, Webpack, and React.
-    * Created PHP full-text search library and employed Redis for object-caching, improving site result speeds.
-
-* **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
-    * Coordinated with dev team to improve documentation and style consistency by applying C# Coding Conventions.
-    * Applied S.O.L.I.D. design paradigms and refactored monolithic codebases to improve code modularity.
-    * Collaborated with QA Team to resolve bugs, and propose / implement UX enhancements.
-
-* **AOD Software** • *Software Developer* • __12/2014 to 02/2016__
-    * Learned and used Magic XPA Development Kit to develop features for .NET-based Point of Sale platform.
-    * Designed interface to ease the importation of CSV & XML files to Pervasive SQL database.
-    * Minimized web browser payload by reducing & rewriting JavaScript dependencies.
-
----
-
-### Open Source
-
-* **Enhanced GOG.com** • [Demo](https://github.com/kevinfiol/enhanced-gog)
-    * A JavaScript user plugin for GOG.com that automatically fetches pricing data and history while browsing.
-    * Compares prices across multiple websites to present current lowest pricing, and features a country & region selector.
-    * Developed with a single 1KB dependency, and maintained with feedback from the GOG.com community.
-
-* **Search Suggestion Library** • [Demo](https://kevinfiol.github.io/otto/)
-    * A lightweight search-suggestion library written in Vanilla JavaScript / ES5 with zero dependencies.
-    * Allows local or remote sources via AJAX to be loaded on keypress, while caching results to reduce server load.
-    * Responsive, easily configurable styles, and robust options to allow for custom event handlers.
-
-* **Steam Friend Tool** • [Demo](https://sfn.herokuapp.com/)
-    * Single-page application using Valve's Steam API that lets users view what games they have in common with friends.
-    * Filter search results by game platforms and/or genres, without page reloads.
-    * Entries for each game are stored and retrieved in a PostgreSQL Heroku Database, allowing for faster load times.
