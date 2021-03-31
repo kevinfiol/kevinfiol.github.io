@@ -18,12 +18,20 @@ template = "resume.html"
 ### Experience
 
 * **ICF** • *Web Developer III* • __03/2019 to Present__
-    * 
+    * Led or was a primary front-end developer on multiple .gov and .org site redesigns including opa.hhs.gov, stopalcoholabuse.gov, womenshealth.gov, and region8cc.org.
+    * Responsibilities included translating design elements into modular SASS components, using BEM methodology to improve CSS maintainability, integrating external APIs, and writing UI components and widgets.
+    * Assisted back-end developers when necessary to balance workload, writing custom Drupal modules, assisting with ASP.NET WebForms backend, and providing MSSQL database migration scripts.
+    * Gave multiple presentations to audiences of up to 40 employees on topics such as React.js, Mithril.js, Cypress Testing Framework, and Drupal Custom Module Development.
 
 * **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to 03/2019__
     * One of two developers responsible for data.nysed.gov, a public-facing data-driven site housing report card, enrollment, and administrative data for all districts and public schools of New York State.
     * Provided front-end enhancements such as result autocomplete; participated in code reviews and pair programming sessions; Engaged in regular codebase readability/maintainability improvements.
     * Designed internal REST Search API and accompanying single-page search application with auto-predicting and criteria filtering features using React, Slim Framework, and Redis.
+
+* **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
+    * Coordinated with dev team to improve documentation and style consistency by applying C# Coding Conventions.
+    * Followed S.O.L.I.D. design paradigms by Robert C. Martin to write and refactor codebases.
+    * Collaborated with QA Team to resolve bugs, and propose / implement UX enhancements.
 
 ---
 
@@ -33,7 +41,7 @@ template = "resume.html"
 
 * **steam friend night** • A Svelte app to find the intersection between you and your friends' Steam libraries; allows filtering results by supported operating systems, or categories (such as Multiplayer games).
 
-* **etto** • A small, framework-agnostic autocomplete and select component for modern JavaScript projects. Zero dependencies. Available for browsers or on NPM.
+* **etto** • A small, framework-agnostic autocomplete and select component for modern JavaScript projects with zero dependencies. Available for browsers or on NPM.
 
 * **fireblog** • A single-page blogging application powered by Google Firebase Realtime Database, complete with user authentication, profile pages, and a Markdown editor. 
 
@@ -42,9 +50,9 @@ template = "resume.html"
 ### Skills
 
 1. Client & Server-Side JavaScript
-1. Rollup, ESbuild, Webpack experience
+1. Rollup, ESbuild, Webpack
 1. REST API design & development
-1. HTML/CSS expertise, including flexbox & CSS Grid
+1. HTML/CSS, including flexbox & CSS Grid
 1. Practical Database experience, ORMs, MySQL, Postgres
 1. Familiarity with Linux, Docker, and Git workflows
 
