@@ -31,4 +31,4 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 ## Contributions
 
-[mithril.js](https://github.com/MithrilJS/mithril.js) - *Contributor*. PR to fix annoying bug where `m.request` was not properly rejecting on XHR timeout.
+[mithril.js](https://github.com/MithrilJS/mithril.js) - *Contributor*. PR to fix annoying bug where `m.request` was not properly rejecting on XHR timeout. Wrote accompanying test cases for proper rejections using Mithril's `xhrMock` utility.
