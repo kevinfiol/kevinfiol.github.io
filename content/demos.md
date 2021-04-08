@@ -11,7 +11,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [etto](https://github.com/kevinfiol/etto) - tiny, framework-agnostic autocomplete and select component for modern JavaScript projects. Extremely customizable with zero dependencies, and CJS/ESM exports.
 
-[steam friend night](https://sfn.now.sh) - a web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. The [server](https://github.com/kevinfiol/sfn-server) is running via Docker container on a Raspberry Pi located in my home office, so excuse any downtime.
+[steam friend night](https://sfn.vercel.app) - a web app based on the Steam Web and Storefront API, used to find what multiplayer games you and your friends have in common. Built with Svelte and Tailwind CSS on the front-end, Polka, Knex, and Objection.js on the back-end. The [server](https://github.com/kevinfiol/sfn-server) is running via Docker container on a Raspberry Pi located in my home office, so excuse any downtime.
 
 [steam-service](https://github.com/kevinfiol/steam-service) - a REST API that serves data from the Steam Web and Storefront API. Used for the above-mentioned steam-friend-night. Caches game data with Postgres. Built with PHP7, Slim, and Doctrine ORM.
 
@@ -19,7 +19,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [backlog](https://github.com/kevinfiol/backlog) - a small web application to help manage video game backlogs. Built with Polka, Preact, and SQLite. I have an [instance](https://backlog.sheev.net/) running on a Raspberry Pi 4.
 
-[fireblog](https://fireblog.now.sh/) - *Deprecated.* a blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
+[fireblog](https://fireblog.vercel.app) - *Deprecated.* a blogging SPA solution powered by Google Firebase Realtime Database that allows for multiple user registration. Built with Mithril.js. Source code [here](https://github.com/kevinfiol/fireblog).
 
 [colm](https://addons.mozilla.org/en-US/firefox/addon/colm/) - a Firefox browser extension to create a custom newtab page using Markdown. Built with Mithril.js.
 
