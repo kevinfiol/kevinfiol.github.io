@@ -7,7 +7,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [enhanced-gog](https://github.com/kevinfiol/enhanced-gog) - a userscript for GOG.com enjoyed by many in the GOG community.
 
-[it's drm free](https://github.com/kevinfiol/its-drm-free) - a userscript for [steampowered.com](https://steampowered.com) to help find DRM-Free games.
+[it's drm free](https://github.com/kevinfiol/its-drm-free) - a userscript for steampowered.com to help find DRM-Free games.
 
 [isitdrmfree.com](https://isitdrmfree.com) - the accompanying site to the above userscript to quickly find DRM-Free games.
 
@@ -25,7 +25,7 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [colm](https://addons.mozilla.org/en-US/firefox/addon/colm/) - a Firefox browser extension to create a custom newtab page using Markdown.
 
-[last.fm userscript](https://gitlab.com/kevinfiol/lastfm-artists-userscript) - a userscript for Last.fm to add a 'Compare Artists' functionality to user profiles.
+[last.fm userscript](https://gitlab.com/kevinfiol/lastfm-artists-userscript) - a userscript for Last.fm to add a 'Compare Artists' functionality.
 
 [parasite](https://keb.itch.io/parasite) - a game and interactive poem created for a Literary Studies course.
 
