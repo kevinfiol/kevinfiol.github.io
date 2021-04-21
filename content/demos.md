@@ -13,6 +13,8 @@ A collection of stuff I've worked on or made. Visit my [Github page](https://git
 
 [etto](https://github.com/kevinfiol/etto) - small view-lib agnostic autocomplete component for JavaScript projects.
 
+[LÖVELY2D](https://github.com/kevinfiol/LOVELY2D) - a Sublime Text 4 plugin for the LÖVE2D game engine.
+
 [steam friend night](https://sfn.vercel.app) - a web app to find the intersection between Steam user libraries.
 
 [steam-service](https://github.com/kevinfiol/steam-service) - an open REST service for the Steam Web and Storefront APIs.
