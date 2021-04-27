@@ -18,9 +18,8 @@ template = "resume.html"
 ### Experience
 
 * **ICF** • *Web Developer III* • __03/2019 to Present__
-    * Primary front-end developer on multiple .gov sites, including opa.hhs.gov, stopalcoholabuse.gov, and womenshealth.gov.
-    * Translated design wireframes to reproducible, consistent UI components using SASS & JS UI libraries such as React/Preact/Mithril.
-    * Assisted back-end developers to balance workload, wrote custom Drupal modules, developed ASP.NET WebForms backend, and SQL database migration scripts.
+    * Primary front-end developer on opa.hhs.gov, stopalcoholabuse.gov, and womenshealth.gov.
+    * Translated design wireframes to reproducible, consistent UI components using SASS & view libraries.
     * Gave presentations to audiences of up to 40 employees on topics such as React.js, Mithril.js, Cypress Testing Framework, and Drupal Custom Module Development.
 
 * **New York State Education Department** • *Information Technology Specialist II* • __03/2017 to 03/2019__
@@ -41,7 +40,7 @@ template = "resume.html"
 
 * **steam friend night** • A Svelte app to find the intersection between you and your friends' Steam libraries; allows filtering results by supported operating systems, or categories (such as Multiplayer games).
 
-* **etto** • A small, framework-agnostic autocomplete and select component for modern JavaScript projects with zero dependencies. Available for browsers or on NPM.
+* **LÖVELY2D** • LÖVE2D Game Engine plugin for Sublime Text 4. Provides API information, autocomplete, and function signature helpers to aid in development.
 
 * **fireblog** • A single-page blogging application powered by Google Firebase Realtime Database, complete with user authentication, profile pages, and a Markdown editor. 
 
