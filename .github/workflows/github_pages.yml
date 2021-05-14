@@ -5,7 +5,9 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: alpine-edge
+    runs-on: self-hosted
+    container:
+      image: alpine-edge
     steps:
       - uses: actions/checkout@v1
       # Set up any tools and build steps here
