@@ -5,16 +5,14 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
-    container:
-      image: alpine-edge
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       # Set up any tools and build steps here
       # This example uses a Node.js toolchain to build a site
       - name: Install and Run Zola
         run: |
-          apk add zola --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
+          sudo snap install --edge zola
           zola build
 
       - name: deploy
