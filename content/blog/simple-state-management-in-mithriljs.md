@@ -12,7 +12,7 @@ I've since learned React and have come to appreciate it for its influence on mod
 
 ## Using simple variables
 
-When it comes to state management, Mithril is as unopinionated as they come. You can use Redux, Mobx, Cerebral, some implementation of the SAM pattern, or best of all -- just a plain ol' JavaScript object! Mithril comes with a global, auto-redraw system. The virtual DOM created by Mithril will diff against and synchronize the DOM whenever changes are made to your data layer. Most commonly, the redraws are triggered after an event defined in your Mithril application is triggered. But you can also manually trigger a DOM update with `m.redraw`.
+When it comes to state management, Mithril is as unopinionated as they come. You can use Redux, Mobx, Cerebral, some implementation of the SAM pattern, or best of all -- just a plain ol' JavaScript object! Mithril comes with a global, auto-redraw system. The virtual DOM created by Mithril will diff against and synchronize the DOM whenever changes are made to your data layer. Most commonly, the redraws are triggered after an event handler defined in your Mithril application is called. But you can also manually trigger a DOM update with `m.redraw`.
 
 What this means in practice is that you are free to structure your data however you'd like, and Mithril takes care of the rest. Below is an example of a simple Counter application written with Mithril:
 
