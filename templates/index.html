@@ -22,16 +22,16 @@
         <p class="mb1 mt0"><small><em>spaceman mascot by <a href="https://twitter.com/Haggle">twitter.com/haggle</a></em></small></p>
     </header>
 
-    <div class="py1">
+    <section class="py1">
         {% set blog = get_section(path="blog/_index.md") %}
         {% for post in blog.pages | slice(start=0, end=6) %}
             <article class="archive-link">
-                <span>{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</span>
+                <time datetime="{{ post.date | date(format="%Y-%m-%d", timezone="America/New_York") }}">{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</time>
                 -
-                <span><a href="{{ post.permalink }}">{{ post.title }}</a></span>
+                <header style="display: inline;"><a href="{{ post.permalink }}">{{ post.title }}</a></header>
             </article>
         {% endfor %}
-    </div>
+    </section>
 
     <nav class="py1">
         <a href="/archive/">archive →</a>
