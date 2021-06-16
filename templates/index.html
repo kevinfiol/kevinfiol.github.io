@@ -24,7 +24,7 @@
 
     <div class="line" aria-hidden="true"></div>
 
-    <section class="py1">
+    <section>
         {% set blog = get_section(path="blog/_index.md") %}
         {% for post in blog.pages | slice(start=0, end=6) %}
             <article class="archive-link">
