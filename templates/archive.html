@@ -8,10 +8,10 @@
     <h2>archive</h2>
     {% set blog = get_section(path="blog/_index.md") %}
     {% for post in blog.pages %}
-        <div class="archive-link">
-            <span>{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</span>
+        <article class="archive-link">
+            <time datetime="{{ post.date | date(format="%Y-%m-%d", timezone="America/New_York") }}">{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</time>
             -
-            <span><a href="{{ post.permalink }}">{{ post.title }}</a></span>
-        </div>
+            <header style="display: inline;"><a href="{{ post.permalink }}">{{ post.title }}</a></header>
+        </article>
     {% endfor %}
 {% endblock content %}
