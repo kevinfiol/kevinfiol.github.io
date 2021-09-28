@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <meta name="description" content="kevin f.'s personal site" />
-        <link rel="shortcut icon" href="{{ get_url(path="img/favicon.png") }}" type="image/x-icon" />
-        <link rel="stylesheet" href="{{ get_url(path="css/main.css") }}" />
+        <link rel="shortcut icon" href="{{ get_url(path="/img/favicon.png") }}" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ get_url(path="/css/main.css") }}" />
         {% block links %}
         {% endblock %}
 
@@ -37,6 +37,6 @@
         </main>
         {% block scripts %}
         {% endblock scripts %}
-        <script src="{{ get_url(path="js/dark-mode-switch.min.js") }}"></script>
+        <script src="{{ get_url(path="/js/dark-mode-switch.min.js") }}"></script>
     </body>
 </html>

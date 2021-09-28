@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "kevinfiol.com"
+base_url = "https://kevinfiol.com/"
 title = "kevin f."
 minify_html = true
 
