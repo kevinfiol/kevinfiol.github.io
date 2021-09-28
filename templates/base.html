@@ -11,7 +11,7 @@
         {% endblock %}
 
         {% block rss %}
-          <link rel="alternate" type="application/atom+xml" title="RSS" href='{{ get_url(path="atom.xml", trailing_slash=false) }}'>
+          <link rel="alternate" type="application/atom+xml" title="feed" href='{{ get_url(path="atom.xml", trailing_slash=false) }}'>
         {% endblock %}
         <title>
             {% if section.title %}
@@ -19,7 +19,7 @@
             {% elif page.title %}
                 {{ page.title }}
             {% else %}
-                {{ config.extra.title }}
+                {{ config.title }}
             {% endif %}
         </title>
     </head>
