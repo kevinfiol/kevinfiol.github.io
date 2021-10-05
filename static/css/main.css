@@ -124,7 +124,7 @@ p > code {
 .page-content ul {
     font-family: "Georgia", serif;
     font-size: 17px;
-    line-height: 28.5px;
+    line-height: 2rem;
 }
 .page-content img {
     max-width: 85%;
