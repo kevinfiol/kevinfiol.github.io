@@ -213,7 +213,7 @@ h6:hover > .zola-anchor {
         margin-top: 1rem;
     }
     .dark-mode-btn {
-        user-select: auto;
+        user-select: auto !important;
     }
 }
 @media (max-width: 1200px) {
