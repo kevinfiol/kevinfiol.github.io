@@ -212,6 +212,9 @@ h6:hover > .zola-anchor {
     .archive-link + .archive-link {
         margin-top: 1rem;
     }
+    .dark-mode-btn {
+        user-select: auto;
+    }
 }
 @media (max-width: 1200px) {
     .toc {
