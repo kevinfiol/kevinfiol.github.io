@@ -6,11 +6,11 @@ template = "post.html"
 
 # A minimal RSS Feed Reader
 
-Since mid-2020, I had been using [Inoreader](https://www.inoreader.com/) as my main RSS/Atom feed reader. Inoreader offers a generous free tier, giving you a maximum of 150 feeds per account, as well as a bunch of QoL features like search, bookmarking, and a dashboard that gives you reasonable amounts of customization. The free tier is ad-supported which is understandable. For the most part, the ads are unintrusive. Using an adblocker such as uBlock Origin ocassionally results in a popup reminder by Inoreader that their free tier is ad-supported, kindly asking you to disable your adblock.
+Since mid-2020, I had been using [Inoreader](https://www.inoreader.com/) as my main RSS/Atom feed reader. Inoreader offers a generous free tier, giving you a maximum of 150 feeds per account, as well as a bunch of QoL features like search, bookmarking, and a dashboard with reasonable amounts of customization. The free tier is ad-supported which is understandable. For the most part, the ads are unintrusive. Using an adblocker such as uBlock Origin ocassionally results in a popup reminder by Inoreader that their free tier is ad-supported, kindly asking you to disable your adblock.
 
 Last year, I had also come across George Mandis' [Bubo Reader](https://github.com/georgemandis/bubo-rss), an "irrationally minimalist, static RSS feed reader you can instantly deploy on Netlify, Glitch or your own server." George has a great introductory blogpost on his site [over here](https://george.mand.is/2019/11/introducing-bubo-rss-an-absurdly-minimalist-rss-feed-reader/) which I recommend reading if the description I gave seemed interesting at all. TL;DR: Bubo Reader is nothing but a static .html page that gets rebuilt and redeployed via a Node.js script. The script will be run at a set interval, fetch the latest posts from feeds (defined in a .json file), and *boom* you got a new `index.html` file with a couple `<ul>` lists of the latest articles.
 
-When I first checked out George's [demo](https://bubo-rss-demo.netlify.app/) for Bubo Reader, I thought simultaneously thought "wow this is cool!" and also "wow this is crappy!". My latter thought stemmed from the fact that the demo is really *irrationally* minimal.
+When I first checked out George's [demo](https://bubo-rss-demo.netlify.app/) for Bubo Reader, I simultaneously thought "wow this is cool!" and also "wow this is crappy!". My latter thought stemmed from the fact that the demo is really *irrationally* minimal.
 
 The genius of Bubo Reader is summarized in a few points that I realized slowly over the past year:
 
