@@ -58,90 +58,6 @@
 .dark-mode-btn:hover {
     opacity: 85%;
 }
-/*! Basscss | http://basscss.com | MIT License */
-.h1 {
-    font-size: 2rem;
-}
-.h2 {
-    font-size: 1.5rem;
-}
-.h3 {
-    font-size: 1.25rem;
-}
-.h4 {
-    font-size: 1rem;
-}
-.h5 {
-    font-size: 0.875rem;
-}
-.center {
-    text-align: center;
-}
-.list-reset {
-    list-style: none;
-    padding-left: 0;
-}
-.block {
-    display: block;
-}
-.inline-block {
-    display: inline-block;
-}
-.table {
-    display: table;
-}
-.max-width-2 {
-    max-width: 32rem;
-}
-.max-width-3 {
-    max-width: 48rem;
-}
-.m0 {
-    margin: 0;
-}
-.mt0 {
-    margin-top: 0;
-}
-.mb0 {
-    margin-bottom: 0;
-}
-.mb1 {
-    margin-bottom: 0.5rem;
-}
-.my1 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-.mt2 {
-    margin-top: 1rem;
-}
-.mr2 {
-    margin-right: 1rem;
-}
-.mx-auto {
-    margin-right: auto;
-}
-.mx-auto {
-    margin-left: auto;
-}
-.p0 {
-    padding: 0;
-}
-.p1 {
-    padding: 0.5rem;
-}
-.pb1 {
-    padding-bottom: 0.5rem;
-}
-.py1 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-.py3 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
 /* Main */
 h1,
 h2,
@@ -268,4 +184,92 @@ h6:hover > .zola-anchor {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--line-color);
+}
+hr {
+    border-style: solid;
+    border-color: var(--line-color);
+    border-width: 0 0 1px 0;
+}
+/*! Basscss | http://basscss.com | MIT License */
+.h1 {
+    font-size: 2rem;
+}
+.h2 {
+    font-size: 1.5rem;
+}
+.h3 {
+    font-size: 1.25rem;
+}
+.h4 {
+    font-size: 1rem;
+}
+.h5 {
+    font-size: 0.875rem;
+}
+.center {
+    text-align: center;
+}
+.list-reset {
+    list-style: none;
+    padding-left: 0;
+}
+.block {
+    display: block;
+}
+.inline-block {
+    display: inline-block;
+}
+.table {
+    display: table;
+}
+.max-width-2 {
+    max-width: 32rem;
+}
+.max-width-3 {
+    max-width: 48rem;
+}
+.m0 {
+    margin: 0;
+}
+.mt0 {
+    margin-top: 0;
+}
+.mb0 {
+    margin-bottom: 0;
+}
+.mb1 {
+    margin-bottom: 0.5rem;
+}
+.my1 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.mt2 {
+    margin-top: 1rem;
+}
+.mr2 {
+    margin-right: 1rem;
+}
+.mx-auto {
+    margin-right: auto;
+}
+.mx-auto {
+    margin-left: auto;
+}
+.p0 {
+    padding: 0;
+}
+.p1 {
+    padding: 0.5rem;
+}
+.pb1 {
+    padding-bottom: 0.5rem;
+}
+.py1 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.py3 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
