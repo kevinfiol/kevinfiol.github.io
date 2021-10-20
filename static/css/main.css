@@ -6,7 +6,7 @@
     --post-font-family: "PT Serif", "URW Bookman L", "Georgia", serif;
     --post-font-size: 17px;
     --post-line-height: 2rem;
-
+    
     --img-max-width: 85%;
 
     --color: #111;
@@ -15,6 +15,7 @@
     --link-color: #4e5192;
     --link-hover-color: #30325b;
 
+    --code-font-size: 14px;
     --code-bg-color: #202020;
     --line-color: #dedede;
 }
@@ -89,7 +90,7 @@ pre {
     overflow-x: auto;
 }
 p > code {
-    font-size: 16px;
+    font-size: var(--code-font-size);
     background-color: var(--code-bg-color);
     color: white;
     padding: 0.15em 0.3em;
