@@ -74,7 +74,7 @@ Configuring our buildstep via CLI flags can get unwieldy over time. With other b
 }
 ```
 
-This doesn't do anything yet, because `build.js` is empty. Let's fix that by translating our previous build CLI call to a Node script. That will look something like this:
+This doesn't do anything yet, because `scripts/build.js` is empty. Let's fix that by translating our previous build CLI call to a Node script. That will look something like this:
 
 ```js
 // scripts/build.js
@@ -158,7 +158,7 @@ Add the `dev` script to your `package.json`:
 }
 ```
 
-And now `npm run dev` will watch and rebundle your app as you develop your app.
+And now `npm run dev` will watch and rebundle your app on every file change.
 
 ## What about the server?
 
