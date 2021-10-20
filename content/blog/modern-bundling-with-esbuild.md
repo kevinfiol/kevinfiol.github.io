@@ -11,7 +11,7 @@ These days, you can get a pretty robust build setup for a modern browser app usi
   * esbuild ships as a static binary; in practice this means adding it as a dependency won't bloat your project with npm packages
   * that lack of npm packages also means less dependabot alerts, since the less dependencies your project relies on, the less likely it is to be vulnerable to security concerns
   * esbuild's bundle times are *much* faster than rollup/webpack/parcel
-  * esbuild includes support for TypeScript and JSX
+  * esbuild includes support for TypeScript and JSX transpilation
 
 That's a lot of bang for your buck for a single dev dependency. 
 
