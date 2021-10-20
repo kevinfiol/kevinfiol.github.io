@@ -6,7 +6,7 @@ template = "post.html"
 
 # Modern bundling with esbuild
 
-These days, you can setup a pretty robust build setup for a modern browser app using just [esbuild](https://esbuild.github.io/). The benefits of using esbuild over rollup, webpack, or parcel are numerous, but the few that stand out to me are:
+These days, you can get a pretty robust build setup for a modern browser app using just [esbuild](https://esbuild.github.io/). The benefits of using esbuild over rollup, webpack, or parcel are numerous, but the few that stand out to me are:
 
   * esbuild ships as a static binary; in practice this means adding it as a dependency won't bloat your project with npm packages
   * that lack of npm packages also means less dependabot alerts, since the less dependencies your project relies on, the less likely it is to be vulnerable to security concerns
