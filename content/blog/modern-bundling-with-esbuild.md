@@ -203,6 +203,7 @@ Re-run `npm run dev` and we'll have our live-reloading dev server up:
 
 ```bash
 $ npm run dev
+
 Serving 🍛
 
 Local → http://localhost:8000
@@ -212,4 +213,4 @@ Network → http://192.168.2.1:8000
 
 ## Conclusion
 
-I hope this was helpful to you, reader. If for whatever reason, you've made it this far and are not convinced and maybe want a more batteries-included solution, I highly recommend [Vite](https://vitejs.dev/) from Vue.js creator, Evan You. Vite actually uses esbuild for its own development mode to bundle vendor packages. But otherwise, I hope this has encouraged you to dig deeper into esbuild and to not be afraid to get your hands dirty in writing custom Node scripts to do your bundling. Sometimes what webpack and rollup do under the hood can seem like black magic since it's all abstracted away from you, basking in the comfort of a small config json file at the root of your project. You can cut away at a lot of that cruft by using simpler tools like esbuild, and get perf benefits and a better understanding of your tooling to boot!
+If for whatever reason, you've made it this far and are not convinced and maybe want a more batteries-included solution, I highly recommend [Vite](https://vitejs.dev/) from Vue.js creator, Evan You. Vite actually uses esbuild for its own development mode to bundle vendor packages. But otherwise, I hope this has encouraged you to dig deeper into esbuild and to not be afraid to get your hands dirty in writing custom Node scripts to do your bundling. Sometimes what webpack and rollup do under the hood can seem like black magic since it's all abstracted away from you, basking in the comfort of a small config json file at the root of your project. You can cut away at a lot of that cruft by using simpler tools like esbuild, and get perf benefits and a better understanding of your tooling to boot!
