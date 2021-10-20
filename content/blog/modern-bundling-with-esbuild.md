@@ -62,7 +62,7 @@ $ npm run dev
  > Network: http://192.168.1.3:8000/
 ```
 
-If you're wondering where you generated output files are, no worries: esbuild's serve mode serves the bundled files directly from memory. They are never written to your disk unless you intentionally omit the `servedir` variable.
+If you're wondering where your generated output files are, no worries: esbuild's serve mode serves the bundled files directly from memory. They are never written to your disk unless you intentionally omit the `servedir` variable.
 
 ## Using the Build API
 
