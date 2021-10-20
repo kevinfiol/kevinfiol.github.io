@@ -23,7 +23,7 @@ First off, install esbuild in your project if you haven't already.
 npm install --save-dev esbuild
 ```
 
-You can use esbuild via CLI or its Node API. For tiny apps where your build config is practically non-existent, using the CLI is a fine way to. You can simply define a script in your `package.json` file and be ready to go.
+You can use esbuild via CLI or its Node API. For tiny apps where your build config is practically non-existent, using the CLI is a fine way to go. You can simply define a script in your `package.json` file and be ready to go.
 
 ```json
 "scripts": {
