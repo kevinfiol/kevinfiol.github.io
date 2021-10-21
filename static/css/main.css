@@ -16,6 +16,7 @@
     --link-hover-color: #30325b;
 
     --code-font-size: 14px;
+    --pre-line-height: 1.5em;
     --code-bg-color: #202020;
     --line-color: #dedede;
 }
@@ -87,6 +88,7 @@ a:hover {
 }
 pre {
     font-size: var(--code-font-size);
+    line-height: var(--pre-line-height);
     padding: 1em;
     overflow-x: auto;
 }
