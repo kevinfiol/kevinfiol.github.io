@@ -178,9 +178,9 @@ import { bundle } from './bundle.js';
 
 // create server
 const server = servbot({
-    root: 'dist',
-    reload: true,
-    fallback: 'index.html' // fallback to index.html for SPA routes
+  root: 'dist',
+  reload: true,
+  fallback: 'index.html' // fallback to index.html for SPA routes
 });
 
 // start our server at localhost:8000
