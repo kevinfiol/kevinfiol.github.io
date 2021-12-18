@@ -184,7 +184,7 @@ const server = servbot({
 });
 
 // start our server at localhost:8000
-server.listen(8080);
+server.listen(8000);
 
 bundle({
   minify: false,
@@ -207,7 +207,7 @@ Re-run `npm run dev` and we'll have our live-reloading dev server up:
 ```bash
 $ npm run dev
 
-[servbot] Server started: http://localhost:8080
+[servbot] Server started: http://localhost:8000
 ```
 
 ## Conclusion
