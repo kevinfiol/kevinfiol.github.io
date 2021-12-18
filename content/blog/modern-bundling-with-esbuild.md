@@ -164,7 +164,7 @@ And now `npm run dev` will watch and rebundle your app on every file change.
 
 You very well could use esbuild's "serve" mode in your `scripts/dev.js` script if you'd like to. You would have to adjust the scripts we've created so that "dev" mode uses `esbuild.serve` instead of `esbuild.build`. While I like that esbuild has a built-in server, it does not support live-reload, which is a nice feature to have. You could implement your own live reload using `esbuild.serve`, but a simpler solution would be to include some kind of server in our project as a dev dependency. I've found that [nativew/serve](https://github.com/nativew/serve) was a fine candidate for this. At [18.7kb](https://packagephobia.com/result?p=create-serve) with 0 dependencies, it was a guilt-free inclusion. Install with npm as normal.
 
-**Update (12/18/2021):** Since writing this article, I've published a fork of lukejacksonn's [servor](https://github.com/lukejacksonn/servor) project titled [servbot](https://github.com/lukejacksonn/servor), which is smaller in scope and intended to be used with existing JS build tools. My move away from **nativew/serve** was motivated by its lack of SPA support. The instructions below have been updated for **servbot**:
+**Update (12/18/2021):** Since writing this article, I've published a fork of lukejacksonn's [servor](https://github.com/lukejacksonn/servor) project titled [servbot](https://github.com/kevinfiol/servbot), which is smaller in scope and intended to be used with existing JS build tools. My move away from **nativew/serve** was motivated by its lack of SPA support. The instructions below have been updated for **servbot**:
 
 ```bash
 npm install --save-dev servbot
