@@ -173,7 +173,7 @@ Now let's modify our `scripts/dev.js`:
 
 ```js
 // scripts/dev.js
-import serve from 'create-serve';
+import servbot from 'servbot';
 import { bundle } from './bundle.js';
 
 // create server
