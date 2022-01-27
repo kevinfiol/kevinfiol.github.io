@@ -101,7 +101,7 @@ Let's create a new file in our scripts folder, called `scripts/bundle.js` that w
 import esbuild from 'esbuild';
 import { resolve } from 'path';
 
-export async function bundle(config = {}) {
+export function bundle(config = {}) {
   return esbuild.build({
     format: 'iife',
     entryPoints: [resolve('index.js')],
