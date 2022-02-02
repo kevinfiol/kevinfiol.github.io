@@ -17,7 +17,12 @@ template = "resume.html"
 
 ### Experience
 
-* **ICF** • *Web Developer III* • __03/2019 to Present__
+* **Circulo Health** • *Software Enginer* • __09/2021 to Present__
+    * Engineered application front-ends and APIs servicing over 30 medical providers on Olive AI's Olive Helps SaaS.
+    * Built APIs using Next.js, AWS Lambda, and Supabase to provide data endpoints to our "Loop" applications.
+    * Participated in regular codebase maintenance with other engineers, added a database migration workflow, and contributed a development script upgrade that sped up TypeScript codebase development times by 50%.
+
+* **ICF** • *Web Developer III* • __03/2019 to 09/2021__
     * Primary front-end developer on opa.hhs.gov, stopalcoholabuse.gov, and womenshealth.gov.
     * Translated design wireframes to reproducible, consistent UI components using SASS & view libraries.
     * Gave presentations to audiences of up to 40 employees on topics such as React.js, Mithril.js, Cypress Testing Framework, and Drupal Custom Module Development.
@@ -29,8 +34,8 @@ template = "resume.html"
 
 * **Cendyn** • *Software Developer* • __09/2016 to 02/2017__
     * Coordinated with dev team to improve documentation and style consistency by applying C# Coding Conventions.
-    * Followed S.O.L.I.D. design paradigms by Robert C. Martin to write and refactor codebases.
-    * Collaborated with QA Team to resolve bugs, and propose / implement UX enhancements.
+    * Followed S.O.L.I.D. design paradigms by Robert C. Martin to write and refactor ASP.NET backend.
+    * Implemented front-end designs for Red Lion Hotel products using Bootstrap, Select2, JavaScript, and jQuery.
 
 ---
 
@@ -38,11 +43,9 @@ template = "resume.html"
 
 * **enhanced-gog** • A JavaScript plugin for GOG.com that fetches and displays current and historically lowest prices from multiple storefronts while you browse. Enjoyed by many users in the GOG.com community.
 
-* **steam friend night** • A Svelte app to find the intersection between you and your friends' Steam libraries; allows filtering results by supported operating systems, or categories (such as Multiplayer games).
-
 * **LÖVELY2D** • LÖVE2D Game Engine plugin for Sublime Text 4. Provides API information, autocomplete, and function signature helpers to aid in development.
 
-* **fireblog** • A single-page blogging application powered by Google Firebase Realtime Database, complete with user authentication, profile pages, and a Markdown editor. 
+* **isitdrmfree.com** • A search tool for finding digital games that are available free of Digital-Rights Management restrictions. Deployed as a Docker container on a Raspberry Pi 4.
 
 ---
 
