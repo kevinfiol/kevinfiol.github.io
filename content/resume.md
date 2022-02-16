@@ -45,7 +45,7 @@ template = "resume.html"
 
 * **LÖVELY2D** • LÖVE2D Game Engine plugin for Sublime Text 4. Provides API information, autocomplete, and function signature helpers to aid in development.
 
-* **isitdrmfree.com** • A search tool for finding digital games that are available free of Digital-Rights Management restrictions. Deployed as a Docker container on a Raspberry Pi 4.
+* **isitdrmfree.com** • A search tool for finding digital games that are available free of Digital-Rights Management restrictions. Deployed via Docker on a Raspberry Pi 4.
 
 ---
 
