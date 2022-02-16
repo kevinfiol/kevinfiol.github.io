@@ -18,7 +18,7 @@ template = "resume.html"
 ### Experience
 
 * **Circulo Health** • *Software Enginer* • __09/2021 to Present__
-    * Engineered application front-ends and APIs servicing over 30 medical providers on Olive AI's Olive Helps SaaS.
+    * Engineered application front-ends and APIs servicing over 100 medical providers on Olive AI's Olive Helps SaaS.
     * Built APIs using Next.js, AWS Lambda, and Supabase to provide data endpoints to our "Loop" applications.
     * Participated in regular codebase maintenance with other engineers, added a database migration workflow, and contributed a development script upgrade that sped up TypeScript codebase development times by 50%.
 
