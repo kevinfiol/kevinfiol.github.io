@@ -20,7 +20,7 @@
     --code-bg-color: #202020;
     --line-color: #dedede;
 }
-#dark-checkbox:checked ~ main {
+[data-theme="dark"] {
     --color: #ccc;
     --bg-color: #151515;
 
@@ -45,21 +45,22 @@
         display: none;
     }
 }
-#dark-checkbox {
-    display: none;
-}
-.dark-btn {
-    opacity: 55%;
-    user-select: none;
-}
-.dark-btn:hover {
-    opacity: 85%;
-}
-#dark-checkbox, .dark-btn {
+/*dark mode switch*/
+.dark-mode-container {
     position: fixed;
     top: 0;
     right: 0;
     padding: 0.5em;
+}
+#darkSwitch {
+    display: none;
+}
+.dark-mode-btn {
+    opacity: 55%;
+    user-select: none;
+}
+.dark-mode-btn:hover {
+    opacity: 85%;
 }
 /* Main */
 h1,
@@ -68,12 +69,6 @@ h3 {
     font-weight: 400;
 }
 body {
-    margin: 0;
-}
-main {
-    min-height: 100vh;
-    height: 100%;
-    width: 100%;
     font-family: var(--font-family);
     font-size: var(--font-size);
     background: var(--bg-color);
