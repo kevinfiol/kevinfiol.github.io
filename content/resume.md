@@ -34,7 +34,7 @@ template = "resume.html"
 
 ## Open Source
 
-* **enhanced-gog** • A JavaScript plugin for GOG.com that displays current and historically lowest prices from multiple storefronts while you browse, with multi-region currency support.
+* **Enhanced-GOG** • A JavaScript plugin for GOG.com that displays current and historically lowest prices from multiple storefronts while you browse, with multi-region currency support.
 
 * **LÖVELY2D** • LÖVE2D Game Engine plugin for Sublime Text 4. Provides API information, autocomplete, and function signature helpers to aid in development.
 
@@ -47,6 +47,8 @@ template = "resume.html"
 * **Bubo RSS Reader (Fork)** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions.
 
 * **Fireblog** • A full blogging application powered by Google Firebase and Firestore, with real-time page updates without page reloading, built as a single-page application.
+
+* **Servbot** • A static site server for toward local web development with support for single-page applications and a manual reload feature.
 
 * **Gitter.im Search** • A better search utility for Gitter-based chatrooms.
 
