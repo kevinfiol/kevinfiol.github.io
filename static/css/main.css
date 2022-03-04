@@ -20,7 +20,17 @@
     --code-bg-color: #202020;
     --line-color: #dedede;
 }
-[data-theme="dark"] {
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="l"]) {
+    --color: #ccc;
+    --bg-color: #151515;
+
+    --link-color: #abb5ea;
+    --link-hover-color: #d5dcff;
+    --line-color: #333;
+  }
+}
+[data-theme="d"] {
     --color: #ccc;
     --bg-color: #151515;
 
