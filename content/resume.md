@@ -48,7 +48,7 @@ template = "resume.html"
 
 * **Fireblog** • A full blogging application powered by Google Firebase and Firestore, with real-time page updates without page reloading, built as a single-page application.
 
-* **Servbot** • A static site server for toward local web development with support for single-page applications and a manual reload feature.
+* **Servbot** • A static site server for local web development with support for single-page applications and a manual reload feature.
 
 * **Gitter.im Search** • A better search utility for Gitter-based chatrooms.
 
