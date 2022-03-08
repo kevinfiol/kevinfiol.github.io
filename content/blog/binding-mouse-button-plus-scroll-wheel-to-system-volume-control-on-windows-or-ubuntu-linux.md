@@ -51,7 +51,25 @@ A few things to note:
 Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll)` as available modifiers.
 
   * The commands `pactl -- set-sink-volume 0 -5%` and `pactl -- set-sink-volume 0 +5%` assume you are using the PulseAudio sound driver. These commands may not work for you if you're using the ALSA sound driver, in which case, you may use commands like `amixer -q sset Master 5%-` and `amixer -q sset Master 5%+` respectively. If neither of these work, try `amixer -q -D pulse sset Master 5%+` and `amixer -q -D pulse sset Master 5%-`, or research how to control your master volume by command line on your system.
-  
+
+## Update, or, how to bind the Super key (03/08/2022)
+
+A little over a year later, I discovered [ksuperkey](https://github.com/hanschen/ksuperkey), and further [xfce-superkey](https://github.com/jixunmoe/xfce-superkey) (I am an XFCE user). Last year, I avoided binding to the Super key because more often than not, this will interfere with existing keybinds in DEs where the Super key opens the Applications menu. This is the case in XFCE where the Super key is used to open the Whisker Menu. While you can simply rebind your Applications shortcut to something other than `Super`, I personally find it hard to deprogram this instinct. The above utilities allow you to keep `Super` as your sole shortcut to `Applications` but also allow you to use it in other keyboard combinations. **Note:** if you use XFCE, you still have to unbind Whisker Menu from `Super` in your Keyboard settings -- don't worry though, you'll still be able to use `Super` after running `xfce-superkey`. After installing the above utility, I changed my `.xbindkeysrc` to:
+
+```
+"xdotool keydown Super_R keydown ctrl"
+    b:8
+
+"xdotool keyup Super_R keyup ctrl"
+    release + Mod4 + control + b:8
+
+"pactl -- set-sink-volume 0 -5%"
+    Mod4 + control + b:4
+
+"pactl -- set-sink-volume 0 +5%"
+    Mod4 + control + b:5
+```
+
 ## Helpful related reading
 
 * [Xbindkeys manpage](https://linux.die.net/man/1/xbindkeys)
