@@ -3,7 +3,7 @@ title = "resume"
 template = "resume.html"
 +++
 
-# Kevin Fiol
+# Kevin F.
 
 * Email: [me@kevinfiol.com](mailto:me@kevinfiol.com)
 * Phone: 802-753-0369
