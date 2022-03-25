@@ -44,7 +44,7 @@ template = "resume.html"
 
 * **Playnite Library Export** • A utility to allow users to export their libraries from multiple services such as Steam, EA Origin, Ubisoft Connect to a single JSON file on Github Gists.
 
-* **Bubo RSS Reader (Fork)** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions.
+* **Bubo RSS Reader (Fork)** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions. Updated hourly at [kevinfiol.com/reader](https://kevinfiol.com/reader).
 
 * **Fireblog** • A full blogging application powered by Google Firebase and Firestore, with real-time page updates without page reloading, built as a single-page application.
 
