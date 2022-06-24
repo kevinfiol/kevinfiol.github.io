@@ -40,19 +40,9 @@ template = "resume.html"
 
 * **isitdrmfree.com** • A search tool for finding digital games that are available free of Digital-Rights Management restrictions.
 
-* **Mithril.js** • A JavaScript framework for building single-page applications. Contributor and active community member. Assisted with 2.1.0 release, built community starter templates, and currently providing support to new users in the official chatroom.
-
-* **Playnite Library Export** • A utility to allow users to export their libraries from multiple services such as Steam, EA Origin, Ubisoft Connect to a single JSON file on Github Gists.
-
 * **Bubo RSS Reader (Fork)** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions. Updated hourly at [kevinfiol.com/reader](https://kevinfiol.com/reader).
 
-* **Fireblog** • A full blogging application powered by Google Firebase and Firestore, with real-time page updates without page reloading, built as a single-page application.
-
-* **Servbot** • A static site server for local web development with support for single-page applications and a manual reload feature.
-
 * **Gitter.im Search** • A better search utility for Gitter-based chatrooms.
-
-* **Mishape** • A tiny but powerful data-type validator available as both a JavaScript and Lua module.
 
 ---
 
