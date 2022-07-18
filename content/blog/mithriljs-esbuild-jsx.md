@@ -6,6 +6,8 @@ template = "post.html"
 
 # Mithril.js + esbuild + JSX
 
+**EDIT 7/18/2022:** esbuild has since added support for [string literals as JSX fragments](https://github.com/evanw/esbuild/issues/1217), meaning much of what I wrote below is now unncessary. To use JSX with Mithril and esbuild, all you need to do is set `jsxFragment: '"["'` in your esbuild config. See [here](https://github.com/kevinfiol/newt/blob/master/scripts/bundle.js) for an example.
+
 I recently bootstrapped a [Mithril.js](https://mithril.js.org) project using [esbuild](https://esbuild.github.io/) for my bundling purposes. If you don't already know, esbuild is a next-gen bundler written in Go by [Evan Wallace](https://github.com/evanw) that is magnitudes faster than rollup, webpack, or parcel (all of which are written in JS/TS).
 
 esbuild comes with JSX support out of the box. While I don't normally use JSX, I decided to create a demo for [mithril.netlify.app](https://mithril.netlify.app) showing off that JSX works just fine in a Mithril application. However, I ran into one major issue -- esbuild wasn't compiling JSX fragments correctly when providing `m.fragment` as the JSX fragment pragma. 
