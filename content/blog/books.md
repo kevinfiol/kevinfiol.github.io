@@ -6,7 +6,7 @@ template = "post.html"
 
 # Books
 
-A collection of (free) web books, guides, and references by category.
+A collection of (free) web books, guides, and references by category that I've found over the years. Suggestions welcome.
 
 ## General Programming
 
@@ -18,6 +18,24 @@ A collection of (free) web books, guides, and references by category.
 	* *A legendary text book. Not an easy read. Also see the [JavaScript Adaptation](https://sicp.comp.nus.edu.sg/).*
 * [Nature of Code](https://natureofcode.com/book/)
 	* *"This book focuses on a range of programming strategies and techniques behind computer simulations of natural systems, from elementary concepts in mathematics and physics to more advanced algorithms that enable sophisticated visual results."*
+
+## C/C++
+
+* [Build Your Own Lisp](https://www.buildyourownlisp.com/)
+	* *"If you're looking to learn C, or you've ever wondered how to build your own programming language, this is the book for you."*
+* [Build Your Own Text Editor](https://viewsourcecode.org/snaptoken/kilo/index.html)
+	* *A walkthrough tutorial on how to build a text editor with C.*
+* [Beej's Guide to C Programming](https://beej.us/guide/bgc/html/split/)
+	* *"This is a rather comprehensive guide to C for folks who already know how to program in another language. The first half of the book is written in a tutorial style, while the second half is a reference section complete with examples (inspired by the incomparable Turbo C Bible). The goal is to keep this up-to-date with the latest C standards."*
+* [C++ By Example](https://cppbyexample.com/)
+	* *"Here you will find clear and up to date C++ code examples with concise and straightforward explanations."*
+
+## Network Programming
+
+* [Beej's Guide to Network Programming](https://beej.us/guide/bgnet/html/)
+	* *"This document should give the average competent C programmer the edge s/he needs to get a grip on this networking noise."*
+* [Ethernet and IP Networking 101](https://iximiuz.com/en/posts/computer-networking-101/)
+	* *A software engineer's attempt at understanding and explaining networking in basic terms.*
 
 ## HTML/CSS
 * [MarkSheet](https://marksheet.io/)
@@ -32,6 +50,8 @@ A collection of (free) web books, guides, and references by category.
 	* *Like the HTML guide. Great reference material.*
 * [HTML Tips](https://thomasorus.com/html-tips.html)
 	* *A collection of beginner and advanced tips on HTML & CSS by [Thomasorus](https://github.com/thomasorus).*
+* [HTML semantics cheat sheet](https://learn-the-web.algonquindesign.ca/topics/html-semantics-cheat-sheet/)
+	* *A semantic HTML cheat sheet. Use semantic HTML to make your sites more accessible and consistent in functionality across devices.*
 
 ## JavaScript
 
@@ -60,7 +80,7 @@ A collection of (free) web books, guides, and references by category.
 * [The Modern JavaScript Tutorial](https://javascript.info/)
 	* *Comprehensive JavaScript reference.*
 * [Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)
-	* *A collection of design patterns for JavaScript. The section on module patterns is fantastic.*
+	* ***Update 2022**: This book's site has now been updated to a new, stylish guide website (patterns.dev) with a React slant. I am not a fan of the heavier website, nor the unagnostic React approach. The classic collection of design patterns for JavaScript can still be found on [this page](https://www.patterns.dev/posts/classic-design-patterns/) or better yet at the [archive link](https://archive.ph/93tHk).*
 * [Mozilla Developer Network: JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 	* *The gold standard of JavaScript references.*
 * [MDN: A re-introduction to JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
@@ -69,8 +89,6 @@ A collection of (free) web books, guides, and references by category.
 	* *As the title implies, a collection of "common tasks of managing HTML DOM with vanilla JavaScript.*
 * [Mixu's Node book](http://book.mixu.net/node/single.html)
 	* *A dated (2012), but beginner friendly introduction to server-side JavaScript with Node.js.*
-* [PureScript By Example](https://leanpub.com/purescript/read)
-	* *An introduction to a Haskell-influenced functional programming language that transpiles to JavaScript.*
 
 ## C#
 
@@ -105,6 +123,8 @@ A collection of (free) web books, guides, and references by category.
 	* *Official Rust Book.*
 * [Rust By Example](https://doc.rust-lang.org/stable/rust-by-example/)
 	* *An official collection of runnable examples in Rust.*
+* [Rust Cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
+	* *"A collection of simple examples that demonstrate good practices to accomplish common programming tasks, using the crates of the Rust ecosystem."*
 
 ## Elixir
 
@@ -151,6 +171,9 @@ A collection of (free) web books, guides, and references by category.
 * [All About Circuits](https://www.allaboutcircuits.com/textbook/)
 	* *"Starts from the very basic fundamentals of electricity, and builds up to quite complex circuits and their workings."*
 
+* [All About Electronic Circuits for Kids](https://archive.md/WTsUc)
+	* *Not a book, but a short introduction to Electronic Circuits for kids, along with a collection of useful links accessible to young learners.*
+
 ## Literature
 
 * [Standard E-Books](https://standardebooks.org/ebooks/)
@@ -166,8 +189,10 @@ A collection of (free) web books, guides, and references by category.
 
 ## Tech Interview Prep
 
-* [Tech Interview Handbook](https://github.com/yangshun/tech-interview-handbook)
-* [Front End Interview Handbook](https://github.com/yangshun/front-end-interview-handbook)
+* [Tech Interview Handbook](https://www.techinterviewhandbook.org/software-engineering-interview-guide/)
+* [Front End Interview Handbook](https://www.frontendinterviewhandbook.com/introduction/)
+* [Grind 75](https://www.techinterviewhandbook.org/grind75)
+	* *Not a book. This is a customizable study plan for grinding Leetcode problems.*
 
 ## Misc.
 
