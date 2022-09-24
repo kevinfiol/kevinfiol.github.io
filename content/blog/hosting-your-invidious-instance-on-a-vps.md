@@ -6,6 +6,8 @@ template = "post.html"
 
 # Hosting Your Invidious Instance on a VPS
 
+**Update 2022: This post is likely outdated. I recommend checking the official installation instructions found on the [Github repo](https://github.com/iv-org/invidious).**
+
 [Invidious](https://github.com/iv-org/invidious) is an alternative front-end to YouTube with an emphasis on privacy and low system resource usage. It is wonderful free software that not only does away with the annoyances of Google's bloated, ad-ridden video site, but also adds plenty of QoL features.
 
 This weekend I spent some time setting up my own instance of Invidious to share with friends. Here's a quick rundown on what I did:
