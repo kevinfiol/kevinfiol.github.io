@@ -109,7 +109,9 @@ p > code {
     padding: 0.15em 0.3em;
 }
 .page-content h1 {
-    font-size: 2em;
+    font-size: 1.75em;
+    border-bottom: 1px solid var(--line-color);
+    padding-bottom: 1rem;
 }
 .page-content p,
 .page-content table,
@@ -152,11 +154,7 @@ h1 > .zola-anchor {
     display: none;
 }
 .zola-anchor:hover,
-h2:hover > .zola-anchor,
-h3:hover > .zola-anchor,
-h4:hover > .zola-anchor,
-h5:hover > .zola-anchor,
-h6:hover > .zola-anchor {
+:where(h2, h3, h4, h5, h6):hover > .zola-anchor {
     opacity: 1;
     border-bottom: 0;
     box-shadow: 0 0 0;
