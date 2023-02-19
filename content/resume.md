@@ -28,7 +28,7 @@ template = "resume.html"
     * One of four developers responsible for development and launch of the Red Lion Hotels "Hello Rewards" program. Responsibilities included layout and design implementation using Bootstrap, Select2, and jQuery, as well as API implementation using an ASP.NET 4 backend and MSSQL. Co-ordinated with one other developer to improve internal documentation on C# Coding Conventions.
 
 * __12/2014 - 02/2016__ • *Software Developer* - MatrixCare
-    * Transitioned from Junior Engineer to one of two leads on the AOD Software Point of Sale platform. Specialized in developing native desktop applications for Microsoft Windows using the Magic XPA Development Kit. Worked with Senior Engineers in developing new features for our long-term care software suite, resolving bugfixes, communicating with our internal support team, and mentoring new staff.
+    * Transitioned from Junior Engineer to one of two leads on the AOD Software Point of Sale platform. Specialized in developing native desktop applications for Microsoft Windows using the Magic XPA Development Kit. Worked with Senior Engineers in developing new features for our long-term care software suite, resolving bugs, communicating with our internal support team, and mentoring new staff.
 
 ---
 
