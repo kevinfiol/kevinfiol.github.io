@@ -15,10 +15,10 @@ template = "resume.html"
 
 ## Work Experience
 
-* __09/2021 - Present__ • *Software Engineer*  - Ad Hoc
-    * Software Engineer working on healthcare.gov.
+* __09/2021 - Present__ • *Software Engineer* - Ad Hoc
+    * Software Engineer on the Enroll team, working on healthcare.gov to help users enroll in healthcare.
 
-* __09/2021 - 04/2022 • *Software Engineer*  - Circulo Health
+* __09/2021 - 04/2022__ • *Software Engineer* - Circulo Health
     * Responsible for creating React applications for Olive Helps, an Electron-based desktop application by Circulo's sister company that assists in automating tasks for over 100 healthcare providers. The applications use screen-reading, filesystem, browser, and keyboard listener APIs to be context-aware of user activities and provide information based on actions. As a Software Engineer, I was also responsible for building our underlying APIs, using Next.js, AWS Lambda, and Supabase. As an effort to increase the portability of our backends, I introduced a database migration workflow to our main API monorepo, and contributed a development script upgrade that sped up our TypeScript codebase development speeds by 50%.
 
 * __03/2019 - 09/2021__ • *Full-Stack Developer* - ICF
