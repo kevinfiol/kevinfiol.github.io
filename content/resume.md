@@ -15,7 +15,7 @@ template = "resume.html"
 
 ## Work Experience
 
-* __09/2021 - Present__ • *Software Engineer* - Ad Hoc
+* __06/2022 - Present__ • *Software Engineer* - Ad Hoc
     * Software Engineer on the Enroll team, working on healthcare.gov to help users enroll in healthcare.
 
 * __09/2021 - 04/2022__ • *Software Engineer* - Circulo Health
