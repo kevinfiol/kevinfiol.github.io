@@ -15,10 +15,10 @@ template = "resume.html"
 
 ## Work Experience
 
-* __06/2022 - Present__ • *Software Engineer* - Ad Hoc
-    * Software Engineer on the Enroll team, working on healthcare.gov to help users enroll in healthcare.
+* __06/2022 - Present__ • *Senior Software Engineer* - Ad Hoc
+    * Senior Software Engineer on HealthCare.gov responsible for developing TypeScript/React and Ruby/Rails applications that enable millions of Americans to enroll in healthcare and minimize insurance costs. Spearheaded efforts in collaboration with Dev Ops team to containerize our backend Rails application, and migrate from a legacy webserver (unicorn) for full encryption over transit. Led a front-end migration from react-scripts 4 to 5 which reduced the lines of code in our application by 1237 lines, and eventually enabled a migration to Vite. Introduced a performance enhancement by memoizing computationally expensive components on HealthCare.gov, reducing the render time of a major component by 80%. Created multiple enhancements to our deployment and testing pipeline such as: ANSI color outputs in our CI, disabling concurrent pull request builds to reduce CI load; enabled a workflow to only test affected libraries during CI; and authored a job to automatically build Docker images containing our dependencies to reduce time spent waiting for `npm install`s on our jobs.
 
-* __09/2021 - 04/2022__ • *Software Engineer* - Circulo Health
+* __09/2021 - 04/2022__ • *Senior Software Engineer* - Circulo Health
     * Responsible for creating React applications for Olive Helps, an Electron-based desktop application by Circulo's sister company that assists in automating tasks for over 100 healthcare providers. The applications use screen-reading, filesystem, browser, and keyboard listener APIs to be context-aware of user activities and provide information based on actions. As a Software Engineer, I was also responsible for building our underlying APIs, using Next.js, AWS Lambda, and Supabase. As an effort to increase the portability of our backends, I introduced a database migration workflow to our main API monorepo, and contributed a development script upgrade that sped up our TypeScript codebase development speeds by 50%.
 
 * __03/2019 - 09/2021__ • *Full-Stack Developer* - ICF
@@ -41,11 +41,13 @@ template = "resume.html"
 
 * **LÖVELY2D** • LÖVE2D Game Engine plugin for Sublime Text 4. Provides API information, autocomplete, and function signature helpers to aid in development.
 
-* **isitdrmfree.com** • A search tool for finding digital games that are available free of Digital-Rights Management restrictions.
+* **newt** • Markdown-powered dashboard for your Firefox New Tabs. [github.com/kevinfiol/newt](https://github.com/kevinfiol/newt)
 
-* **Bubo RSS Reader (Fork)** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions. Updated hourly at [kevinfiol.com/reader](https://kevinfiol.com/reader).
+* **RSS Reader** • An RSS Reader deployed as a mobile-responsive, lightweight, static site using Github Actions. Updated hourly at [kevinfiol.com/reader](https://kevinfiol.com/reader).
 
-* **Gitter.im Search** • A better search utility for Gitter-based chatrooms.
+* **umai** • A 1.7kb UI library with JSX support, an ergonomic API, and simple state management. [github.com/kevinfiol/umai](https://github.com/kevinfiol/umai)
+
+* **mdbin** • A full featured Markdown pastebin on Deno Deploy. [mdbin.deno.dev](https://mdbin.deno.dev/)
 
 ---
 
@@ -53,10 +55,10 @@ template = "resume.html"
 
 * (Strong) JavaScript, TypeScript, (Familiar) C, C#, PHP, Python, Lua
 * Node.js, Rollup, ESbuild, Webpack, Gulp, Express, Next.js
-* React, Redux, Svelte, Mithril.js, SWR, Elm Architecture
+* React, Redux, Svelte, Mithril.js
 * HTML/CSS, Flexbox, CSS Grid
-* MySQL, MariaDB, SQLite, Postgres, Doctrine, Knex, Objection.js, Postgres.js
-* AWS CodeCommit, AWS Lambda, Linux, Docker, Git Flow
+* SQLite, Postgres, Doctrine, Knex, Objection.js, Postgres.js
+* AWS CodeCommit, AWS Lambda, Linux, Docker, Git
 
 ---
 
