@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>kevin f.</title>
+	<link href="https://kevinfiol.com/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://kevinfiol.com/"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2021-10-20T00:00:00+00:00</updated>
+	<id>https://kevinfiol.com/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Modern bundling with esbuild</title>
+		<published>2021-10-20T00:00:00+00:00</published>
+		<updated>2021-10-20T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/modern-bundling-with-esbuild/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/modern-bundling-with-esbuild/</id>
+		<content type="html">&lt;h1 id=&quot;modern-bundling-with-esbuild&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#modern-bundling-with-esbuild&quot; aria-label=&quot;Anchor link for: modern-bundling-with-esbuild&quot;&gt;#&lt;&#x2F;a&gt;Modern bundling with esbuild&lt;&#x2F;h1&gt;
+&lt;p&gt;These days, you can get a pretty robust build setup for a modern browser app using just &lt;a href=&quot;https:&#x2F;&#x2F;esbuild.github.io&#x2F;&quot;&gt;esbuild&lt;&#x2F;a&gt;. The benefits of using esbuild over rollup, webpack, or parcel are numerous, but the few that stand out to me are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;esbuild ships as a static binary; in practice this means adding it as a dependency won&#x27;t bloat your project with npm packages&lt;&#x2F;li&gt;
+&lt;li&gt;that lack of npm packages also means less dependabot alerts, since the less dependencies your project relies on, the less likely it is to be vulnerable to security concerns&lt;&#x2F;li&gt;
+&lt;li&gt;esbuild&#x27;s bundle times are &lt;em&gt;much&lt;&#x2F;em&gt; faster than rollup&#x2F;webpack&#x2F;parcel&lt;&#x2F;li&gt;
+&lt;li&gt;esbuild includes support for TypeScript and JSX transpilation&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;That&#x27;s a lot of bang for your buck for a single dev dependency. &lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dead-simple-setup&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#dead-simple-setup&quot; aria-label=&quot;Anchor link for: dead-simple-setup&quot;&gt;#&lt;&#x2F;a&gt;Dead-simple setup&lt;&#x2F;h2&gt;
+&lt;p&gt;First off, install esbuild in your project if you haven&#x27;t already.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;npm&lt;&#x2F;span&gt;&lt;span&gt; install&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --save-dev&lt;&#x2F;span&gt;&lt;span&gt; esbuild
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can use esbuild via CLI or its Node API. For tiny apps where your build config is practically non-existent, using the CLI is fine. You can simply define a script in your &lt;code&gt;package.json&lt;&#x2F;code&gt; file and be ready to go.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;json&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-json &quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scripts&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild index.js --bundle --minify --outfile=.&#x2F;dist&#x2F;app.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Define a script like the one above, run &lt;code&gt;npm run build&lt;&#x2F;code&gt;, and your lightning-fast build is there, minified in all its glory. This isn&#x27;t terribly different than what you can already do with webpack, but when was the last time you saw webpack&#x27;s &lt;a href=&quot;https:&#x2F;&#x2F;npm.anvaka.com&#x2F;#&#x2F;view&#x2F;2d&#x2F;webpack&quot;&gt;dependency graph&lt;&#x2F;a&gt;? And that doesn&#x27;t even include &lt;a href=&quot;https:&#x2F;&#x2F;npm.anvaka.com&#x2F;#&#x2F;view&#x2F;2d&#x2F;webpack-cli&quot;&gt;webpack-cli&lt;&#x2F;a&gt;. Not to rag on webpack; it is an immensely powerful tool that many great projects rely on, but unless you&#x27;re already tangled in that web (heh), I&#x27;d suggest steering clear.&lt;&#x2F;p&gt;
+&lt;p&gt;esbuild also includes a built-in watch mode. No extra plugins needed! Let&#x27;s go ahead and define another script:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;json&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-json &quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scripts&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild index.js --outfile=dist&#x2F;app.js --bundle --minify&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dev&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild index.js --outfile=dist&#x2F;app.js --bundle --sourcemap --watch&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Make changes to &lt;code&gt;index.js&lt;&#x2F;code&gt; and you&#x27;ll see that &lt;code&gt;dist&#x2F;app.js&lt;&#x2F;code&gt; is re-bundled automatically. It&#x27;s even got source map support! Alternatively, we could take things a step further and utilize esbuild&#x27;s built-in server. Let&#x27;s change the &lt;code&gt;dev&lt;&#x2F;code&gt; script a bit:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;json&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-json &quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scripts&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild index.js --outfile=dist&#x2F;app.js --bundle --minify&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dev&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild src&#x2F;index.jsx --outfile=dist&#x2F;app.js --servedir=dist --bundle&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After running dev, you&#x27;ll see in your terminal that a server has been started. Navigate to &lt;code&gt;localhost:8000&lt;&#x2F;code&gt; to see the contents of your &lt;code&gt;dist&lt;&#x2F;code&gt; folder hosted locally.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; npm run dev
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;gt; Local:   &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;gt; Network: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;192.168.1.12:8000&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;gt; Network: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;172.11.100.1:8000&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt; &amp;gt; Network: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;192.168.1.3:8000&#x2F;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you&#x27;re wondering where your generated output files are, no worries: esbuild&#x27;s serve mode serves the bundled files directly from memory. They are never written to your disk unless you intentionally omit the &lt;code&gt;servedir&lt;&#x2F;code&gt; variable.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;using-the-build-api&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#using-the-build-api&quot; aria-label=&quot;Anchor link for: using-the-build-api&quot;&gt;#&lt;&#x2F;a&gt;Using the Build API&lt;&#x2F;h2&gt;
+&lt;p&gt;Configuring our buildstep via CLI flags can get unwieldy over time. With other bundlers, you get the benefit of config files, e.g., &lt;code&gt;rollup.config.js&lt;&#x2F;code&gt; or &lt;code&gt;webpack.config.js&lt;&#x2F;code&gt;. With esbuild, we can just use plain old Node scripts plus the existing Node APIs to configure our builds. Start by creating a new &lt;code&gt;.js&lt;&#x2F;code&gt; file under a directory for scripts, &lt;code&gt;scripts&#x2F;build.js&lt;&#x2F;code&gt;. Then, change our existing &lt;code&gt;build&lt;&#x2F;code&gt; script in our &lt;code&gt;package.json&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;json&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-json &quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scripts&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;node .&#x2F;scripts&#x2F;build.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This doesn&#x27;t do anything yet, because &lt;code&gt;scripts&#x2F;build.js&lt;&#x2F;code&gt; is empty. Let&#x27;s fix that by translating our previous build CLI call to a Node script. That will look something like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; scripts&#x2F;build.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;esbuild &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;resolve &lt;&#x2F;span&gt;&lt;span&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;path&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;esbuild&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;bundle&lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  format: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;iife&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;  entryPoints: [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;resolve&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;index.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)],
+&lt;&#x2F;span&gt;&lt;span&gt;  bundle: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  outfile: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;resolve&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dist&#x2F;app.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;}).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  process.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Running &lt;code&gt;npm run build&lt;&#x2F;code&gt; should function the same as before, but now we have more control over our bundles! But what about our dev script? And what if we want to reduce code duplication? After all, &lt;code&gt;build&lt;&#x2F;code&gt; and &lt;code&gt;dev&lt;&#x2F;code&gt; are very similar with just a couple different options.&lt;&#x2F;p&gt;
+&lt;p&gt;Let&#x27;s create a new file in our scripts folder, called &lt;code&gt;scripts&#x2F;bundle.js&lt;&#x2F;code&gt; that will contain the config that both &lt;code&gt;build.js&lt;&#x2F;code&gt; and &lt;code&gt;dev.js&lt;&#x2F;code&gt; will use.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; scripts&#x2F;bundle.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;esbuild &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;esbuild&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;resolve &lt;&#x2F;span&gt;&lt;span&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;path&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;export function &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;bundle&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;config &lt;&#x2F;span&gt;&lt;span&gt;= {}) {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;esbuild&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;    format: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;iife&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;    entryPoints: [&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;resolve&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;index.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)],
+&lt;&#x2F;span&gt;&lt;span&gt;    bundle: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    outfile: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;resolve&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dist&#x2F;app.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;    ...&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;config
+&lt;&#x2F;span&gt;&lt;span&gt;  });
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;As you see, &lt;code&gt;bundle.js&lt;&#x2F;code&gt; will contain all of our default configs. Let&#x27;s refactor &lt;code&gt;scripts&#x2F;build.js&lt;&#x2F;code&gt; to specifically create one minified build:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; scripts&#x2F;build.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bundle &lt;&#x2F;span&gt;&lt;span&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.&#x2F;bundle.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;bundle&lt;&#x2F;span&gt;&lt;span&gt;({ minify: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true &lt;&#x2F;span&gt;&lt;span&gt;})
+&lt;&#x2F;span&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;then&lt;&#x2F;span&gt;&lt;span&gt;(() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Bundled!&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;  })
+&lt;&#x2F;span&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;    process.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  });
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Our build script should now function like before. Let&#x27;s create &lt;code&gt;scripts&#x2F;dev.js&lt;&#x2F;code&gt; now:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; scripts&#x2F;dev.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bundle &lt;&#x2F;span&gt;&lt;span&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.&#x2F;bundle.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;bundle&lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  minify: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  sourcemap: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  watch: {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;onRebuild&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Bundled!&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;  process.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Add the &lt;code&gt;dev&lt;&#x2F;code&gt; script to your &lt;code&gt;package.json&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;json&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-json &quot;&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scripts&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: {
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;build&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;node .&#x2F;scripts&#x2F;build.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dev&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;node .&#x2F;scripts&#x2F;dev.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And now &lt;code&gt;npm run dev&lt;&#x2F;code&gt; will watch and rebundle your app on every file change.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-about-the-server&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#what-about-the-server&quot; aria-label=&quot;Anchor link for: what-about-the-server&quot;&gt;#&lt;&#x2F;a&gt;What about the server?&lt;&#x2F;h2&gt;
+&lt;p&gt;You very well could use esbuild&#x27;s &amp;quot;serve&amp;quot; mode in your &lt;code&gt;scripts&#x2F;dev.js&lt;&#x2F;code&gt; script if you&#x27;d like to. You would have to adjust the scripts we&#x27;ve created so that &amp;quot;dev&amp;quot; mode uses &lt;code&gt;esbuild.serve&lt;&#x2F;code&gt; instead of &lt;code&gt;esbuild.build&lt;&#x2F;code&gt;. While I like that esbuild has a built-in server, it does not support live-reload, which is a nice feature to have. You could implement your own live reload using &lt;code&gt;esbuild.serve&lt;&#x2F;code&gt;, but a simpler solution would be to include some kind of server in our project as a dev dependency. I&#x27;ve found that &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;nativew&#x2F;serve&quot;&gt;nativew&#x2F;serve&lt;&#x2F;a&gt; was a fine candidate for this. At &lt;a href=&quot;https:&#x2F;&#x2F;packagephobia.com&#x2F;result?p=create-serve&quot;&gt;18.7kb&lt;&#x2F;a&gt; with 0 dependencies, it was a guilt-free inclusion. Install with npm as normal.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Update (12&#x2F;18&#x2F;2021):&lt;&#x2F;strong&gt; Since writing this article, I&#x27;ve published a fork of lukejacksonn&#x27;s &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;lukejacksonn&#x2F;servor&quot;&gt;servor&lt;&#x2F;a&gt; project titled &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;kevinfiol&#x2F;servbot&quot;&gt;servbot&lt;&#x2F;a&gt;, which is smaller in scope and intended to be used with existing JS build tools. My move away from &lt;strong&gt;nativew&#x2F;serve&lt;&#x2F;strong&gt; was motivated by its lack of SPA support. The instructions below have been updated for &lt;strong&gt;servbot&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;npm&lt;&#x2F;span&gt;&lt;span&gt; install&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --save-dev&lt;&#x2F;span&gt;&lt;span&gt; servbot
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now let&#x27;s modify our &lt;code&gt;scripts&#x2F;dev.js&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; scripts&#x2F;dev.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;servbot &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;servbot&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;import &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;bundle &lt;&#x2F;span&gt;&lt;span&gt;} &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;from &lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;.&#x2F;bundle.js&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; create server
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;server &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;servbot&lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  root: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;dist&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;  reload: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  fallback: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;index.html&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; fallback to index.html for SPA routes
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; start our server at localhost:8000
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;server&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;listen&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;8000&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;bundle&lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  minify: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  sourcemap: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  watch: {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;onRebuild&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;else &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Bundled!&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;server&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;reload&lt;&#x2F;span&gt;&lt;span&gt;(); &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; &amp;lt;-- This will live reload on every rebuild
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;}).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;  process.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Re-run &lt;code&gt;npm run dev&lt;&#x2F;code&gt; and we&#x27;ll have our live-reloading dev server up:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; npm run dev
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;[servbot]&lt;&#x2F;span&gt;&lt;span&gt; Server started: http:&#x2F;&#x2F;localhost:8000
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;#&lt;&#x2F;a&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;If for whatever reason you&#x27;ve made it this far and are not convinced and maybe want a more batteries-included solution, I highly recommend &lt;a href=&quot;https:&#x2F;&#x2F;vitejs.dev&#x2F;&quot;&gt;Vite&lt;&#x2F;a&gt; from Vue.js creator, Evan You. Vite actually uses esbuild for its own development mode to bundle vendor packages. Otherwise, I hope this has encouraged you to dig deeper into esbuild and to not be afraid to get your hands dirty in writing custom Node scripts to do your bundling. Sometimes what webpack and rollup do under the hood can seem like black magic since it&#x27;s all abstracted away from you, basking in the comfort of a small config json file at the root of your project. You can cut away at a lot of that cruft by using simpler tools like esbuild, and get perf benefits and a better understanding of your tooling to boot!&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>A minimal RSS Feed Reader</title>
+		<published>2021-10-12T00:00:00+00:00</published>
+		<updated>2021-10-12T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/a-minimal-rss-feed-reader/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/a-minimal-rss-feed-reader/</id>
+		<content type="html">&lt;h1 id=&quot;a-minimal-rss-feed-reader&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#a-minimal-rss-feed-reader&quot; aria-label=&quot;Anchor link for: a-minimal-rss-feed-reader&quot;&gt;#&lt;&#x2F;a&gt;A minimal RSS Feed Reader&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;strong&gt;TL;DR:&lt;&#x2F;strong&gt; Visit &lt;a href=&quot;https:&#x2F;&#x2F;kevinfiol.com&#x2F;reader&#x2F;&quot;&gt;kevinfiol.com&#x2F;reader&lt;&#x2F;a&gt; for my new daily RSS reader, updated hourly.&lt;&#x2F;p&gt;
+&lt;p&gt;Since mid-2020, I had been using &lt;a href=&quot;https:&#x2F;&#x2F;www.inoreader.com&#x2F;&quot;&gt;Inoreader&lt;&#x2F;a&gt; as my main RSS&#x2F;Atom feed reader. Inoreader offers a generous free tier, giving you a maximum of 150 feeds per account, as well as a bunch of QoL features like search, bookmarking, and a dashboard with reasonable amounts of customization. The free tier is ad-supported which is understandable. For the most part, the ads are unintrusive. Using an adblocker such as uBlock Origin ocassionally results in a popup reminder by Inoreader that their free tier is ad-supported, kindly asking you to disable your adblock.&lt;&#x2F;p&gt;
+&lt;p&gt;Last year, I had also come across George Mandis&#x27; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;georgemandis&#x2F;bubo-rss&quot;&gt;Bubo Reader&lt;&#x2F;a&gt;, an &amp;quot;irrationally minimalist, static RSS feed reader you can instantly deploy on Netlify, Glitch or your own server.&amp;quot; George has a great introductory blogpost on his site &lt;a href=&quot;https:&#x2F;&#x2F;george.mand.is&#x2F;2019&#x2F;11&#x2F;introducing-bubo-rss-an-absurdly-minimalist-rss-feed-reader&#x2F;&quot;&gt;over here&lt;&#x2F;a&gt; which I recommend reading if the description I gave seemed interesting at all. TL;DR: Bubo Reader is nothing but a static .html page that gets rebuilt and redeployed via a Node.js script. The script will be run at a set interval, fetch the latest posts from feeds (defined in a .json file), and &lt;em&gt;boom&lt;&#x2F;em&gt; you got a new &lt;code&gt;index.html&lt;&#x2F;code&gt; file with a couple &lt;code&gt;&amp;lt;ul&amp;gt;&lt;&#x2F;code&gt; lists of the latest articles.&lt;&#x2F;p&gt;
+&lt;p&gt;When I first checked out George&#x27;s &lt;a href=&quot;https:&#x2F;&#x2F;bubo-rss-demo.netlify.app&#x2F;&quot;&gt;demo&lt;&#x2F;a&gt; for Bubo Reader, I simultaneously thought &amp;quot;wow this is cool!&amp;quot; and also &amp;quot;wow this is crappy!&amp;quot;. My latter thought stemmed from the fact that the demo is really &lt;em&gt;irrationally&lt;&#x2F;em&gt; minimal.&lt;&#x2F;p&gt;
+&lt;p&gt;The genius of Bubo Reader is summarized in a few points that I realized slowly over the past year:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;A feed reader doesn&#x27;t need to be updated too frequently.&lt;&#x2F;strong&gt; Inoreader will refresh your feeds and even update the page dynamically if there are any new items. But why the desperation for new content to consume? I realized that Inoreader enabled my bad habit of seeking the dopamine boost that comes with getting something &amp;quot;new.&amp;quot; You know what I&#x27;m talking about -- it&#x27;s the same reason why immediately after closing your reddit tab, your first instinct is to Ctrl+T and go back to reddit. It&#x27;s an unhealthy craving because there is always some new article to skim, comments section to meander about, or funny gif to laugh at instead of doing something productive. In George&#x27;s Bubo Reader example, the feed is updated every 15 minutes. Personally, I find that 1 hour is the perfect inverval.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;A feed reader doesn&#x27;t really need a bookmarks manager.&lt;&#x2F;strong&gt; I had quit Pocket and given up on Instapaper. I thought maybe my feed reader can be my bookmarks tool. The issue was that Inoreader is clumsy to bookmark articles or content that you find &lt;em&gt;outside&lt;&#x2F;em&gt; of your feed, and I wouldn&#x27;t be surprised if other readers had the same issue. In addition, every modern browser has a bookmarking feature, and inevitably, your bookmarks will become split between your browser&#x27;s built in bookmarks, and your feed reader&#x27;s bookmarks. I gave up on this division. Firefox now handles all of my bookmarks and it syncs between devices using a Firefox Account.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;A feed reader doesn&#x27;t need to be able to scrape article contents.&lt;&#x2F;strong&gt; Probably 6 times out of 10, Inoreader would mess up the content scraping anyway, which in the age of SPAs and paywalls, is not surprising. Even when it scraped things properly, I still prefered to read the article on the site it originated on with Firefox&#x27;s reader mode.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;A feed reader doesn&#x27;t need client-side JavaScript.&lt;&#x2F;strong&gt; Shocking, I know. There are certainly some niceties that can only be had with JavaScript, but I found George&#x27;s use of &lt;code&gt;details&lt;&#x2F;code&gt; and &lt;code&gt;summary&lt;&#x2F;code&gt; elements to be exactly what I needed.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;I don&#x27;t need a mobile app.&lt;&#x2F;strong&gt; I don&#x27;t like staring at my phone for long periods of time. In general, I think it&#x27;s not a great habit. While Bubo Reader can be viewed in a browser, I don&#x27;t use it that way. If I did, I could easily put some time in to make my version mobile responsive.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Last month, I &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;kevinfiol&#x2F;reader&quot;&gt;forked&lt;&#x2F;a&gt; Bubo Reader and made several personalized changes and improvements. In addition to a dark mode, I took inspiration from the &lt;a href=&quot;https:&#x2F;&#x2F;john-doe.neocities.org&#x2F;&quot;&gt;John Doe&lt;&#x2F;a&gt; webpage that was a bit popular on Hacker News some time ago, using the CSS &lt;code&gt;:target&lt;&#x2F;code&gt; selector to create a &amp;quot;sidebar&amp;quot; for my reader. In addition, I adjusted the build script to sort feeds by the most latest updated.&lt;&#x2F;p&gt;
+&lt;p&gt;The end result can be found at &lt;a href=&quot;https:&#x2F;&#x2F;kevinfiol.com&#x2F;reader&#x2F;&quot;&gt;kevinfiol.com&#x2F;reader&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Mithril.js + esbuild + JSX</title>
+		<published>2021-03-18T00:00:00+00:00</published>
+		<updated>2021-03-18T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/mithriljs-esbuild-jsx/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/mithriljs-esbuild-jsx/</id>
+		<content type="html">&lt;h1 id=&quot;mithril-js-esbuild-jsx&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#mithril-js-esbuild-jsx&quot; aria-label=&quot;Anchor link for: mithril-js-esbuild-jsx&quot;&gt;#&lt;&#x2F;a&gt;Mithril.js + esbuild + JSX&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;strong&gt;EDIT 7&#x2F;18&#x2F;2022:&lt;&#x2F;strong&gt; esbuild has since added support for &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;evanw&#x2F;esbuild&#x2F;issues&#x2F;1217&quot;&gt;string literals as JSX fragments&lt;&#x2F;a&gt;, meaning much of what I wrote below is now unnecessary. To use JSX with Mithril and esbuild, all you need to do is set &lt;code&gt;jsxFragment: &#x27;&amp;quot;[&amp;quot;&#x27;&lt;&#x2F;code&gt; in your esbuild config. See &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;kevinfiol&#x2F;newt&#x2F;blob&#x2F;master&#x2F;scripts&#x2F;bundle.js&quot;&gt;here&lt;&#x2F;a&gt; for an example.&lt;&#x2F;p&gt;
+&lt;p&gt;I recently bootstrapped a &lt;a href=&quot;https:&#x2F;&#x2F;mithril.js.org&quot;&gt;Mithril.js&lt;&#x2F;a&gt; project using &lt;a href=&quot;https:&#x2F;&#x2F;esbuild.github.io&#x2F;&quot;&gt;esbuild&lt;&#x2F;a&gt; for my bundling purposes. If you don&#x27;t already know, esbuild is a next-gen bundler written in Go by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;evanw&quot;&gt;Evan Wallace&lt;&#x2F;a&gt; that is magnitudes faster than rollup, webpack, or parcel (all of which are written in JS&#x2F;TS).&lt;&#x2F;p&gt;
+&lt;p&gt;esbuild comes with JSX support out of the box. While I don&#x27;t normally use JSX, I decided to create a demo for &lt;a href=&quot;https:&#x2F;&#x2F;mithril.netlify.app&quot;&gt;mithril.netlify.app&lt;&#x2F;a&gt; showing off that JSX works just fine in a Mithril application. However, I ran into one major issue -- esbuild wasn&#x27;t compiling JSX fragments correctly when providing &lt;code&gt;m.fragment&lt;&#x2F;code&gt; as the JSX fragment pragma. &lt;&#x2F;p&gt;
+&lt;p&gt;After some digging around, I found &lt;a href=&quot;https:&#x2F;&#x2F;gitter.im&#x2F;mithriljs&#x2F;mithril.js?at=5b98ce1c51a02e2a261ac656&quot;&gt;this comment&lt;&#x2F;a&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;isiahmeadows&quot;&gt;Claudia Meadows&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In short, there&#x27;s no support for Mithril fragments as Components currently. esbuild (as well as transpilers like Sucrase) compiles JSX using the provided jsx pragma + jsx fragment method in the form of:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;React&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;createElement&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;React&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Fragment&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;null&lt;&#x2F;span&gt;&lt;span&gt;, &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Stuff&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;See &lt;a href=&quot;https:&#x2F;&#x2F;esbuild.github.io&#x2F;api&#x2F;#jsx-fragment&quot;&gt;here&lt;&#x2F;a&gt; for more details.&lt;&#x2F;p&gt;
+&lt;p&gt;Which in Mithril&#x27;s case, can&#x27;t work with &lt;code&gt;m.fragment&lt;&#x2F;code&gt;. Following Claudia&#x27;s advice, defining a simple Fragment component as so worked for me. I just put this in my &lt;code&gt;index.js&lt;&#x2F;code&gt; file near the top:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Fragment &lt;&#x2F;span&gt;&lt;span&gt;= { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vnode &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;vnode&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;children &lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then I just set &lt;code&gt;jsxFragment&lt;&#x2F;code&gt; to &lt;code&gt;m.Fragment&lt;&#x2F;code&gt; instead of &lt;code&gt;m.fragment&lt;&#x2F;code&gt; in my esbuild config and voilà! Fragments work as you&#x27;d expect.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;var &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;JSX &lt;&#x2F;span&gt;&lt;span&gt;= {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;(
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;lt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;h2&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;JSX&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;p&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;You could use JSX with Mithril&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;js &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span&gt;well.&amp;lt;&#x2F;p&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;p&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Be aware that this requires a build&lt;&#x2F;span&gt;&lt;span&gt;-&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;step&lt;&#x2F;span&gt;&lt;span&gt;.&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;p style&lt;&#x2F;span&gt;&lt;span&gt;={{ color: &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;red&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39; }}&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Attributes work &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;as &lt;&#x2F;span&gt;&lt;span&gt;expected.
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;lt;p&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;This application uses &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;a href&lt;&#x2F;span&gt;&lt;span&gt;=&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;https:&#x2F;&#x2F;esbuild.github.io&#x2F;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;esbuild&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;to convert JSX&lt;&#x2F;span&gt;&lt;span&gt;.&amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;            &amp;lt;&#x2F;&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        );
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For reference, you can see my full esbuild config and my bundle scripts &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;kevinfiol&#x2F;mithril-pres&#x2F;tree&#x2F;master&#x2F;scripts&quot;&gt;here&lt;&#x2F;a&gt;. Direct any questions to &lt;a href=&quot;mailto:me@kevinfiol.com&quot;&gt;me@kevinfiol.com&lt;&#x2F;a&gt; and I&#x27;d be happy to answer them.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Binding Mouse Button + Scroll Wheel to System Volume Control</title>
+		<published>2021-01-22T00:00:00+00:00</published>
+		<updated>2021-01-22T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/binding-mouse-button-plus-scroll-wheel-to-system-volume-control-on-windows-or-ubuntu-linux/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/binding-mouse-button-plus-scroll-wheel-to-system-volume-control-on-windows-or-ubuntu-linux/</id>
+		<content type="html">&lt;h1 id=&quot;binding-mouse-button-scroll-wheel-to-system-volume-control-on-windows-or-ubuntu-linux&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#binding-mouse-button-scroll-wheel-to-system-volume-control-on-windows-or-ubuntu-linux&quot; aria-label=&quot;Anchor link for: binding-mouse-button-scroll-wheel-to-system-volume-control-on-windows-or-ubuntu-linux&quot;&gt;#&lt;&#x2F;a&gt;Binding Mouse Button + Scroll Wheel to System Volume Control (on Windows or Ubuntu Linux)&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;some-context&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#some-context&quot; aria-label=&quot;Anchor link for: some-context&quot;&gt;#&lt;&#x2F;a&gt;Some Context&lt;&#x2F;h2&gt;
+&lt;p&gt;About six years ago, I purchased a ROCCAT Savu gaming mouse to serve as my daily driver. The mouse itself was mediocre, but the bundled Windows-only software included a feature that I enabled on a whim that allowed the user to hold a button on the side of the mouse and use the scroll wheel to control the system volume. I didn&#x27;t think much of the feature. A couple years later when my Savu finally died, I replaced it with a Logitech G203, only to find that controlling the system volume with the scroll wheel had become second nature.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;windows&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#windows&quot; aria-label=&quot;Anchor link for: windows&quot;&gt;#&lt;&#x2F;a&gt;Windows&lt;&#x2F;h2&gt;
+&lt;p&gt;Fortunately, Logitech&#x27;s software included ways to bind keys to mouse buttons, and using an &lt;a href=&quot;https:&#x2F;&#x2F;gist.github.com&#x2F;kevinfiol&#x2F;e7a915a3ed6f1f3e6d5f745633b61617&quot;&gt;Autohotkey script&lt;&#x2F;a&gt; to fake an &lt;code&gt;F13&lt;&#x2F;code&gt; key press, I was able to bind my mouse button to a non-existent key. Afterwards, I simply launch another &lt;a href=&quot;https:&#x2F;&#x2F;gist.github.com&#x2F;kevinfiol&#x2F;9214d92033fc6a6784a607c97aa50838&quot;&gt;Autohotkey script&lt;&#x2F;a&gt; on system startup to have system-wide volume control bound to my mouse.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;linux&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#linux&quot; aria-label=&quot;Anchor link for: linux&quot;&gt;#&lt;&#x2F;a&gt;Linux&lt;&#x2F;h2&gt;
+&lt;p&gt;The state of consumer-grade peripheral software on Linux is getting better by the day, but still severely lacking compared to Windows. For the most part, you should be fine with &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;libratbag&#x2F;piper&#x2F;&quot;&gt;Piper&lt;&#x2F;a&gt; for your gaming mouse needs on Linux. However, Piper itself is insufficient for our goals.&lt;&#x2F;p&gt;
+&lt;p&gt;In the end, I was able to achieve similar functionality to the Autohotkey script above using &lt;code&gt;xbindkeys&lt;&#x2F;code&gt; and &lt;code&gt;xdotool&lt;&#x2F;code&gt;, both of which you can install using your package manager:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Ubuntu
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt update
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt install xbindkeys xdotool
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Create &lt;code&gt;~&#x2F;.xbindkeysrc&lt;&#x2F;code&gt; in your home directory and paste:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;&amp;quot;xdotool keydown ctrl&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    b:8
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;xdotool keyup ctrl&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    release + control + b:8
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;pactl -- set-sink-volume 0 -5%&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    control + b:5
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;pactl -- set-sink-volume 0 +5%&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    control + b:4
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Run &lt;code&gt;killall xbindkeys &amp;amp;&amp;amp; xbindkeys&lt;&#x2F;code&gt; to restart xbindkeys.&lt;&#x2F;p&gt;
+&lt;p&gt;A few things to note:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You may find xbindkeys keycodes using &lt;code&gt;xbindkeys --key&lt;&#x2F;code&gt; or mouse button codes using &lt;code&gt;xev&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;I am binding the side button on my mouse &lt;code&gt;b:8&lt;&#x2F;code&gt; to the Control key on my keyboard using &lt;code&gt;xdotool&lt;&#x2F;code&gt;. This may or may not work for you if you already bind your Control key to something else. What this means in practice is that holding your mouse button is essentially like holding the Control key.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;This is a particular point of frustration on Linux, as it seems xbindkeys is very selective of what keys can be used as modifiers. The manpage lists &lt;code&gt;Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock), Mod3 (CapsLock), Mod4 (Super), Mod5 (Scroll)&lt;&#x2F;code&gt; as available modifiers.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;The commands &lt;code&gt;pactl -- set-sink-volume 0 -5%&lt;&#x2F;code&gt; and &lt;code&gt;pactl -- set-sink-volume 0 +5%&lt;&#x2F;code&gt; assume you are using the PulseAudio sound driver. These commands may not work for you if you&#x27;re using the ALSA sound driver, in which case, you may use commands like &lt;code&gt;amixer -q sset Master 5%-&lt;&#x2F;code&gt; and &lt;code&gt;amixer -q sset Master 5%+&lt;&#x2F;code&gt; respectively. If neither of these work, try &lt;code&gt;amixer -q -D pulse sset Master 5%+&lt;&#x2F;code&gt; and &lt;code&gt;amixer -q -D pulse sset Master 5%-&lt;&#x2F;code&gt;, or research how to control your master volume by command line on your system.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;update-or-how-to-bind-the-super-key-03-08-2022&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#update-or-how-to-bind-the-super-key-03-08-2022&quot; aria-label=&quot;Anchor link for: update-or-how-to-bind-the-super-key-03-08-2022&quot;&gt;#&lt;&#x2F;a&gt;Update, or, how to bind the Super key (03&#x2F;08&#x2F;2022)&lt;&#x2F;h2&gt;
+&lt;p&gt;A little over a year later, I discovered &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;hanschen&#x2F;ksuperkey&quot;&gt;ksuperkey&lt;&#x2F;a&gt;, and further &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jixunmoe&#x2F;xfce-superkey&quot;&gt;xfce-superkey&lt;&#x2F;a&gt; (I am an XFCE user). Last year, I avoided binding to the Super key because more often than not, this will interfere with existing keybinds in DEs where the Super key opens the Applications menu. This is the case in XFCE where the Super key is used to open the Whisker Menu. While you can simply rebind your Applications shortcut to something other than &lt;code&gt;Super&lt;&#x2F;code&gt;, I personally find it hard to deprogram this instinct. The above utilities allow you to keep &lt;code&gt;Super&lt;&#x2F;code&gt; as your sole shortcut to &lt;code&gt;Applications&lt;&#x2F;code&gt; but also allow you to use it in other keyboard combinations. &lt;strong&gt;Note:&lt;&#x2F;strong&gt; if you use XFCE, you still have to unbind Whisker Menu from &lt;code&gt;Super&lt;&#x2F;code&gt; in your Keyboard settings -- don&#x27;t worry though, you&#x27;ll still be able to use &lt;code&gt;Super&lt;&#x2F;code&gt; after running &lt;code&gt;xfce-superkey&lt;&#x2F;code&gt;. After installing the above utility, I changed my &lt;code&gt;.xbindkeysrc&lt;&#x2F;code&gt; to:&lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#2b303b;color:#c0c5ce;&quot;&gt;&lt;code&gt;&lt;span&gt;&amp;quot;xdotool keydown Super_R keydown ctrl&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    b:8
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;xdotool keyup Super_R keyup ctrl&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    release + Mod4 + control + b:8
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;pactl -- set-sink-volume 0 -5%&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    Mod4 + control + b:4
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;pactl -- set-sink-volume 0 +5%&amp;quot;
+&lt;&#x2F;span&gt;&lt;span&gt;    Mod4 + control + b:5
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;helpful-related-reading&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#helpful-related-reading&quot; aria-label=&quot;Anchor link for: helpful-related-reading&quot;&gt;#&lt;&#x2F;a&gt;Helpful related reading&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;linux.die.net&#x2F;man&#x2F;1&#x2F;xbindkeys&quot;&gt;Xbindkeys manpage&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;index.php&#x2F;Xbindkeys&quot;&gt;ArchWiki article on xbindkeys&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;askubuntu.com&#x2F;questions&#x2F;627555&#x2F;how-to-map-modifiers-e-g-ctrl-to-mouse-thumb-buttons-using-xbindkeys&quot;&gt;AskUbuntu question with helpful suggestions&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;web.archive.org&#x2F;web&#x2F;20200107023614&#x2F;https:&#x2F;&#x2F;blog.hanschen.org&#x2F;2009&#x2F;10&#x2F;13&#x2F;mouse-shortcuts-with-xbindkeys&#x2F;&quot;&gt;Helpful blog article on using mouse buttons with xbindkeys&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Getting rid of the Credential Helper Selector on Git for Windows</title>
+		<published>2020-09-18T00:00:00+00:00</published>
+		<updated>2020-09-18T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/getting-rid-of-the-credential-helper-selector-on-git-for-windows/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/getting-rid-of-the-credential-helper-selector-on-git-for-windows/</id>
+		<content type="html">&lt;h1 id=&quot;getting-rid-of-the-credential-helper-selector-on-git-for-windows&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#getting-rid-of-the-credential-helper-selector-on-git-for-windows&quot; aria-label=&quot;Anchor link for: getting-rid-of-the-credential-helper-selector-on-git-for-windows&quot;&gt;#&lt;&#x2F;a&gt;Getting rid of the Credential Helper Selector on Git for Windows&lt;&#x2F;h1&gt;
+&lt;p&gt;If you&#x27;ve ever been tormented by the following pop-up when trying to push or pull from an HTTPS Git origin:&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;credential_helper&amp;#x2F;helper.jpg&quot; alt=&quot;Windows Credential Helper Selector&quot; &#x2F;&gt;
+&lt;p&gt;There may be a way out of your misery. Initially I thought that if I added my Git credentials for the respective remote origin directly into my &lt;code&gt;.gitconfig&lt;&#x2F;code&gt; file, Git for Windows would stop prompting me every time I wanted to push or pull. Nope. And even more painful is that &lt;strong&gt;for some unknown reason&lt;&#x2F;strong&gt; the pop-up would appear &lt;em&gt;twice&lt;&#x2F;em&gt; no matter what -- even if I selected &lt;code&gt;Always use this from now on&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-to&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-to&quot; aria-label=&quot;Anchor link for: how-to&quot;&gt;#&lt;&#x2F;a&gt;How to&lt;&#x2F;h2&gt;
+&lt;p&gt;First off, you can simply choose to not install the Helper Selector by unchecking a box during the installation process of Git for Windows. This is assuming you are installing Git in this manner, and also that you are willing to reinstall Git for Windows entirely or re-run the installer. But what if this doesn&#x27;t apply to you?&lt;&#x2F;p&gt;
+&lt;p&gt;I installed Git using &lt;a href=&quot;https:&#x2F;&#x2F;scoop.sh&quot;&gt;scoop.sh&lt;&#x2F;a&gt;, so my installation process took place entirely via CLI. However, I guess this option also assumes you want the Credential Helper since I don&#x27;t remember ever specifying I wanted it. So what now?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;unset-the-credential-helper-system-wide&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#unset-the-credential-helper-system-wide&quot; aria-label=&quot;Anchor link for: unset-the-credential-helper-system-wide&quot;&gt;#&lt;&#x2F;a&gt;Unset the credential helper system-wide&lt;&#x2F;h3&gt;
+&lt;p&gt;A simple way to disable any default system-wide helper is to run the following command&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; config&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --system --unset&lt;&#x2F;span&gt;&lt;span&gt; credential.helper
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;setting-your-credentials-on-an-individual-repository-basis&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#setting-your-credentials-on-an-individual-repository-basis&quot; aria-label=&quot;Anchor link for: setting-your-credentials-on-an-individual-repository-basis&quot;&gt;#&lt;&#x2F;a&gt;Setting your credentials on an individual repository basis&lt;&#x2F;h3&gt;
+&lt;p&gt;Now that you&#x27;ve disabled the system-wide helper, you can manage your credentials on a repository-basis. &lt;a href=&quot;https:&#x2F;&#x2F;git-scm.com&#x2F;docs&#x2F;gitcredentials#_avoiding_repetition&quot;&gt;Git provides two built-in solutions&lt;&#x2F;a&gt;. I chose to use the &lt;code&gt;store&lt;&#x2F;code&gt; helper on my repos.&lt;&#x2F;p&gt;
+&lt;p&gt;Navigate to your repository and run:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; config credential.helper store
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This will then prompt you for your remote credentials. Now try running a &lt;code&gt;git pull&lt;&#x2F;code&gt; and marvel at not having to be bothered by a pop-up!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-are-you-using-windows&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#why-are-you-using-windows&quot; aria-label=&quot;Anchor link for: why-are-you-using-windows&quot;&gt;#&lt;&#x2F;a&gt;Why are you using Windows?&lt;&#x2F;h2&gt;
+&lt;p&gt;I never claimed to make wise decisions. But yes, this issue is nonexistent on my Ubuntu-based laptop, and probably on your Macbook Pro too.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)</title>
+		<published>2020-08-18T00:00:00+00:00</published>
+		<updated>2020-08-18T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox/</id>
+		<content type="html">&lt;h1 id=&quot;making-your-numeric-keypad-work-on-a-xubuntu-20-04-vm-virtualbox&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#making-your-numeric-keypad-work-on-a-xubuntu-20-04-vm-virtualbox&quot; aria-label=&quot;Anchor link for: making-your-numeric-keypad-work-on-a-xubuntu-20-04-vm-virtualbox&quot;&gt;#&lt;&#x2F;a&gt;Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)&lt;&#x2F;h1&gt;
+&lt;p&gt;I fought with this for a good 2 hours before I finally got it working. First step is to install &lt;code&gt;numlockx&lt;&#x2F;code&gt;, if it&#x27;s not already installed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt update
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt install numlockx
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Enable your Num Lock in your VM:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;numlockx&lt;&#x2F;span&gt;&lt;span&gt; on
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now in Xubuntu, go to your Whisker Menu (or whatever launcher&#x2F;menu you&#x27;re using) and navigate to &lt;code&gt;Settings -&amp;gt; Accessibility -&amp;gt; Mouse&lt;&#x2F;code&gt; and disable &lt;code&gt;Use mouse emulation&lt;&#x2F;code&gt;. &lt;&#x2F;p&gt;
+&lt;p&gt;If you&#x27;re on vanilla Ubuntu (GNOME), or a DE other than XFCE, you may be looking for a menu called &lt;code&gt;Universal Access&lt;&#x2F;code&gt;, wherein you&#x27;ll want to disable a feature called &lt;code&gt;Control the pointer using the keypad&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;You may need to log out and back in to confirm this works.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Hosting Your Invidious Instance on a VPS</title>
+		<published>2020-08-02T00:00:00+00:00</published>
+		<updated>2020-08-02T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/hosting-your-invidious-instance-on-a-vps/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/hosting-your-invidious-instance-on-a-vps/</id>
+		<content type="html">&lt;h1 id=&quot;hosting-your-invidious-instance-on-a-vps&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#hosting-your-invidious-instance-on-a-vps&quot; aria-label=&quot;Anchor link for: hosting-your-invidious-instance-on-a-vps&quot;&gt;#&lt;&#x2F;a&gt;Hosting Your Invidious Instance on a VPS&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;strong&gt;Update 2022: This post is likely outdated. I recommend checking the official installation instructions found on the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;iv-org&#x2F;invidious&quot;&gt;Github repo&lt;&#x2F;a&gt;.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;iv-org&#x2F;invidious&quot;&gt;Invidious&lt;&#x2F;a&gt; is an alternative front-end to YouTube with an emphasis on privacy and low system resource usage. It is wonderful free software that not only does away with the annoyances of Google&#x27;s bloated, ad-ridden video site, but also adds plenty of QoL features.&lt;&#x2F;p&gt;
+&lt;p&gt;This weekend I spent some time setting up my own instance of Invidious to share with friends. Here&#x27;s a quick rundown on what I did:&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-pick-a-server&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#1-pick-a-server&quot; aria-label=&quot;Anchor link for: 1-pick-a-server&quot;&gt;#&lt;&#x2F;a&gt;1. Pick a server&lt;&#x2F;h2&gt;
+&lt;p&gt;I went with the $5&#x2F;mo Nanode over at &lt;a href=&quot;https:&#x2F;&#x2F;linode.com&quot;&gt;Linode&lt;&#x2F;a&gt;. It&#x27;s packing a grand total 1GB of RAM, a single CPU, and 25GB of storage. More than enough to run our instance, but not enough to actually compile the damn codebase (we&#x27;ll get to this in a bit).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-get-a-domain-or-not&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#2-get-a-domain-or-not&quot; aria-label=&quot;Anchor link for: 2-get-a-domain-or-not&quot;&gt;#&lt;&#x2F;a&gt;2. Get a domain (or not)&lt;&#x2F;h2&gt;
+&lt;p&gt;I wanted a simple and short domain name for myself and my buddies to be able to use instead of typing an IP address in the address bar every time. Getting a domain isn&#x27;t terribly important especially if you&#x27;re hosting this just for your own use.&lt;&#x2F;p&gt;
+&lt;p&gt;For the record, I used Namecheap to purchase my domain. I found &lt;a href=&quot;https:&#x2F;&#x2F;web.archive.org&#x2F;web&#x2F;20200803032836&#x2F;https:&#x2F;&#x2F;merelycurious.me&#x2F;post&#x2F;connecting-namecheap-domain-to-linode&quot;&gt;this guide&lt;&#x2F;a&gt; particularly helpful in setting up my domain with my Linode VPS.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-pick-a-linux-distribution-for-your-vps&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#3-pick-a-linux-distribution-for-your-vps&quot; aria-label=&quot;Anchor link for: 3-pick-a-linux-distribution-for-your-vps&quot;&gt;#&lt;&#x2F;a&gt;3. Pick a Linux Distribution for your VPS&lt;&#x2F;h2&gt;
+&lt;p&gt;Again, not terribly important what you pick. If you plan to use &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tmiland&#x2F;Invidious-Updater&quot;&gt;Invidious Updater&lt;&#x2F;a&gt;, know that it only supports Debian, Ubuntu, CentOS, Fedora, and Arch. Originally I attempted to use it on an Alpine Linux installation, but the script promptly failed.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, the Invidious docs only provide installation instructions for Arch Linux and Debian&#x2F;Ubuntu. I went with &lt;strong&gt;Arch Linux&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-pick-how-you-re-going-to-install-invidious&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#4-pick-how-you-re-going-to-install-invidious&quot; aria-label=&quot;Anchor link for: 4-pick-how-you-re-going-to-install-invidious&quot;&gt;#&lt;&#x2F;a&gt;4. Pick how you&#x27;re going to install Invidious&lt;&#x2F;h2&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;iv-org&#x2F;invidious&#x2F;blob&#x2F;master&#x2F;README.md&quot;&gt;README&lt;&#x2F;a&gt; provides 3 options:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install Invidious manually&lt;&#x2F;li&gt;
+&lt;li&gt;Use Invidious Updater (linked above)&lt;&#x2F;li&gt;
+&lt;li&gt;Use Docker&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;All options are simple and easy to do. I went with &lt;strong&gt;1&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-install-it&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#5-install-it&quot; aria-label=&quot;Anchor link for: 5-install-it&quot;&gt;#&lt;&#x2F;a&gt;5. Install it!&lt;&#x2F;h2&gt;
+&lt;p&gt;Install dependencies:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; pacman&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -Syu&lt;&#x2F;span&gt;&lt;span&gt; base-devel shards crystal librsvg postgresql nano
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Create Invidious user:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;useradd -m&lt;&#x2F;span&gt;&lt;span&gt; invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo -i -u&lt;&#x2F;span&gt;&lt;span&gt; invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; clone https:&#x2F;&#x2F;github.com&#x2F;iv-org&#x2F;invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Setup Postgres:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl enable postgresql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl start postgresql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo -i -u&lt;&#x2F;span&gt;&lt;span&gt; postgres
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql -c &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;CREATE USER kemal WITH PASSWORD &amp;#39;kemal&amp;#39;;&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# Change &amp;#39;kemal&amp;#39; here to a stronger password, and update `password` in config&#x2F;config.yml
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;createdb -O&lt;&#x2F;span&gt;&lt;span&gt; kemal invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I was only able to run the following commands as root. Make sure the postgresql service is running:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;channels.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;videos.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;channel_videos.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;users.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;session_ids.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;nonces.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;annotations.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;playlists.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;psql&lt;&#x2F;span&gt;&lt;span&gt; invidious kemal &amp;lt; &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;config&#x2F;sql&#x2F;playlist_videos.sql
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The next steps to install Invidious involve compiling the project code. On my measly 1GB of RAM, the compilation choked. In order to prepare for this, I used &lt;code&gt;systemd-swap&lt;&#x2F;code&gt; to create a swapfile. There are other ways to create a swapfile or a swap partition on Linux. See: &lt;a href=&quot;https:&#x2F;&#x2F;wiki.archlinux.org&#x2F;index.php&#x2F;Swap&quot;&gt;Swap on Arch Linux Wiki&lt;&#x2F;a&gt;. I found using &lt;code&gt;systemd-swap&lt;&#x2F;code&gt; the simplest. &lt;a href=&quot;https:&#x2F;&#x2F;web.archive.org&#x2F;web&#x2F;20200803033711&#x2F;https:&#x2F;&#x2F;ricostacruz.com&#x2F;til&#x2F;after-installing-arch-linux&quot;&gt;This guide by Ricosta Cruz&lt;&#x2F;a&gt; was very helpful.&lt;&#x2F;p&gt;
+&lt;p&gt;I did as follows:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; pacman&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -Syu&lt;&#x2F;span&gt;&lt;span&gt; systemd-swap
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then I edited the config file to enable &lt;code&gt;zram_enabled=1&lt;&#x2F;code&gt; and &lt;code&gt;swapfc_enabled=1&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; nano &#x2F;etc&#x2F;systemd&#x2F;swap.conf
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then enable &lt;code&gt;systemd-swap.service&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl enable&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --now&lt;&#x2F;span&gt;&lt;span&gt; systemd-swap
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally add the swapfile to &lt;code&gt;&#x2F;etc&#x2F;fstab&lt;&#x2F;code&gt; so it&#x27;ll be used on every boot. Add this: &lt;code&gt;&#x2F;swapfile none swap defaults 0 0&lt;&#x2F;code&gt; to the end of the file:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; nano &#x2F;etc&#x2F;fstab
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally, you won&#x27;t run out of RAM to setup Invidious. Let&#x27;s go back and finally install it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo -i -u&lt;&#x2F;span&gt;&lt;span&gt; invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;cd&lt;&#x2F;span&gt;&lt;span&gt; invidious
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;shards&lt;&#x2F;span&gt;&lt;span&gt; update &amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;shards&lt;&#x2F;span&gt;&lt;span&gt; install
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;crystal&lt;&#x2F;span&gt;&lt;span&gt; build src&#x2F;invidious.cr&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --release
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;.&#x2F;invidious &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# test compiled binary, stop with ctrl c
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;exit
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It&#x27;s installed! Now some administrative stuff. Let&#x27;s setup the systemd service so that Invidious runs in the background:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; cp &#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;invidious.service &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;invidious.service
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl enable invidious.service
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl start invidious.service
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And lets rotate the logs so that they don&#x27;t balloon in size:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; echo &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;&#x2F;home&#x2F;invidious&#x2F;invidious&#x2F;invidious.log {
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;rotate 4
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;weekly
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;notifempty
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;missingok
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;compress
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;minsize 1048576
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; | &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;tee&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;etc&#x2F;logrotate.d&#x2F;invidious.logrotate
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; chmod 0644 &#x2F;etc&#x2F;logrotate.d&#x2F;invidious.logrotate
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You now got a running Invidious instance! Navigate to your VPS&#x27;s IP address on port 3000 to see it up and running. Type &lt;code&gt;http:&#x2F;&#x2F;&amp;lt;VPS_IP_ADDRESS&amp;gt;:3000&lt;&#x2F;code&gt; into your browser&#x27;s address bar, and get to watching some videos!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;6-optional-setting-up-nginx&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#6-optional-setting-up-nginx&quot; aria-label=&quot;Anchor link for: 6-optional-setting-up-nginx&quot;&gt;#&lt;&#x2F;a&gt;6. (Optional) Setting up nginx&lt;&#x2F;h2&gt;
+&lt;p&gt;When I bought my domain, I intended to use it for more than just Invidious. In my case, I wanted a subdomain to serve as my Invidious URL, while I can use the main domain to host a &amp;quot;hub&amp;quot; of sorts to other services.&lt;&#x2F;p&gt;
+&lt;p&gt;So for example:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;tube.mydomain.com&lt;&#x2F;span&gt;&lt;span&gt; -&amp;gt; Invidious Service
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http:&#x2F;&#x2F;mydomain.com&lt;&#x2F;span&gt;&lt;span&gt; -&amp;gt; Homepage
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I was able to do this easily using nginx reverse proxies. Here are the steps I took.&lt;&#x2F;p&gt;
+&lt;p&gt;Install nginx:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pacman -Syu&lt;&#x2F;span&gt;&lt;span&gt; nginx-mainline
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Enable and start nginx service:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl enable nginx.service
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; systemctl start nginx.service
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Configure &lt;code&gt;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf&lt;&#x2F;code&gt;. Add this additional &lt;code&gt;server&lt;&#x2F;code&gt; entry somewhere under &lt;code&gt;http&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  ...
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  server {
+&lt;&#x2F;span&gt;&lt;span&gt;    server_name tube.mydomain.com;
+&lt;&#x2F;span&gt;&lt;span&gt;    location &#x2F; {
+&lt;&#x2F;span&gt;&lt;span&gt;      proxy_pass http:&#x2F;&#x2F;127.0.0.1:3000;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;  
+&lt;&#x2F;span&gt;&lt;span&gt;  ...
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Next addition is completely optional if you want your root domain to point to a kind of homepage. This is what I wanted, so I&#x27;m putting it here partly to document it for myself. I changed the existing, default &lt;code&gt;http.server&lt;&#x2F;code&gt; entry to point to custom &lt;code&gt;html&lt;&#x2F;code&gt; I had written:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;http &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  server {
+&lt;&#x2F;span&gt;&lt;span&gt;    server_name mydomain.com
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    location &#x2F; {
+&lt;&#x2F;span&gt;&lt;span&gt;      root &#x2F;sites&#x2F;mydomain.com
+&lt;&#x2F;span&gt;&lt;span&gt;      index index.html index.htm
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    ... &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;# the rest remained unchanged from the default
+&lt;&#x2F;span&gt;&lt;span&gt;  }
+&lt;&#x2F;span&gt;&lt;span&gt;  
+&lt;&#x2F;span&gt;&lt;span&gt;  ...
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;7-optional-enabling-https&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#7-optional-enabling-https&quot; aria-label=&quot;Anchor link for: 7-optional-enabling-https&quot;&gt;#&lt;&#x2F;a&gt;7. (Optional) Enabling HTTPS&lt;&#x2F;h2&gt;
+&lt;p&gt;I used &lt;a href=&quot;https:&#x2F;&#x2F;certbot.eff.org&#x2F;&quot;&gt;EFF&#x27;s Certbot for this&lt;&#x2F;a&gt;. It is painfully easy to use. Note that if you choose to, it &lt;em&gt;will&lt;&#x2F;em&gt; make modifications to your &lt;code&gt;nginx.conf&lt;&#x2F;code&gt; for you.&lt;&#x2F;p&gt;
+&lt;p&gt;You must enable an option in Invidious&#x27;s config if you want assets to only be transferred via HTTPS. More information can be found &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;iv-org&#x2F;invidious&#x2F;wiki&#x2F;Configuration&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;That&#x27;s all. Hopefully you found this helpful. If you got any questions, shoot me an &lt;a href=&quot;mailto:me@kevinfiol.com&quot;&gt;email&lt;&#x2F;a&gt;. And always, if you liked this post, hit Like and Subscribe! (haha).&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Books</title>
+		<published>2020-07-02T00:00:00+00:00</published>
+		<updated>2020-07-02T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/books/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/books/</id>
+		<content type="html">&lt;h1 id=&quot;books&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#books&quot; aria-label=&quot;Anchor link for: books&quot;&gt;#&lt;&#x2F;a&gt;Books&lt;&#x2F;h1&gt;
+&lt;p&gt;A collection of (free) web books, guides, and references by category that I&#x27;ve found over the years. Suggestions welcome.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;general-programming&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#general-programming&quot; aria-label=&quot;Anchor link for: general-programming&quot;&gt;#&lt;&#x2F;a&gt;General Programming&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;learnxinyminutes.com&#x2F;&quot;&gt;Learn X in Y Minutes&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A collection of &amp;quot;tours&amp;quot; for every popular programming language. Intended for those with programming experience to quickly learn new languages.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.craftinginterpreters.com&#x2F;contents.html&quot;&gt;Crafting Interpreters&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A book on designing your own language interpreter. By Robert Nystrom, creator of programming languages such as Wren, Finch, and Magpie.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mitpress.mit.edu&#x2F;sites&#x2F;default&#x2F;files&#x2F;sicp&#x2F;index.html&quot;&gt;Structure and Interpretation of Computer Programs&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A legendary text book. Not an easy read. Also see the &lt;a href=&quot;https:&#x2F;&#x2F;sicp.comp.nus.edu.sg&#x2F;&quot;&gt;JavaScript Adaptation&lt;&#x2F;a&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;natureofcode.com&#x2F;book&#x2F;&quot;&gt;Nature of Code&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;This book focuses on a range of programming strategies and techniques behind computer simulations of natural systems, from elementary concepts in mathematics and physics to more advanced algorithms that enable sophisticated visual results.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;c-c&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#c-c&quot; aria-label=&quot;Anchor link for: c-c&quot;&gt;#&lt;&#x2F;a&gt;C&#x2F;C++&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.buildyourownlisp.com&#x2F;&quot;&gt;Build Your Own Lisp&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;If you&#x27;re looking to learn C, or you&#x27;ve ever wondered how to build your own programming language, this is the book for you.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;viewsourcecode.org&#x2F;snaptoken&#x2F;kilo&#x2F;index.html&quot;&gt;Build Your Own Text Editor&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A walkthrough tutorial on how to build a text editor with C.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;beej.us&#x2F;guide&#x2F;bgc&#x2F;html&#x2F;split&#x2F;&quot;&gt;Beej&#x27;s Guide to C Programming&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;This is a rather comprehensive guide to C for folks who already know how to program in another language. The first half of the book is written in a tutorial style, while the second half is a reference section complete with examples (inspired by the incomparable Turbo C Bible). The goal is to keep this up-to-date with the latest C standards.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;cppbyexample.com&#x2F;&quot;&gt;C++ By Example&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;Here you will find clear and up to date C++ code examples with concise and straightforward explanations.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;network-programming&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#network-programming&quot; aria-label=&quot;Anchor link for: network-programming&quot;&gt;#&lt;&#x2F;a&gt;Network Programming&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;beej.us&#x2F;guide&#x2F;bgnet&#x2F;html&#x2F;&quot;&gt;Beej&#x27;s Guide to Network Programming&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;This document should give the average competent C programmer the edge s&#x2F;he needs to get a grip on this networking noise.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;iximiuz.com&#x2F;en&#x2F;posts&#x2F;computer-networking-101&#x2F;&quot;&gt;Ethernet and IP Networking 101&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A software engineer&#x27;s attempt at understanding and explaining networking in basic terms.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;html-css&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#html-css&quot; aria-label=&quot;Anchor link for: html-css&quot;&gt;#&lt;&#x2F;a&gt;HTML&#x2F;CSS&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;marksheet.io&#x2F;&quot;&gt;MarkSheet&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An introduction to creating webpages with HTML &amp;amp; CSS.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;learn.shayhowe.com&#x2F;html-css&#x2F;&quot;&gt;Learn to Code HTML &amp;amp; CSS&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Yet another introduction to creating webpage with HTML &amp;amp; CSS. Great for beginners. Good alternative to the famous Jon Duckett book.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;learn.shayhowe.com&#x2F;advanced-html-css&#x2F;&quot;&gt;Learn to Code Advanced HTML &amp;amp; CSS&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Shay Howe&#x27;s second online book on HTML &amp;amp; CSS. Logical next step if you finished the book directly above.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTML&quot;&gt;Mozilla Developer Network: HTML&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Good guide, but may be a bit dense. Great reference material.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;CSS&quot;&gt;Mozilla Developer Network: CSS&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Like the HTML guide. Great reference material.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;thomasorus.com&#x2F;html-tips.html&quot;&gt;HTML Tips&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A collection of beginner and advanced tips on HTML &amp;amp; CSS by &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;thomasorus&quot;&gt;Thomasorus&lt;&#x2F;a&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;learn-the-web.algonquindesign.ca&#x2F;topics&#x2F;html-semantics-cheat-sheet&#x2F;&quot;&gt;HTML semantics cheat sheet&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A semantic HTML cheat sheet. Use semantic HTML to make your sites more accessible and consistent in functionality across devices.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;javascript&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#javascript&quot; aria-label=&quot;Anchor link for: javascript&quot;&gt;#&lt;&#x2F;a&gt;JavaScript&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;leanpub.com&#x2F;javascriptallongesix&#x2F;read&quot;&gt;JavaScript Allongé&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A guide to Functional Programming, using JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mostly-adequate.gitbooks.io&#x2F;mostly-adequate-guide&#x2F;&quot;&gt;Mostly Adequate Guide to Functional Programming&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Yet another guide to Functional Programming, using JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;getify&#x2F;You-Dont-Know-JS&quot;&gt;You Don&#x27;t Know JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A series of books focusing on the underlying core mechanisms of JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;getify&#x2F;Functional-Light-JS&quot;&gt;Functional Light JS&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A pragmatic look at Functional Programming with JavaScript. By Kyle Simpson, writer of the You Don&#x27;t Know JavaScript series.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;randycoulman.com&#x2F;blog&#x2F;categories&#x2F;thinking-in-ramda&#x2F;&quot;&gt;Thinking in Ramda&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A brief, accessible and effective introduction to functional programming using the Ramda JavaScript library. A series of blog posts.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;exploringjs.com&#x2F;impatient-js&#x2F;index.html&quot;&gt;JavaScript for Impatient Programmers&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A modern guide to JavaScript for those with existing programming knowledge.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;exploringjs.com&#x2F;deep-js&#x2F;&quot;&gt;Deep JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;More JavaScript knowledge by the great Dr. Axel Rauschmayer.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;ryanmcdermott&#x2F;clean-code-javascript&quot;&gt;Clean Code JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A guide to the software engineering principles of Robert C. Martin, using JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;leonardomso&#x2F;33-js-concepts&quot;&gt;33 JavaScript Concepts&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Essential concepts for the experienced JavaScript developer.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;jsforcats.com&#x2F;&quot;&gt;JavaScript for Cats&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A short, beginner-friendly intro to programming with JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;eloquentjavascript.net&#x2F;&quot;&gt;Eloquent JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;More comprehensive introduction to JavaScript &amp;amp; General Programming.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;javascript.info&#x2F;&quot;&gt;The Modern JavaScript Tutorial&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Comprehensive JavaScript reference.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;addyosmani.com&#x2F;resources&#x2F;essentialjsdesignpatterns&#x2F;book&#x2F;&quot;&gt;Learning JavaScript Design Patterns&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Update 2022&lt;&#x2F;strong&gt;: This book&#x27;s site has now been updated to a new, stylish guide website (patterns.dev) with a React slant. I am not a fan of the heavier website, nor the unagnostic React approach. The classic collection of design patterns for JavaScript can still be found on &lt;a href=&quot;https:&#x2F;&#x2F;www.patterns.dev&#x2F;posts&#x2F;classic-design-patterns&#x2F;&quot;&gt;this page&lt;&#x2F;a&gt; or better yet at the &lt;a href=&quot;https:&#x2F;&#x2F;archive.ph&#x2F;93tHk&quot;&gt;archive link&lt;&#x2F;a&gt;.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;JavaScript&quot;&gt;Mozilla Developer Network: JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;The gold standard of JavaScript references.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;JavaScript&#x2F;A_re-introduction_to_JavaScript&quot;&gt;MDN: A re-introduction to JavaScript&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A great introduction to JavaScript even for those with programming experience outside of JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;htmldom.dev&#x2F;&quot;&gt;How to manage HTML DOM with vanilla JavaScript only&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;As the title implies, a collection of &amp;quot;common tasks of managing HTML DOM with vanilla JavaScript.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;book.mixu.net&#x2F;node&#x2F;single.html&quot;&gt;Mixu&#x27;s Node book&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A dated (2012), but beginner friendly introduction to server-side JavaScript with Node.js.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;c&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#c&quot; aria-label=&quot;Anchor link for: c&quot;&gt;#&lt;&#x2F;a&gt;C#&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.microsoft.com&#x2F;en-us&#x2F;dotnet&#x2F;csharp&#x2F;tutorials&#x2F;intro-to-csharp&#x2F;&quot;&gt;Intro to C#&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An introduction to programming using the C# language.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;docs.microsoft.com&#x2F;en-us&#x2F;dotnet&#x2F;csharp&#x2F;tour-of-csharp&#x2F;&quot;&gt;Tour of C#&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A brief crash course on C# intended for those with some programming experience.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;php&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#php&quot; aria-label=&quot;Anchor link for: php&quot;&gt;#&lt;&#x2F;a&gt;PHP&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;phpapprentice.com&#x2F;&quot;&gt;PHP Apprentice&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A beginner-friendly introduction to programming in PHP with best practices in mind.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;phptherightway.com&#x2F;&quot;&gt;PHP: The Right Way&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Less of a tutorial, more of a collection of PHP best practices.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;paragonie.com&#x2F;blog&#x2F;2017&#x2F;12&#x2F;2018-guide-building-secure-php-software&quot;&gt;2018 Guide to building secure PHP&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A guide to common PHP vulnerabilities.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;python&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#python&quot; aria-label=&quot;Anchor link for: python&quot;&gt;#&lt;&#x2F;a&gt;Python&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;automatetheboringstuff.com&#x2F;&quot;&gt;Automate The Boring Stuff With Python&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An excellent and pragmatic introduction to programming using Python 3. Perfect for beginners.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;python101.pythonlibrary.org&#x2F;&quot;&gt;Python 101&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A more general introduction to programming with Python. Good for beginners.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;python.swaroopch.com&#x2F;&quot;&gt;A Byte of Python&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Another intro to programming using Python for those who know &amp;quot;how to save text files.&amp;quot; Beginner-friendly.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;diveintopython3.net&#x2F;&quot;&gt;Dive Into Python 3&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;As the title suggests, this is a deep dive into Python 3, highlighting differences from Python 2. Good reference.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;rust&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#rust&quot; aria-label=&quot;Anchor link for: rust&quot;&gt;#&lt;&#x2F;a&gt;Rust&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;book&#x2F;&quot;&gt;The Rust Programming Language&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Official Rust Book.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;stable&#x2F;rust-by-example&#x2F;&quot;&gt;Rust By Example&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An official collection of runnable examples in Rust.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;rust-lang-nursery.github.io&#x2F;rust-cookbook&#x2F;intro.html&quot;&gt;Rust Cookbook&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;A collection of simple examples that demonstrate good practices to accomplish common programming tasks, using the crates of the Rust ecosystem.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;elixir&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#elixir&quot; aria-label=&quot;Anchor link for: elixir&quot;&gt;#&lt;&#x2F;a&gt;Elixir&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;elixirschool.com&#x2F;en&#x2F;&quot;&gt;Elixir School&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Comprehensive reference for Elixir.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;haskell&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#haskell&quot; aria-label=&quot;Anchor link for: haskell&quot;&gt;#&lt;&#x2F;a&gt;Haskell&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;learnyouahaskell.com&#x2F;&quot;&gt;Learn You A Haskell for Great Good&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An introduction to Functional Programming with Haskell. Aimed at those with previous programming knowledge.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;ml&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ml&quot; aria-label=&quot;Anchor link for: ml&quot;&gt;#&lt;&#x2F;a&gt;ML&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.cs.cornell.edu&#x2F;courses&#x2F;cs3110&#x2F;2019sp&#x2F;textbook&#x2F;&quot;&gt;Functional Programming in OCaml&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An introduction to Functional Programming with OCaml, adapted from Cornell CS3110.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;racket&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#racket&quot; aria-label=&quot;Anchor link for: racket&quot;&gt;#&lt;&#x2F;a&gt;Racket&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;beautifulracket.com&#x2F;&quot;&gt;Beautiful Racket&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;An introduction to language-oriented programming using Racket.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;game-development&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#game-development&quot; aria-label=&quot;Anchor link for: game-development&quot;&gt;#&lt;&#x2F;a&gt;Game Development&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;cs50.harvard.edu&#x2F;games&#x2F;&quot;&gt;Harvard CS50 Introduction to Game Development&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A free course with lectures, slides, and source code on developing games using Love2D.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;gameprogrammingpatterns.com&#x2F;contents.html&quot;&gt;Game Programming Patterns&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A collection of game development-related design patterns. By the great Robert Nystrom.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;adnzzzzZ&#x2F;blog&#x2F;issues&#x2F;30&quot;&gt;BYTEPATH&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A book published as a series of Github issues. Guides the user in creating a game using Lua and Love2D, with plenty of exercises. Intended for those with programming experience.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;sheepolution.com&#x2F;learn&#x2F;book&#x2F;contents&quot;&gt;How to LÖVE&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A gentle introduction to programming &lt;strong&gt;and&lt;&#x2F;strong&gt; game development using Lua and the Love2D game library.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;game-design&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#game-design&quot; aria-label=&quot;Anchor link for: game-design&quot;&gt;#&lt;&#x2F;a&gt;Game Design&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.riotgames.com&#x2F;en&#x2F;urf-academy&#x2F;curriculum-guide&quot;&gt;Riot Games Game Design Curriculum&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;Riot Games’ Game Design Curriculum is an entry-level course that teaches high school students the fundamental elements of game design using a framework and interactive workshops created by our own game designers.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;math&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#math&quot; aria-label=&quot;Anchor link for: math&quot;&gt;#&lt;&#x2F;a&gt;Math&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http:&#x2F;&#x2F;calculusmadeeasy.org&#x2F;&quot;&gt;Calculus Made Easy&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An accessible and pragmatic introduction to Calculus. Originally published in 1910 by Silvanus P. Thompson.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;electrical-engineering&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#electrical-engineering&quot; aria-label=&quot;Anchor link for: electrical-engineering&quot;&gt;#&lt;&#x2F;a&gt;Electrical Engineering&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.allaboutcircuits.com&#x2F;textbook&#x2F;&quot;&gt;All About Circuits&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&amp;quot;Starts from the very basic fundamentals of electricity, and builds up to quite complex circuits and their workings.&amp;quot;&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;archive.md&#x2F;WTsUc&quot;&gt;All About Electronic Circuits for Kids&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Not a book, but a short introduction to Electronic Circuits for kids, along with a collection of useful links accessible to young learners.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;literature&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#literature&quot; aria-label=&quot;Anchor link for: literature&quot;&gt;#&lt;&#x2F;a&gt;Literature&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;standardebooks.org&#x2F;ebooks&#x2F;&quot;&gt;Standard E-Books&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A collection of literature in the public domain, available in multiple formats, with standardized and readable typography.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;www.hplovecraft.com&#x2F;writings&#x2F;texts&#x2F;&quot;&gt;Electronic Texts of H.P. Lovecraft&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Collecton of HP Lovecraft writings. A browser plugin or feature to improve readability is recommended (e.g. Firefox Reader Mode).&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;cooking&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#cooking&quot; aria-label=&quot;Anchor link for: cooking&quot;&gt;#&lt;&#x2F;a&gt;Cooking&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikibooks.org&#x2F;wiki&#x2F;Cookbook:Table_of_Contents&quot;&gt;The Wikimedia Cookbook&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;A collection of recipes from a number of nationalities and cultures. Editable open-content.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;tech-interview-prep&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#tech-interview-prep&quot; aria-label=&quot;Anchor link for: tech-interview-prep&quot;&gt;#&lt;&#x2F;a&gt;Tech Interview Prep&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.techinterviewhandbook.org&#x2F;software-engineering-interview-guide&#x2F;&quot;&gt;Tech Interview Handbook&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.frontendinterviewhandbook.com&#x2F;introduction&#x2F;&quot;&gt;Front End Interview Handbook&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.techinterviewhandbook.org&#x2F;grind75&quot;&gt;Grind 75&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Not a book. This is a customizable study plan for grinding Leetcode problems.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;misc&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#misc&quot; aria-label=&quot;Anchor link for: misc&quot;&gt;#&lt;&#x2F;a&gt;Misc.&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.gutenberg.org&#x2F;&quot;&gt;Project Gutenberg&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;An online library of over 60,000 public domain books, ranging on topics from literature, to cookbooks, and history.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikibooks.org&#x2F;wiki&#x2F;Main_Page&quot;&gt;Wikibooks&lt;&#x2F;a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;As the title suggests, these are open-content wiki-like textbooks on a myriad of subjects.&lt;&#x2F;em&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>I&#x27;m on Netlify</title>
+		<published>2020-01-29T00:00:00+00:00</published>
+		<updated>2020-01-29T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/im-on-netlify/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/im-on-netlify/</id>
+		<content type="html">&lt;h1 id=&quot;i-m-on-netlify&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#i-m-on-netlify&quot; aria-label=&quot;Anchor link for: i-m-on-netlify&quot;&gt;#&lt;&#x2F;a&gt;I&#x27;m on Netlify&lt;&#x2F;h1&gt;
+&lt;p&gt;First of all, happy birthday to my big bro! He&#x27;s 29 today. Wishing him good fortune, good health, good food, etc.&lt;&#x2F;p&gt;
+&lt;p&gt;On topic: I had been using Github Pages as my homepage solution for years now. Six years to be exact, which means since I was a senior finishing my undergrad. One of the reasons I began using it was that it was one of the only (if not, most popular) freely available static-site hosting solutions, and incredibly developer friendly. The same cannot be said in the year 2020.&lt;&#x2F;p&gt;
+&lt;p&gt;Update: As of May 2021, I am back to Github Pages, being deployed via Github Actions. My reasoning for switching back was some inherent latency I discovered while using pages deployed on Netlify. Github Pages is snappier, in my experience.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Hard Symlinks on Windows</title>
+		<published>2019-08-05T00:00:00+00:00</published>
+		<updated>2019-08-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/hard-symlinks-on-windows/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/hard-symlinks-on-windows/</id>
+		<content type="html">&lt;h1 id=&quot;hard-symlinks-on-windows&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#hard-symlinks-on-windows&quot; aria-label=&quot;Anchor link for: hard-symlinks-on-windows&quot;&gt;#&lt;&#x2F;a&gt;Hard Symlinks on Windows&lt;&#x2F;h1&gt;
+&lt;p&gt;Posting this here to remind me.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;mklink&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;H link.exe C:&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\t&lt;&#x2F;span&gt;&lt;span&gt;ool&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\b&lt;&#x2F;span&gt;&lt;span&gt;in&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;\o&lt;&#x2F;span&gt;&lt;span&gt;riginal.exe
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Simple State Management in Mithril.js</title>
+		<published>2019-07-31T00:00:00+00:00</published>
+		<updated>2019-07-31T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/simple-state-management-in-mithriljs/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/simple-state-management-in-mithriljs/</id>
+		<content type="html">&lt;h1 id=&quot;simple-state-management-in-mithril-js&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#simple-state-management-in-mithril-js&quot; aria-label=&quot;Anchor link for: simple-state-management-in-mithril-js&quot;&gt;#&lt;&#x2F;a&gt;Simple State Management in Mithril.js&lt;&#x2F;h1&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;mithril.js.org&quot;&gt;Mithril.js&lt;&#x2F;a&gt; is a lightweight JavaScript framework that has become a staple in my development stack after I discovered it two years ago. At the time, I was looking for a simpler, zero-dependency alternative to &lt;a href=&quot;https:&#x2F;&#x2F;reactjs.org&#x2F;&quot;&gt;React.js&lt;&#x2F;a&gt; that could help me learn modern JavaScript UI development without needing to simultaneously learn and understand various build tools and framework plugins.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve since learned React and have come to appreciate it for its influence on modern web development. However, I find that Mithril, a framework that sits at half the size of React whilst containing more features, has remained my go-to.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;using-simple-variables&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#using-simple-variables&quot; aria-label=&quot;Anchor link for: using-simple-variables&quot;&gt;#&lt;&#x2F;a&gt;Using simple variables&lt;&#x2F;h2&gt;
+&lt;p&gt;When it comes to state management, Mithril is as unopinionated as they come. You can use Redux, Mobx, Cerebral, some implementation of the SAM pattern, or best of all -- just a plain ol&#x27; JavaScript object! Mithril comes with a global, auto-redraw system. The virtual DOM created by Mithril will diff against and synchronize the DOM whenever changes are made to your data layer. Most commonly, the redraws are triggered after an event handler defined in your Mithril application is called. But you can also manually trigger a DOM update with &lt;code&gt;m.redraw&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;What this means in practice is that you are free to structure your data however you&#x27;d like, and Mithril takes care of the rest. Below is an example of a simple Counter application written with Mithril:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter &lt;&#x2F;span&gt;&lt;span&gt;= {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;div&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;h1&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;onclick&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1 &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;onclick&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;-= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1 &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;    )
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;mount&lt;&#x2F;span&gt;&lt;span&gt;(document.body, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;flems.io&#x2F;#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J5YxAAR0ArgwkBeCQAYA3AB00GoXEkBBAA76FE4BokSAbhBgB3RBIAUASgUA+M+YlYHAcgAmEBY+FB6eXr6EAIzBEj4AwrSyjABOPk4haGHm3j76MTIM6aGeOQBG0sTE9DHAEvTUUBDUANb2zm5SiXIA1IqREuyx3WkZWeE+5ZXVFCZ1aA1NrY4u8q6dSRIAtH0DMz6bacVOGqzqmmhY+FhdxA5+tNTSOAz4pbR+AJ4zBvpOKpQgOAwWDUYgQegIHiRABMiGhAA5NkpEEo2BwQJgcHh8NQ4AIaPRGMweGwALpURpoZqQ1AYrh4LAQYiEZLQAHSZLkHgkYj6OCIAD0Atk+maAHMcbQsALGczWVAAALQ-BKfAAZhlTJZ0CuEDQ+H4AOIH303EB1FZ+lErFJrCAA&quot;&gt;Live Example&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Our state is just a single primitive variable! For small applications, simple widgets or one-off UI components, the above solution is largely sufficient. What&#x27;s important about implementing your state management solution is to understand that there is no silver bullet. You will be able to predict your needs more accurately as you work across multiple projects and grow organically. &lt;a href=&quot;https:&#x2F;&#x2F;redux.js.org&#x2F;&quot;&gt;Redux&lt;&#x2F;a&gt; is a brilliant solution for modern UI state management, but the 9&#x2F;10 times I have attempted to use it out of a desire to do things &amp;quot;the right way&amp;quot;, it was absolute overkill. I advise reading &lt;a href=&quot;https:&#x2F;&#x2F;medium.com&#x2F;@dan_abramov&#x2F;you-might-not-need-redux-be46360cf367&quot;&gt;this blog post&lt;&#x2F;a&gt; by Dan Abramov, the creator of Redux.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;using-pojos-for-state-actions&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#using-pojos-for-state-actions&quot; aria-label=&quot;Anchor link for: using-pojos-for-state-actions&quot;&gt;#&lt;&#x2F;a&gt;Using POJOs for state &amp;amp; actions&lt;&#x2F;h2&gt;
+&lt;p&gt;While the above solution is simple and likely sufficient for small use-cases, it introduces one problem - we are modifying the state directly from within the view. It won&#x27;t take long before this approach proves unwieldy, and you&#x27;re scanning your templates trying to find where you wrote the logic that is altering your state in (potentially) unpredictable ways.&lt;&#x2F;p&gt;
+&lt;p&gt;We can introduce indirection and a more versatile state container using plain JavaScript objects. Our &lt;code&gt;Counter&lt;&#x2F;code&gt; component becomes more terse, yet more expressive:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state &lt;&#x2F;span&gt;&lt;span&gt;= { count: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions &lt;&#x2F;span&gt;&lt;span&gt;= {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;increment&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;decrement&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;-= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter &lt;&#x2F;span&gt;&lt;span&gt;= {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;div&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;h1&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;increment &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;decrement &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;    )
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;mount&lt;&#x2F;span&gt;&lt;span&gt;(document.body, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;flems.io&#x2F;#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4hcYgAIJGRpIC8k4JLoBXBokkAGSawDcAHTRHxUjNWIR6cBUqOTJENNQBOMHBskAKAJQKAfNLEsjD4agySANSKAIwU9pIAJjCu7iKavgFBIWG06lIAtLFG+kYm1lIAwnnCLrbACQBuEDAA7hl+8v4JDlheAOSJEI398WgOE5J9-YQxo5L91fkwLv0+Y5O9AwAO8zKMufnrPRPTAEaqxMT088r01FAQ1ADWmuaW1vhOqR5S7AuRNYbTbnS7XNC3ST3R4vN4WKxoOD4ZI-ES6CgLAprE4+EqGYxoLD4LA1YheRK0aiqX74M60RIATwxS1qPj0lBAcBgsHh1jwWkQWgKMQA7IgAMwAJjYHBAmBweDCcAENHojGYPDYAF0qI80M8EChOAqeFgIMRCC5oBzVC5yDwSMRtnBEAB6V3qbbPADmuSwrrNFqtUAAApL8Fp8OKA+bLdBiU58PwOcQGdtuJzXBBtqJWFrWEA&quot;&gt;Live Example&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;using-factory-functions-to-reproduce-state-actions&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#using-factory-functions-to-reproduce-state-actions&quot; aria-label=&quot;Anchor link for: using-factory-functions-to-reproduce-state-actions&quot;&gt;#&lt;&#x2F;a&gt;Using factory functions to reproduce state &amp;amp; actions&lt;&#x2F;h2&gt;
+&lt;p&gt;As your application grows in size, it might be preferable that your state and actions are easily testable and replicable from the beginning. Further, instead of relying on lexical scoping for your actions to have access to your state, we can use a combination of dependency injection and closures so that an instance of your actions will always directly reference a specific state object. We can easily achieve this with factory functions that provide your initial state and actions that directly reference a single state object.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;State &lt;&#x2F;span&gt;&lt;span&gt;= () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;({ count: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Actions &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;increment&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;decrement&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;-= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;From there, it is dead simple to reproduce your state and actions objects respectively:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state   &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;State&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Actions&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Passing these to a Mithril component is trivial using the &lt;code&gt;attrs&lt;&#x2F;code&gt; property (near-equivalent to &lt;code&gt;props&lt;&#x2F;code&gt; in React) and object destructuring. Notice that our Counter component remains virtually unchanged:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter &lt;&#x2F;span&gt;&lt;span&gt;= {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: ({ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;attrs&lt;&#x2F;span&gt;&lt;span&gt;: { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions &lt;&#x2F;span&gt;&lt;span&gt;} }) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;div&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;h1&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;increment &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;decrement &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;)
+&lt;&#x2F;span&gt;&lt;span&gt;    )
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;mount&lt;&#x2F;span&gt;&lt;span&gt;(document.body, {
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;, { &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions &lt;&#x2F;span&gt;&lt;span&gt;})
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;flems.io&#x2F;#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4hcYgAIAysQyNJAXkkAKAJRKAfKuCS6AVwaJJABkms1AbgA6aW+KkBBasQj04SyRPkwtO25KSEGjUAE4wOEaqGora3oz4BgySANTKAIwUAZIAJjBhESLG6n7xMIm0hlIAtBm2FjZ2Ie5SZYGesj7qjQ6SGC5uaB7Kzq7uKmVWtvYtkgDClcKhnsDZAG4QMADuxbryxKFwxrplFH0D7ubmMZrZgVgqAOQ5EGuPWWjt7Q+PhOnvkkeCyqMFCjzUHy+9yeAAcAWUKlUIXdvk8AEb6YjEegA3T0ahQCDUADWxn6YyG+GCBUiUnYgJS4MhUJ+GKxOLOeJChJJZIulLyNJE5jOj2q4JRanqjVsWHwWEWxBUOVo1H0tPwaNoOQAnpz1psdtE-A9gUtOV45IwzuTBh4LPUrJQQHAYLB+QgeOkAMyIABMAFY2BwQJgcHhEnABDR6IxmDw2ABdKiEtDEz2oUNcPBYCDEQihaDO-Shcg8EjEGFHAD01cMMOJAHMKlhq7n84WoAABP34Ez4b1tvMF6Dy4L4fjO4g6mHcF1hCAw0SsROsIA&quot;&gt;Live Example&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;(P.S. Credit goes to &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;porsager&quot;&gt;porsager&lt;&#x2F;a&gt; who shared this brilliant solution in the Mithril.js Gitter, nicknamed &amp;quot;Mitosis&amp;quot;, named after the equally awesome &lt;a href=&quot;http:&#x2F;&#x2F;meiosis.js.org&#x2F;&quot;&gt;Meiosis Pattern by foxdonut&lt;&#x2F;a&gt;). &lt;strong&gt;This is my preferred approach to state management in Mithril.&lt;&#x2F;strong&gt; Passing your state and actions to child components would work as you&#x27;d expect. Simply pass your state and actions objects further down as &lt;code&gt;attrs&lt;&#x2F;code&gt;, or more wisely, be selective of what you choose to expose to child components.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;factory-functions-with-stateless-components&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#factory-functions-with-stateless-components&quot; aria-label=&quot;Anchor link for: factory-functions-with-stateless-components&quot;&gt;#&lt;&#x2F;a&gt;Factory functions with stateless components&lt;&#x2F;h2&gt;
+&lt;p&gt;You could also take an approach where your application is composed of solely stateless components. That is, every component is a pure, deterministic function. &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JorgeBucaran&#x2F;hyperapp&quot;&gt;Hyperapp&lt;&#x2F;a&gt; is a JavaScript framework that does not allow for local state in components. Instead, every component returns a portion of your UI that reflects the global state. While I highly recommend checking out Hyperapp (it&#x27;s only 1kb gzipped!), this post is about Mithril, and you can use a similar approach with Mithril.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;State &lt;&#x2F;span&gt;&lt;span&gt;= () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;({ count: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0 &lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Actions &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;({
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;increment&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;decrement&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;-= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Counter &lt;&#x2F;span&gt;&lt;span&gt;= (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;div&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;h1&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count&lt;&#x2F;span&gt;&lt;span&gt;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;increment &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;decrement &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Child&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;  );
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Child &lt;&#x2F;span&gt;&lt;span&gt;= (&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;div&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;h2&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;Child&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;p&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;count &lt;&#x2F;span&gt;&lt;span&gt;* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;2&lt;&#x2F;span&gt;&lt;span&gt;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;increment &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;+&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;button&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;, { onclick: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;decrement &lt;&#x2F;span&gt;&lt;span&gt;}, &amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;-&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;),
+&lt;&#x2F;span&gt;&lt;span&gt;  );
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;mount&lt;&#x2F;span&gt;&lt;span&gt;(document.body, () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state   &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;State&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;const &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Actions&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;{ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;view&lt;&#x2F;span&gt;&lt;span&gt;: () &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;Counter&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;state&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actions&lt;&#x2F;span&gt;&lt;span&gt;) };
+&lt;&#x2F;span&gt;&lt;span&gt;});
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;flems.io&#x2F;#0=N4IgZglgNgpgziAXAbVAOwIYFsZJAOgAsAXLKEAGhAGMB7NYmBvEAXwvW10QICsEqdBk2J4hcYgAIAysQyNJAXkkAKAJRKAfKuCS6AVwaJJABkms1AbgA6aW+KkBBasQj04SyRPkwtO25KSEGjUAE4wOEaqGora3oz4BgySANTKAIwUAZIAJjBhESLG6n7xMIm0hlIAtBm2FjZ2Ie5SAMKVwqGeKmUUkhgubmhwMZrZWCoA5DkQAG6TWWiBgROThOkLkpPtVTChk2qLy5KrAA6bZRVVh9krUwBG+sTE9Ju69NRQENQA1sYDrnc+GCBUiUnYWxSByOy1Wj2erz67xCX1+-0GQLyoJE5j6k2q0NuklahGgOR6ckYfQBQxG2TUtka9haxNJUBy3V6-Qxw1G4ymM3mMLuawATJttmycoSlrCpuc+pcklIAFSSUU3WUi+EvNBvSQfVF-bmA4bAkLhMG4yEy45wp66-WG77GmmY-KWnEQ-G2yQMtBMtBYfBYDrEFQ5WjUfRg-D3Wg5ACefRKsUkwGyDi8lN8gWUsh86kagSzbuGnmcprgFJ8Vls2XCxH0oSWulmEBgAHdiqNiWG9jWqSbaRpWI0GpQQHAYLAeQgeCZECZqgBmdKIFdsDggTA4PCJOACGj0RjMHhsAC6VC+aB+89QO64eCwEGIhFC0EnzfIPBIxFOcCIAA9EBhinD8ADmFRYEBL5vh+UAAAKivgJj4CusGvu+0AhsE+D8JOxCJqc3BTmEECnKIrAXqwQA&quot;&gt;Live Example&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;#&lt;&#x2F;a&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;In the end, always do what feels right to you and makes more sense given your team and&#x2F;or project. If this has been helpful or if you have any questions, &lt;a href=&quot;mailto:me@kevinfiol.com&quot;&gt;drop me an email!&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Brew Candy Review</title>
+		<published>2019-06-17T00:00:00+00:00</published>
+		<updated>2019-06-17T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/brew-candy-review/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/brew-candy-review/</id>
+		<content type="html">&lt;h1 id=&quot;brew-candy-review&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#brew-candy-review&quot; aria-label=&quot;Anchor link for: brew-candy-review&quot;&gt;#&lt;&#x2F;a&gt;Brew Candy Review&lt;&#x2F;h1&gt;
+&lt;p&gt;For my birthday, a very dear friend of mine sent me these Brew Candies. She had requested that I let her know how they are, so I resolved to put together a brief review and summary of my experience eating these beer-inspired candies.&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;1.jpg&quot; alt=&quot;brew candy bag&quot; &#x2F;&gt;
+&lt;p&gt;I love beer. And maybe because of this, I was very skeptical of these candies. Can you truly replicate the nuances of flavor found in beers such as IPAs and stouts? Perhaps if you jampack your candy with an overbearing bitterness reminiscent of hops.&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;2.jpg&quot; alt=&quot;brew candy bag with three pieces of candy&quot; &#x2F;&gt;
+&lt;p&gt;The package includes three flavors:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Hoppy IPA&lt;&#x2F;li&gt;
+&lt;li&gt;Honey Ale&lt;&#x2F;li&gt;
+&lt;li&gt;Roasty Stout&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Being a stout-lover, I chose to leave what I presumed to be the best for last.&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;3.jpg&quot; alt=&quot;brew candy back of bag&quot; &#x2F;&gt;
+&lt;p&gt;Curious (or not) enough, these candies contain no alcohol! Which makes it safe for you to distribute to your underage cousins without legal repercussions. Anyway here are my thoughts on these beer treats.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;hoppy-ipa&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#hoppy-ipa&quot; aria-label=&quot;Anchor link for: hoppy-ipa&quot;&gt;#&lt;&#x2F;a&gt;Hoppy IPA&lt;&#x2F;h2&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;4.jpg&quot; alt=&quot;brew candy hoppy ipa flavor&quot; &#x2F;&gt;
+&lt;p&gt;What&#x27;s instantly recognizable from these candies is that they seem to resemble, albeit crudely, the shape of a hop. Or at least... I think it&#x27;s supposed to be a hop. Either way, it&#x27;s an admirable feature, and the texture at least adds to the novelty of the packaging.&lt;&#x2F;p&gt;
+&lt;p&gt;Onto the taste test!&lt;&#x2F;p&gt;
+&lt;p&gt;The Hoppy IPA variant is mildly sweet, but with a sharp hoppy flavor that lingers on the tongue. As you&#x27;d imagine, it has a strong bittery aftertaste. Does not taste like a beer per say, but it is recognizable instantly. A taste not too different from other hard candies, surprisingly. Can easily disguise this among other kid-oriented candies. An interesting flavor, but not particularly great. Overall a &lt;strong&gt;6&#x2F;10&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;honey-ale&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#honey-ale&quot; aria-label=&quot;Anchor link for: honey-ale&quot;&gt;#&lt;&#x2F;a&gt;Honey Ale&lt;&#x2F;h2&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;5.jpg&quot; alt=&quot;brew candy honey ale flavor&quot; &#x2F;&gt;
+&lt;p&gt;Has the bitterness of a hoppy beer, but distinctively honey flavor that is not overshadowed by the hoppiness. You may be able to hide this among other honey flavored candies and get away with it. Might be a great gateway drug to trick people into liking IPAs even! A subtle sweetness, and none of the biting aftertaste found in the Hoppy IPA flavor. May be one of my more favorite honey-flavored candies I have tried. I give it a &lt;strong&gt;8&#x2F;10&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;roasty-stout&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#roasty-stout&quot; aria-label=&quot;Anchor link for: roasty-stout&quot;&gt;#&lt;&#x2F;a&gt;Roasty Stout&lt;&#x2F;h2&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;brew_candy&amp;#x2F;6.jpg&quot; alt=&quot;brew candy roasty stout flavor&quot; &#x2F;&gt;
+&lt;p&gt;I love stouts, porters, and any kind of coffee-flavored dark beers, so this flavor was right up my alley. This near-perfectly replicates the flavor of a coffee stout in candy form. Easily my favorite of the three flavors, so much that I&#x27;ve probably already eaten most of these from the bag. If you&#x27;re trying to convince someone who already likes coffee caramels (or similar candies) to try some dark beers, this might be a good stepping stone. I wouldn&#x27;t mind if Brew Candy made bags full of this stuff. More please. &lt;strong&gt;9&#x2F;10&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;#&lt;&#x2F;a&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Overall, this was a fun taste test. I&#x27;ve never written reviews for food items (or much anything really), so excuse me if you think this review sucks. I want to give a big thanks to my very thoughtful friend who gave me the opportunity to try these, and I look forward to finishing the rest of the bag. If you&#x27;d like to leave a comment, just scroll down and leave one in the non-existent comment box below! Or, you know, just e-mail me at &lt;a href=&quot;mailto:me@kevinfiol.com&quot;&gt;me@kevinfiol.com&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Validating Checksum on Windows</title>
+		<published>2019-06-04T00:00:00+00:00</published>
+		<updated>2019-06-04T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/validating-checksum-on-windows/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/validating-checksum-on-windows/</id>
+		<content type="html">&lt;h1 id=&quot;validating-checksum-on-windows&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#validating-checksum-on-windows&quot; aria-label=&quot;Anchor link for: validating-checksum-on-windows&quot;&gt;#&lt;&#x2F;a&gt;Validating Checksum on Windows&lt;&#x2F;h1&gt;
+&lt;p&gt;This is a common command that I constantly seem to forget and have to look up over and over again. Posting it here so I never have to search for it again.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;certutil.exe -hashfile &lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;data.iso&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot; MD5
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Git Cheatsheet</title>
+		<published>2019-05-22T00:00:00+00:00</published>
+		<updated>2019-05-22T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/git-cheatsheet/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/git-cheatsheet/</id>
+		<content type="html">&lt;h1 id=&quot;git-cheatsheet&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#git-cheatsheet&quot; aria-label=&quot;Anchor link for: git-cheatsheet&quot;&gt;#&lt;&#x2F;a&gt;Git Cheatsheet&lt;&#x2F;h1&gt;
+&lt;p&gt;This is a collection of &lt;code&gt;git&lt;&#x2F;code&gt; commands that I use frequently. May or may not be useful to you, but it&#x27;s useful to me, dammit.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;git-add-interactive-mode&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#git-add-interactive-mode&quot; aria-label=&quot;Anchor link for: git-add-interactive-mode&quot;&gt;#&lt;&#x2F;a&gt;Git Add Interactive Mode&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; add&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -i
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;clone-repository-respective-branch&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#clone-repository-respective-branch&quot; aria-label=&quot;Anchor link for: clone-repository-respective-branch&quot;&gt;#&lt;&#x2F;a&gt;Clone repository &#x2F; respective branch:&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;$&lt;&#x2F;span&gt;&lt;span&gt; git clone&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -b &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;branch name&amp;gt; &amp;lt;host&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;delete-local-and-remote-branch&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#delete-local-and-remote-branch&quot; aria-label=&quot;Anchor link for: delete-local-and-remote-branch&quot;&gt;#&lt;&#x2F;a&gt;Delete Local and Remote Branch&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --delete &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;branch_name&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; branch&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -d &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;branch_name&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;merge-to-master&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#merge-to-master&quot; aria-label=&quot;Anchor link for: merge-to-master&quot;&gt;#&lt;&#x2F;a&gt;Merge to Master&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; pull origin master
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; merge&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-ff&lt;&#x2F;span&gt;&lt;span&gt; test
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;merge-into-some-other-branch&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#merge-into-some-other-branch&quot; aria-label=&quot;Anchor link for: merge-into-some-other-branch&quot;&gt;#&lt;&#x2F;a&gt;Merge into some other branch&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout production
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; merge development
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin production
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;create-a-new-branch-and-push-it-to-the-remote-repo&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#create-a-new-branch-and-push-it-to-the-remote-repo&quot; aria-label=&quot;Anchor link for: create-a-new-branch-and-push-it-to-the-remote-repo&quot;&gt;#&lt;&#x2F;a&gt;Create a new branch and push it to the remote repo&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -b&lt;&#x2F;span&gt;&lt;span&gt; myFeature dev
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; push origin myFeature
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;stashing-work-in-progress-wip-changes&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#stashing-work-in-progress-wip-changes&quot; aria-label=&quot;Anchor link for: stashing-work-in-progress-wip-changes&quot;&gt;#&lt;&#x2F;a&gt;Stashing Work In Progress (WIP) changes&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; stash
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And to get it back:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; stash pop
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;so-you-forked-a-repo-and-want-to-keep-your-fork-updated&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#so-you-forked-a-repo-and-want-to-keep-your-fork-updated&quot; aria-label=&quot;Anchor link for: so-you-forked-a-repo-and-want-to-keep-your-fork-updated&quot;&gt;#&lt;&#x2F;a&gt;So you forked a Repo and want to keep your fork updated&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; remote add upstream git@github.com:company&#x2F;projectyourforkedfrom.git
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To update:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; fetch upstream
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; rebase upstream&#x2F;master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you have commit rights to the upstream repo, you can create a local &lt;code&gt;upstream&lt;&#x2F;code&gt; branch and do work that will go to upstream there.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; checkout&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; -b&lt;&#x2F;span&gt;&lt;span&gt; upstream upstream&#x2F;master
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-don-t-want-to-add-it-to-gitignore&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-don-t-want-to-add-it-to-gitignore&quot; aria-label=&quot;Anchor link for: sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-don-t-want-to-add-it-to-gitignore&quot;&gt;#&lt;&#x2F;a&gt;Sometimes, you want to locally (or temporarily) ignore a file but don&#x27;t want to add it to &lt;code&gt;.gitignore&lt;&#x2F;code&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Be careful with this, because if you ignore a file, and then do a &lt;code&gt;git pull&lt;&#x2F;code&gt; after the file was changed upstream, you&#x27;ll get a conflict. And you&#x27;ll be confused because Git will tell you to stash your changes, all the while &lt;code&gt;git status&lt;&#x2F;code&gt; is showing no changes.&lt;&#x2F;p&gt;
+&lt;p&gt;Ignore it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; update-index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --assume-unchanged &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;file&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Unignore it:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;git&lt;&#x2F;span&gt;&lt;span&gt; update-index&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt; --no-assume-unchanged &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;file&amp;gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Bullet Pools with Timers in HaxeFlixel</title>
+		<published>2019-05-18T00:00:00+00:00</published>
+		<updated>2019-05-18T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://kevinfiol.com/blog/bullet-pools-with-timers-in-haxeflixel/" type="text/html"/>
+		<id>https://kevinfiol.com/blog/bullet-pools-with-timers-in-haxeflixel/</id>
+		<content type="html">&lt;h1 id=&quot;bullet-pools-with-timers-in-haxeflixel&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#bullet-pools-with-timers-in-haxeflixel&quot; aria-label=&quot;Anchor link for: bullet-pools-with-timers-in-haxeflixel&quot;&gt;#&lt;&#x2F;a&gt;Bullet Pools with Timers in HaxeFlixel&lt;&#x2F;h1&gt;
+&lt;p&gt;One of the more useful features of the flixel library is the inclusion of the &lt;a href=&quot;http:&#x2F;&#x2F;api.haxeflixel.com&#x2F;flixel&#x2F;group&#x2F;FlxTypedGroup.html&quot;&gt;FlxTypedGroup&lt;&#x2F;a&gt; class, which makes it easier to organize, update, and render multiple instances of an FlxBasic object. A few getter methods provide useful information such as the length of the group, or an array of every member in an instantiated group.&lt;&#x2F;p&gt;
+&lt;p&gt;A practical application of FlxTypedGroup can be found in the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;HaxeFlixel&#x2F;flixel-demos&#x2F;tree&#x2F;master&#x2F;Arcade&#x2F;FlxTeroids&#x2F;source&quot;&gt;&#x27;Asteroids&#x27; demo&lt;&#x2F;a&gt; available via the HaxeFlixel repository. FlxTypedGroup&#x27;s &lt;code&gt;recycle&lt;&#x2F;code&gt; method allows us to resuse bullet objects without having to destroy, recreate, and reallocate memory each time. Instead, bullets can be respawned from the queue after the pool has been &amp;quot;expended.&amp;quot;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: In the demo example available in the HaxeFlixel repository, the properties of each bullet are initialized on the fly within &lt;code&gt;PlayState.hx&lt;&#x2F;code&gt;. For my example, I have created a separate &lt;code&gt;Bullet&lt;&#x2F;code&gt; class for the sake of convenience.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;In the current PlayState, we can create and initialize a pool called &lt;code&gt;bullets&lt;&#x2F;code&gt; which we will populate with bullet objects from which we can spawn bullets as we please. In this case, I will create a pool with a maximum size of 3.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;class PlayState extends FlxState
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;	public static var bullets:FlxTypedGroup&amp;lt;Bullet&amp;gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;	override public function create():Void
+&lt;&#x2F;span&gt;&lt;span&gt;	{
+&lt;&#x2F;span&gt;&lt;span&gt;		var poolSize:Int = 3;
+&lt;&#x2F;span&gt;&lt;span&gt;		var bullet:Bullet;
+&lt;&#x2F;span&gt;&lt;span&gt;		bullets = new FlxTypedGroup&amp;lt;Bullet&amp;gt;(poolSize);
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;From here, we can write a simple loop to create new bullet objects and simply add them to the existing group.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;...
+&lt;&#x2F;span&gt;&lt;span&gt;override public function create():Void
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;	var poolSize:Int = 3;
+&lt;&#x2F;span&gt;&lt;span&gt;	var bullet:Bullet;
+&lt;&#x2F;span&gt;&lt;span&gt;	bullets = new FlxTypedGroup&amp;lt;Bullet&amp;gt;(poolSize);
+&lt;&#x2F;span&gt;&lt;span&gt;	for (i in 0...poolSize) {
+&lt;&#x2F;span&gt;&lt;span&gt;		bullet = new Bullet();
+&lt;&#x2F;span&gt;&lt;span&gt;		bullets.add(bullet);
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;...
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Within our Player class, we can then just reference the main PlayState&#x27;s &lt;code&gt;bullets&lt;&#x2F;code&gt; pool to recycle &lt;code&gt;bullet&lt;&#x2F;code&gt; objects. &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;if (FlxG.keys.justPressed.Z) {
+&lt;&#x2F;span&gt;&lt;span&gt;	var bullet:Bullet = PlayState.bullets.recycle();
+&lt;&#x2F;span&gt;&lt;span&gt;	&#x2F;&#x2F; YOUR BULLET VELOCITY CODE GOES HERE
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;After this, we just add our standard logic that handles bullet velocity, acceleration, or how, when, and where your Sprite class may spawn bullet objects. As seen in the example below, only 3 bullets may be on the screen at one time, with the earliest spawned bullet being replaced.&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;haxeflixel-bullet-timers&amp;#x2F;1.gif&quot; alt=&quot;asteroids animation&quot; &#x2F;&gt;
+&lt;p&gt;Building on the example of the original Asteroids arcade game, we can give each bullet a limited lifetime, meaning if the bullet does not collide with another asteroid or enemy sprite, it should cease to exist after a certain period of time. Otherwise, it would continue travelling endlessly.&lt;&#x2F;p&gt;
+&lt;p&gt;I was able to do this using HaxeFlixel&#x27;s &lt;a href=&quot;http:&#x2F;&#x2F;api.haxeflixel.com&#x2F;flixel&#x2F;util&#x2F;FlxTimer.html&quot;&gt;FlxTimer&lt;&#x2F;a&gt; class, however, you may also use the standard &lt;a href=&quot;http:&#x2F;&#x2F;api.haxe.org&#x2F;haxe&#x2F;Timer.html&quot;&gt;Timer&lt;&#x2F;a&gt; class included in the Haxe Toolkit.&lt;&#x2F;p&gt;
+&lt;p&gt;Within my &lt;code&gt;Bullet.hx&lt;&#x2F;code&gt; class, I declare &lt;code&gt;timer&lt;&#x2F;code&gt; and initialize it as an FlxTimer object in the class constructor. &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;class Bullet extends FlxSprite
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;	public var timer:FlxTimer;
+&lt;&#x2F;span&gt;&lt;span&gt;	public function new(X:Float = 0, Y:Float = 0) 
+&lt;&#x2F;span&gt;&lt;span&gt;	{
+&lt;&#x2F;span&gt;&lt;span&gt;		super(X, Y);
+&lt;&#x2F;span&gt;&lt;span&gt;		timer = new FlxTimer();
+&lt;&#x2F;span&gt;&lt;span&gt;		&#x2F;&#x2F;YOUR OBJECT PROPERTIES GO HERE
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;	override public function update(elapsed:Float):Void
+&lt;&#x2F;span&gt;&lt;span&gt;	{
+&lt;&#x2F;span&gt;&lt;span&gt;		...
+&lt;&#x2F;span&gt;&lt;span&gt;	}
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Instead of creating a new FlxTimer object each time a bullet is recycled, the existing one is simply reset when needed.&lt;&#x2F;p&gt;
+&lt;p&gt;Now back in the &lt;code&gt;Player.hx&lt;&#x2F;code&gt; class, we simply set and start the FlxTimer object for each bullet as they fire. The &lt;code&gt;start&lt;&#x2F;code&gt; method of an FlxTimer object &lt;a href=&quot;http:&#x2F;&#x2F;api.haxeflixel.com&#x2F;flixel&#x2F;util&#x2F;FlxTimer.html#start&quot;&gt;takes three arguments&lt;&#x2F;a&gt;: &lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;start(Time:Float = 1, ?OnComplete:FlxTimer‑&amp;gt;Void, Loops:Int = 1):FlxTimer
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Time:Float&lt;&#x2F;strong&gt; How many seconds it takes for the timer to go off. If 0 then timer will fire OnComplete callback only once at the first call of update method (which means that Loops argument will be ignored).&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;OnComplete:FlxTimer-&amp;gt;Void&lt;&#x2F;strong&gt; Optional, triggered whenever the time runs out, once for each loop. Callback should be formed &amp;quot;onTimer(Timer:FlxTimer);&amp;quot;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Loops:Int&lt;&#x2F;strong&gt; How many times the timer should go off. 0 means &amp;quot;looping forever&amp;quot;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;In the example below, I pass &lt;code&gt;2.0&lt;&#x2F;code&gt; for &lt;code&gt;Time&lt;&#x2F;code&gt;, an anonymous function for &lt;code&gt;OnComplete&lt;&#x2F;code&gt; that switches the bullets &lt;code&gt;exists&lt;&#x2F;code&gt; flag to &lt;code&gt;false&lt;&#x2F;code&gt;, and &lt;code&gt;1&lt;&#x2F;code&gt; for &lt;code&gt;Loops&lt;&#x2F;code&gt; so that the function only triggers once.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haxe&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-haxe &quot;&gt;&lt;code class=&quot;language-haxe&quot; data-lang=&quot;haxe&quot;&gt;&lt;span&gt;if (FlxG.keys.justPressed.Z) {
+&lt;&#x2F;span&gt;&lt;span&gt;	var bullet:Bullet = PlayState.bullets.recycle();
+&lt;&#x2F;span&gt;&lt;span&gt;	bullet.timer.start(
+&lt;&#x2F;span&gt;&lt;span&gt;		2.0,
+&lt;&#x2F;span&gt;&lt;span&gt;		function (Timer:FlxTimer) {
+&lt;&#x2F;span&gt;&lt;span&gt;			bullet.exists = false;
+&lt;&#x2F;span&gt;&lt;span&gt;		},
+&lt;&#x2F;span&gt;&lt;span&gt;		1
+&lt;&#x2F;span&gt;&lt;span&gt;	);
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;So now, not only do you limit the amount of bullets that can be on the screen at once, but you can limit the duration for said bullets! It&#x27;s a very neat and useful mechanic for balancing your game that can be applied to any pool of FlxBasic objects you may need, whether it be enemies, ammunition, or environmental objects.&lt;&#x2F;p&gt;
+&lt;img loading=&quot;lazy&quot; src=&quot;&amp;#x2F;img&amp;#x2F;blog&amp;#x2F;haxeflixel-bullet-timers&amp;#x2F;2.gif&quot; alt=&quot;asteroids animation&quot; &#x2F;&gt;</content>
+	</entry>
+</feed>
