@@ -6,7 +6,7 @@ template = "post.html"
 
 # React Patterns in Umai
 
-Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted. The end result is a library I named [umai](https://github.com/kevinfiol/umai).
+Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted -- [umai](https://github.com/kevinfiol/umai).
 
 Since then, I've used umai on multiple small personal projects and have been happy with the speed and minimalism I've been able to rebuild apps I had previously written in React, Mithril, and Svelte.
 
@@ -14,7 +14,7 @@ In this post, I'd like to translate React patterns taken from [react.dev](https:
 
 ## [Component Composition](https://react.dev/learn#components)
 
-Let's start with a very basic example of component composition. Being able to reduce reptition of UI elements is central to any UI library.
+Let's start with a very basic example of component composition. Being able to reuse components is central to any UI library.
 
 ### React
 
@@ -61,7 +61,7 @@ function MyApp() {
 
 [Live Example](https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKYsDHmSzcDQAWQAngAhZRiMSyAAUAEpblMNBoEmJlCRyUyOZyNAAeGr0xncAB8gqFGgAkhtlnkxQzZDKRWEVRLpeSNCy9twnITuMTuKTZJSqQBBPR6Vns3Xc3n89XCqAQABuOtlnOFIjQkoA6qYZAJKksqRpeLbhWF-d6fcLqXTVeSwgnfWF3V7BfqpkbuFMwOi5EyTkRVCEMDUyFAqajqTa9PqAqG9Ox4CQlDVeDVTF9TPBzdxrCBbABmRwuNzgoQYIgEKGBGEhJTORhOIA)
 
-Notice anything interesting? They're both the same! If you're used to stateless components in React, moving to umai will seem like a breeze at first. This includes basics like props and conditional rendering. The following example is compatible with React and umai:
+Notice anything interesting? They're both the same! If you're used to stateless components in React, moving to umai will seem like a breeze. This includes basics like props and conditional rendering. The following example is compatible with React and umai:
 
 ```jsx
 function MyButton() {
@@ -156,7 +156,7 @@ function MyButton() {
 A few important distinctions to be made with the umai version:
 * umai uses browser standard names for event handlers (`onclick` vs `onClick`)
 * Notice that the `handleClick` function in React will be re-created on every re-render. This is because React components *are also* the render function. Hooks are needed to get around this limitation and to store stateful data in a hidden global store invisible to the developer. When declaring stateful components with umai, instead of returning JSX, we return a **render function**. This forms a closure that retains the state of the **outer function**. `handleClick` in the umai version is only created once.  
-  * This means no need for `useCallback`!
+  * This means no need for `useCallback`! Memoizing components is much simpler in umai.
 
 ## [Focusing a text input](https://react.dev/learn/manipulating-the-dom-with-refs#example-focusing-a-text-input)
 
@@ -187,7 +187,7 @@ function Form() {
 
 In umai, every element has a special `dom` property which accepts a handler that receives the DOM node upon creation. Using a `let` variable, we can grab a reference to this node and use it at a later time.
 
-```js
+```jsx
 function Form() {
   let inputEl = null;
 
@@ -218,7 +218,7 @@ React heavily relies on the `useEffect` hook for usecases involving:
 * Running code on dependency updates (whether it be state or props)
 * Running code on unmounting of a component
 
-This hook famously replaced every lifecycle React used when class components were idiomatic React.
+This hook famously replaced every lifecycle event React used when class components were idiomatic React.
 
 ```jsx
 function Counter() {
@@ -237,7 +237,9 @@ function Counter() {
 
 ### umai
 
-umai is comparatively, much more minimal. The handler passed to the `dom` property is only called once upon DOM node creation. Therefore, we can leverage it to run effects on "component mount". Additionally, a cleanup function can be returned in this handler to run code upon element removal.
+umai is comparatively, much more minimal. There is no special API for effects. However, we can re-use an existing concept we visited earlier.
+
+The handler passed to the `dom` property is only called once upon DOM node creation. Therefore, we can leverage it to run effects on "component mount". Additionally, a cleanup function can be returned in this handler to run code upon element removal.
 
 ```jsx
 function Counter() {
@@ -257,4 +259,8 @@ function Counter() {
 }
 ```
 
-Rerenders are only triggered to event handlers defined in your JSX, or by manual `redraw()` calls. During asynchronous operations, `redraw` is necessary to tell umai when to re-render.
+[Live Example](https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyVEJKDDfYrNZkTbbCC7KZTFgY8yWbgaADC6OCJAAFABKW5TDT9eB9GQYvo3Wh7GlcvpHeQkABuvFgAEkoNdWspKEKOflKb8abIALIMsSs9nCzli+CS6VyhUmMQyxlS2BM-VXAB8Bs5ro0vLkGgA1Dc0EK3ZzsbjWf7XS4NGhaFGWSrDRoEmJlCQaQ7ncBVW6iAgRtbxbamcbTbKoDGMx9VU4ycKE0mU2ynRoADwiNAaE5gK7AbW6pyO4AesRORthFuOoWV7jk9XUjQAQT0en16eFCD6BBEpwVLGlJljnIp3Cpsg0loAyhv9kztGzl2715ubtpQxPVTXkxpUx+y42oBAJY6y05RsamUMQxGPWQswgcpO0-M8LyZABCe99hZXtANdYAUI0AB+DQNgAVW4MBdQ2DQ3g2HU+Q2VZkkSGRZlkEIMOHECwNkAC405LCLw0AAyPim3pPkTQ0MJHQnN1h1-f9VVLbgX0nYjdSZE4iFUEIMBqMgoAAT1RT9G3nPQxMdGMAgYvR2BNJQal4GpTC+Ux4CPbhrBAWwABZaGBNxwSEDAiAIKFAhhEIlAAKhdDRtO0doCAgAAvI5ojebSSCgE12li8cq20vTopYGF2m3SBYF0t4CF4Nz4pNCAWFDNQSGiI43nsWg9CfVU9F4GAUreQUpkUltoqalqOnAvQBtDIq5HipL4Da+xOtypSRHsUaRnG9pJum1VZrEebEsWjR2pWoaqxEABmTbmqOHayCmjRBuFA6jpOtAsHOhTLs827tt256ZuKhLjreNAADZvuGlB-vuwGXv3EGFvBzzocuiG4Ymx69te5GwYjZaup+pSZEywr8Y+jB7HgMBVqmJVop6vruGidojgGbh4HisQRjENqOuJxSnJ+al3M8rAkB8pxGCcIA)
+
+Some interesting things to note:
+* Since stateful components in umai are "closure components", we don't have to keep track of dependencies with dependency arrays like in React
+* umai uses "[global redraws](https://github.com/kevinfiol/umai?tab=readme-ov-file#redraws--state-management)". Rerenders are only triggered by event handlers defined in your JSX, or by manual `redraw()` calls. During asynchronous operations, calling `redraw` is necessary to tell umai to re-render.
