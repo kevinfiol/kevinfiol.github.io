@@ -165,6 +165,8 @@ A few important distinctions to be made with the umai version:
 Sometimes, you need access to the DOM. In React, a `ref` can be used to attach a DOM node to a variable accessible to React, often using the `useRef` hook.
 
 ```jsx
+import { useRef } from 'react';
+
 function Form() {
   const inputRef = useRef(null);
 
@@ -217,6 +219,7 @@ React heavily relies on the `useEffect` hook for usecases involving:
 * Running code on mounting of a component
 * Running code on dependency updates (whether it be state or props)
 * Running code on unmounting of a component
+* Running code pertaining to external systems (the DOM, third-party libraries, etc.)
 
 This hook famously replaced every lifecycle event React used when class components were idiomatic React.
 
@@ -237,7 +240,7 @@ function Counter() {
 
 ### umai
 
-umai is comparatively, much more minimal. There is no special API for effects. However, we can re-use an existing concept we visited earlier.
+umai is comparatively, much more minimal. There is no special API for effects. However, we can re-use an existing concept we touched on earlier.
 
 The handler passed to the `dom` property is only called once upon DOM node creation. Therefore, we can leverage it to run effects on "component mount". Additionally, a cleanup function can be returned in this handler to run code upon element removal.
 
@@ -262,5 +265,144 @@ function Counter() {
 [Live Example](https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyVEJKDDfYrNZkTbbCC7KZTFgY8yWbgaADC6OCJAAFABKW5TDT9eB9GQYvo3Wh7GlcvpHeQkABuvFgAEkoNdWspKEKOflKb8abIALIMsSs9nCzli+CS6VyhUmMQyxlS2BM-VXAB8Bs5ro0vLkGgA1Dc0EK3ZzsbjWf7XS4NGhaFGWSrDRoEmJlCQaQ7ncBVW6iAgRtbxbamcbTbKoDGMx9VU4ycKE0mU2ynRoADwiNAaE5gK7AbW6pyO4AesRORthFuOoWV7jk9XUjQAQT0en16eFCD6BBEpwVLGlJljnIp3Cpsg0loAyhv9kztGzl2715ubtpQxPVTXkxpUx+y42oBAJY6y05RsamUMQxGPWQswgcpO0-M8LyZABCe99hZXtANdYAUI0AB+DQNgAVW4MBdQ2DQ3g2HU+Q2VZkkSGRZlkEIMOHECwNkAC405LCLw0AAyPim3pPkTQ0MJHQnN1h1-f9VVLbgX0nYjdSZE4iFUEIMBqMgoAAT1RT9G3nPQxMdGMAgYvR2BNJQal4GpTC+Ux4CPbhrBAWwABZaGBNxwSEDAiAIKFAhhEIlAAKhdDRtO0doCAgAAvI5ojebSSCgE12li8cq20vTopYGF2m3SBYF0t4CF4Nz4pNCAWFDNQSGiI43nsWg9CfVU9F4GAUreQUpkUltoqalqOnAvQBtDIq5HipL4Da+xOtypSRHsUaRnG9pJum1VZrEebEsWjR2pWoaqxEABmTbmqOHayCmjRBuFA6jpOtAsHOhTLs827tt256ZuKhLjreNAADZvuGlB-vuwGXv3EGFvBzzocuiG4Ymx69te5GwYjZaup+pSZEywr8Y+jB7HgMBVqmJVop6vruGidojgGbh4HisQRjENqOuJxSnJ+al3M8rAkB8pxGCcIA)
 
 Some interesting things to note:
-* Since stateful components in umai are "closure components", we don't have to keep track of dependencies with dependency arrays like in React
+* Since stateful components in umai are "closure components", we don't have to keep track of dependencies with dependency arrays like in React -- the outer function is only run once.
 * umai uses "[global redraws](https://github.com/kevinfiol/umai?tab=readme-ov-file#redraws--state-management)". Rerenders are only triggered by event handlers defined in your JSX, or by manual `redraw()` calls. During asynchronous operations, calling `redraw` is necessary to tell umai to re-render.
+
+## [Adding a reducer to a component](https://react.dev/reference/react/useReducer#adding-a-reducer-to-a-component)
+
+### React
+
+React's `useReducer` hook allows developers to implement an immutable store similar to Redux using the reducer pattern. A nice thing about this pattern is multi-property state alterations can be designated as "actions" which may optionally contain payloads.
+
+```jsx
+import { useReducer } from 'react';
+
+function reducer(state, action) {
+  if (action.type === 'incremented_age') {
+    return {
+      age: state.age + 1
+    };
+  }
+  throw Error('Unknown action.');
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, { age: 42 });
+
+  return (
+    <>
+      <button onClick={() => {
+        dispatch({ type: 'incremented_age' })
+      }}>
+        Increment age
+      </button>
+      <p>Hello! You are {state.age}.</p>
+    </>
+  );
+}
+```
+
+### umai
+
+You may have already guessed, but umai does not feature any reducers or utilities to build one. However, you may leverage any store/observable library to implement your own, such as dipole, preact-signals, MobX, Immer, or even Redux. Below, I give an example using [vyce](https://github.com/kevinfiol/vyce), a 463 byte observable store. Notice that the reducer is unchanged from the React example.
+
+```jsx
+import { store } from 'vyce';
+
+function reducer(state, action) {
+  if (action.type === 'incremented_age') {
+    return {
+      age: state.age + 1
+    };
+  }
+  throw Error('Unknown action.');
+}
+
+function Counter() {
+  const state = store({ age: 42 });
+  const dispatch = (action) => state((prev) => reducer(prev, action));
+
+  return () => (
+    <div>
+      <button onclick={() => {
+        dispatch({ type: 'incremented_age' })
+      }}>
+        Increment age
+      </button>
+      <p>Hello! You are {state().age}.</p>
+    </div>
+  );
+}
+```
+
+[Live Example](https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTBHzW4aAhieKJVYsdYaDYANwAnkR4ATuFMWBjzJZuBoElBlMySAAKMm8eSo3rcgCUtymGiiLA0QslsgwYgZekSV21tKO9wEwSgAH1eNEWTLgHL5bz4GJlCQeZaedb5ab4G9RfIMG6NABqDRoK3ypx7Z1OK3Jcj7DSPEjkYUbACq3DKcX2PJV3AwGylofDbO4HO4XNkGgAwujgsKLVagmTSWIxVqGxShYs3W8ACz2Fa52tWPpQVJ6MVEETXJWZmVXAB8DabQqFegSdOnc75AvgwuX8DpEpL3ClfYL8oSdodSrXSqDGgAPEO6TOb-LbzVlGJyTzZEQBuUrsAhSvJ0XRdIcCBHMQxzbJINXdXViwSA15GNN0Nl7Z8VicJ9nRAjQAEkEPgJCNDdDDbzCN8P1kbDcNvPQZwACVMWAyAAQg0ABNdESISW5PXgQDvTNJwMHI+ib3Ih8aI0Y98ymMBKzEIUTiIVQQgwGoyCgBlUUA6451vCsMXkEgNDCGdcwCGRZnYLclBqXgalML5THgA9rBAWxaHaewsCQTtaGBNxwSEDAiAIKFAhhEIlAAKllZ1NO0doCAgAAvI5ojeTSSCgLd2iSvMpimTTtIS+UWBhdoWH4dgGQ9XhuAIFKtwgFhQ3lNQSGiI43nsWg9G0DqNBHGBMreWgioLEQ0HKpYRh6jpyT0CbhsquQUvSuD7HsQapqmEQe2A+buqOdpltWq11rETa0u2gahqmOTuBEABmOausW86yBWjRJquqrUrut40CwPanuKl7Ow+hazouv61sBraQYANnB7hnpEFAYdOpafsu51rtuuC0E7dHMZRnGvvh-7CaR4GA12x6MchmQ8rmomgZJjB7CI-buGUWA5tGoduGidojgGbh4BSxskT6h7+Zcn5uQ8zs-MCpxGCcIA)
+
+However, umai aims to be closer to vanilla JavaScript than React. In the same spirit, we can choose to embrace mutability using a pattern that avoids bugs that would normally arise from it -- and we can do so without any third-party libraries.
+
+```jsx
+const createState = () => ({ age: 42 });
+
+const createActions = (state) => ({
+  incrementAge() { state.age += 1; }  
+});
+
+const state = createState();
+const actions = createActions(state);
+
+function Counter() {
+  return (
+    <div>
+      <button onclick={actions.incrementAge}>
+        Increment age
+      </button>
+      <p>Hello! You are {state.age}.</p>
+    </div>
+  );
+}
+```
+
+[Live Example](https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKZBAh9e68eQAZTE5MSNwAFABKa4APg0dMWvGi8DeABZ7CsGXtuESrKSEjSAILmSzcbL0kk0plXVnsqYaKLce4COQSrmM24aBXyDCcxIAahuaAyqw0UycgsJmtFhup8muGjJlNd8EZQuJfV6MrlHvF8ilv1ldKN8Adwu4LAx0tkGgAwujgiR9cA1RoEmJlCRuGyc+qADxQCAAN2ZJfVGlLNWUYjEydkRAG5SuwEDVgwRy1IV18CcNaLdfHAElNQltQGubWy2FG83ZKPx2W9MyABKmWBkACEGgAmuiNCNEsBoyauU4MKWwpva-eK9Wc7GnI6wOmxHSTkRVCEGA1GQUAAJ6ovqyr1mmGLyCQGhhMygoBDIszsPAJBKDUvA1KYXymPASayv8SC0O09j2EgPK0MCbjgkIGBEAQUKBDCIRKAAVLcObAdo7QEBAABeRzRG8wEkFAGHtLxQofnGwFgdxY4sDC7QsPw7CgW8BC8LK-EYRALBCuqagkNERxvPYtB6NoxkaHovAwCJby0LJjoiGgSkmSM5kdC2eguXZKlyPxQnchoFE2W5cYiPy2ZjqZvntP5gU5sFYihYJ4VWVFdruQAzF5Sw+UcyVkAFGiuWlqkCVlbxoFguXcHJUwiDyRWJaVKWVUFNVhfVABsTUtdwIgoB1JV+eVqXKX1dUaGgPLDe5A0TWZXXTT11UhbV4UOMtcYyJJRXpZle0YPY8BgNFUzKLARUOU53DRO0RwDNw8D8dSSKWdZtl5XG+E-EGSg8lgpHOIwThAA)
+
+Some more interesting things to note:
+* Instead of using strings to name actions, we simply use functions, e.g., `incrementAge`
+* The `createState` factory function produces a new initial state each time it is called, which means we avoid any potential bugs arising from mutating the initial state object.
+* The `createActions` factory function produces a unique actions bag *scoped* to the state object passed to it. These actions are the only means of updating the state.
+
+Notice that it is still possible to mutate the `state` object directly. If you are using TypeScript, you can use the [`Readonly`](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype) utility type.
+
+```ts
+interface State {
+  age: number;
+}
+
+const createState = (): State => ({ age: 42 });
+
+const createActions = (state: State) => ({
+  incrementAge() { state.age += 1; }
+});
+
+const state: Readonly<State> = createState();
+const actions = createActions(state);
+
+state.age = 10; // Cannot assign to 'age' because it is a read-only property.
+```
+
+Another interesting thing to point out is that React **batches state updates**. The reason for this is to prevent unncessary re-renders upon updating multiple state variables (for example, if you call `setState(x => x + 1)` 3 times in a row, React will only re-render once). This is a smart and sophisticated optimization.
+
+This kind of optimization is **unneeded** in umai. Whereas the developer must remember the rules of re-rendering in React as it pertains to several hooks, umai only re-renders in these two instances:
+1. An event handler is called, e.g., `onclick`, `onchange`, `oninput`
+2. `redraw()` is called
+
+## Conclusion
+
+Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a work-in-progress, and obviously not as feature-filled as React. At the time of writing, umai is at version `0.2.6`. Here is a short list of things React has that umai does not:
+
+* SSR support -- there is currently no way to render umai components with Node/Deno/Bun
+* Error handling and useful error messaging
+* Developer Tools
+* Frameworks (Next.js, Remix, Gatsby, Waku)
+* Keyed fragment support
+
+Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration ([Mithril.js](https://mithril.js.org)) are valuable and, in my opinion, *better* than the status quo set by React and Facebook/Meta.
+
+For more examples of umai in action, check out the [examples](https://github.com/kevinfiol/umai?tab=readme-ov-file#examples) section of the README.
