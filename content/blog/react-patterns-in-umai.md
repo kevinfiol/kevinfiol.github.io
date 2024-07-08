@@ -393,16 +393,16 @@ This kind of optimization is **unneeded** in umai. Whereas the developer must re
 1. An event handler is called, e.g., `onclick`, `onchange`, `oninput`
 2. `redraw()` is called
 
-## Conclusion
+## Wait, so should I migrate to umai?
 
-Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a work-in-progress, and obviously not as feature-filled as React. At the time of writing, umai is at version `0.2.6`. Here is a short list of things React has that umai does not:
+No. Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a work-in-progress, a one-man hobby project, and obviously not as feature-filled as React. At the time of writing, umai is at version `0.2.6`. Here is a short list of things React has that umai does not:
 
 * SSR support -- there is currently no way to render umai components with Node/Deno/Bun
+* Keyed fragment support
 * Error handling and useful error messaging
 * Developer Tools
 * Frameworks (Next.js, Remix, Gatsby, Waku)
-* Keyed fragment support
 
-Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration ([Mithril.js](https://mithril.js.org)) are valuable and, in my opinion, *better* than the status quo set by React and Facebook/Meta.
+Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration ([Mithril.js](https://mithril.js.org)) are valuable. And, in my opinion, these patterns are *better* than the status quo set by React and Facebook/Meta. For that reason, I do encourage anyone with a small, low-stakes hobby project in mind to take `umai` for a spin!
 
 For more examples of umai in action, check out the [examples](https://github.com/kevinfiol/umai?tab=readme-ov-file#examples) section of the README.
