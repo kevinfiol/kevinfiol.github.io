@@ -402,6 +402,6 @@ No. Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a wor
 * Frameworks (Next.js, Remix, Gatsby, Waku)
 * Mobile frameworks like React Native
 
-Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration ([Mithril.js](https://mithril.js.org)) are viable. And, in my opinion, these patterns are *better* than the status quo set by React and Facebook/Meta. For that reason, I do encourage anyone with a small, low-stakes hobby project in mind to take `umai` for a spin!
+Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration ([Mithril.js](https://mithril.js.org)) are viable alternatives. And, in my opinion, these patterns are *better* than the status quo set by React and Facebook/Meta. For that reason, I do encourage anyone with a small, low-stakes hobby project in mind to take `umai` for a spin.
 
 For more examples of umai in action, check out the [examples](https://github.com/kevinfiol/umai?tab=readme-ov-file#examples) section of the README.
