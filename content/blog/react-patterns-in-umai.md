@@ -159,7 +159,7 @@ function MyButton() {
 
 A few important distinctions to be made with the umai version:
 * umai uses browser standard names for event handlers (`onclick` vs `onClick`)
-* Notice that the `handleClick` function in React will be re-created on every re-render. This is because React components *are also* the render function. Hooks are needed to get around this limitation and to store stateful data in a hidden global store invisible to the developer. When declaring stateful components with umai, instead of returning JSX, we return a **render function**. This forms a closure that retains the state of the **outer function**. `handleClick` in the umai version is only created once.  
+* Notice that the `handleClick` function in React will be re-created on every re-render. This is because React components are *also* render functions. Hooks are needed to get around this limitation and to store stateful data in a hidden global store invisible to the developer. When declaring stateful components with umai, instead of returning JSX, we return a **render function**. This forms a closure that retains the state of the **outer function**. `handleClick` in the umai version is only created once.  
   * This means no need for `useCallback`! Memoizing components is much simpler in umai.
 
 ## [Focusing a text input](https://react.dev/learn/manipulating-the-dom-with-refs#example-focusing-a-text-input)
