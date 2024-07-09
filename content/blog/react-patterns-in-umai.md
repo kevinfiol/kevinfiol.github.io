@@ -6,7 +6,11 @@ template = "post.html"
 
 # React Patterns in Umai
 
-Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted -- [umai](https://github.com/kevinfiol/umai).
+Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted -- [umai](https://github.com/kevinfiol/umai). umai is heavily influenced by [Mithril.js](https://mithril.js.org), which has unfortunately been in stasis for a few years now. My intention for creating umai can be summed up in a few bullet points:
+
+* Create a hyper minimal, but ergonomic UI library in a tiny package size (~1.7kb)
+* Fully embrace Mithril.js's closure components, while cutting the cruft and unnecessary baggage (class components, object components, lifecycle events, `view` property).
+* Full tree redraws on event handler calls with support for async handlers
 
 Since then, I've used umai on multiple small personal projects and have been happy with the speed and minimalism I've been able to rebuild apps I had previously written in React, Mithril, and Svelte.
 
@@ -123,7 +127,7 @@ function MyButton() {
 
 ### umai
 
-umai in comparison does not feature hooks. Instead, umai uses the concept of "[closure components](https://github.com/kevinfiol/umai?tab=readme-ov-file#stateful-components)" inspired by [Mithril.js](https://mithril.js.org). State is defined using simple, mutable variables declared with `let`.
+umai in comparison does not feature hooks. Instead, umai uses the concept of "[closure components](https://github.com/kevinfiol/umai?tab=readme-ov-file#stateful-components)". State is defined using simple, mutable variables declared with `let`.
 
 ```jsx
 function MyApp() {
