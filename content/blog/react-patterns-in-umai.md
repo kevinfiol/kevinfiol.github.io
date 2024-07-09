@@ -6,7 +6,7 @@ template = "post.html"
 
 # React Patterns in Umai
 
-Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted -- [umai](https://github.com/kevinfiol/umai). umai is heavily influenced by [Mithril.js](https://mithril.js.org), which has unfortunately been in stasis for a few years now. My intention for creating umai can be summed up in a few bullet points:
+Last year, I forked [hyperapp](https://github.com/jorgebucaran/hyperapp) to create the single-page application library I've always wanted -- [umai](https://github.com/kevinfiol/umai). umai is heavily influenced by [Mithril.js](https://mithril.js.org), which has unfortunately been in stasis for a few years now. My goal in creating umai can be summed up in a few bullet points:
 
 * Create a hyper minimal, but ergonomic UI library in a tiny package size (~1.7kb)
 * Fully embrace Mithril.js's closure components, while cutting the cruft and unnecessary baggage (class components, object components, lifecycle events, `view` property).
