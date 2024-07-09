@@ -397,7 +397,7 @@ This kind of optimization is **unneeded** in umai. Whereas the developer must re
 
 ## Wait, so should I migrate to umai?
 
-No. Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a work-in-progress, a one-man hobby project, and not as feature-filled as React. At the time of writing, umai is at version `0.2.6`. Here is a short list of things React has that umai does not:
+No. Unsurprisingly, [umai](https://github.com/kevinfiol/umai) is very much a work-in-progress, a one-man hobby project, and not as feature-filled as React or Mithril.js for that matter. At the time of writing, umai is at version `0.2.6`. Here is a short list of things React has that umai does not:
 
 * SSR support -- there is currently no way to render umai components with Node/Deno/Bun
 * Keyed fragment support
