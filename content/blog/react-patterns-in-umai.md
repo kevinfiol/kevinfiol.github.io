@@ -244,7 +244,7 @@ function Counter() {
 
 ### umai
 
-In comparison, umai much more minimal. There is no special API for effects. However, we can re-use an existing concept we touched on earlier.
+In comparison, umai is much more minimal. There is no special API for effects. However, we can re-use an existing concept we touched on earlier.
 
 The handler passed to the `dom` property is only called once upon DOM node creation. Therefore, we can leverage it to run effects on "component mount". Additionally, a cleanup function can be returned in this handler to run code upon element removal.
 
