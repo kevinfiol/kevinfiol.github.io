@@ -389,7 +389,7 @@ const actions = createActions(state);
 state.age = 10; // Cannot assign to 'age' because it is a read-only property.
 ```
 
-Another interesting thing to point out is that React **batches state updates**. The reason for this is to prevent unncessary re-renders upon updating multiple state variables (for example, if you call `setState(x => x + 1)` 3 times in a row, React will only re-render once). This is a smart and sophisticated optimization.
+Another interesting thing to point out is that React **batches state updates**. This is to prevent unncessary re-renders upon updating multiple state variables. For example, if you call `setState(x => x + 1)` 3 times in a row, React will only re-render once. This is a smart and sophisticated optimization.
 
 This kind of optimization is **unneeded** in umai. Whereas the developer must remember the rules of re-rendering in React as it pertains to several hooks, umai only re-renders in these two instances:
 1. An event handler is called, e.g., `onclick`, `onchange`, `oninput`
