@@ -1,4 +1,4 @@
-+++
+p+++
 title = "React Patterns in Umai"
 date = 2024-07-05
 template = "post.html"
@@ -127,7 +127,7 @@ function MyButton() {
 
 ### umai
 
-umai in comparison does not feature hooks. Instead, umai uses the concept of "[closure components](https://github.com/kevinfiol/umai?tab=readme-ov-file#stateful-components)". State is defined using simple, mutable variables declared with `let`.
+umai does not feature hooks. Instead, umai uses the concept of "[closure components](https://github.com/kevinfiol/umai?tab=readme-ov-file#stateful-components)". State is defined using simple, mutable variables declared with `let`.
 
 ```jsx
 function MyApp() {
