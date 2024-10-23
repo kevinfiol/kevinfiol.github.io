@@ -10,7 +10,7 @@ compile_sass = false
 build_search_index = false
 
 # rss feed https://www.getzola.org/documentation/templates/feeds/
-generate_feed = true
+generate_feeds = true
 
 [markdown]
 # Whether to do syntax highlighting
