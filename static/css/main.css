@@ -6,7 +6,7 @@
     --post-font-family: "PT Serif", "URW Bookman L", "Georgia", serif;
     --post-font-size: 17px;
     --post-line-height: 2rem;
-    
+
     --img-max-width: 85%;
 
     --color: #111;
@@ -108,14 +108,15 @@ p > code {
     color: white;
     padding: 0.15em 0.3em;
 }
+.page-content {
+    font-family: var(--post-font-family);
+}
 .page-content h1 {
     font-size: 1.75em;
     border-bottom: 1px solid var(--line-color);
     padding-bottom: 1rem;
 }
-.page-content p,
-.page-content table,
-.page-content ul {
+.page-content :where(p, table, ul) {
     font-family: var(--post-font-family);
     font-size: var(--post-font-size);
     line-height: var(--post-line-height);
