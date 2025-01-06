@@ -84,4 +84,4 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now. This year, I'm looking forward to jumping back into the [Justin Guitar](https://www.justinguitar.com/) advanced courses and seeing if I can take my playing to the next level.
 
-* **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I've have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
+* **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
