@@ -50,6 +50,8 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Completed [12 video games](https://keb.im/reviews/)**. Hoping I have time to complete more this year.
 
+* **Move my personal email to Purelymail.com**. I've been using [Migadu](https://migadu.com) for my personal email since 2019, but this year, I've finally switched over all of my domains to using [Purelymail](https://purelymail.com/). I was able to make the migration within a couple hours, and have been loving the Roundcube webmail interface so far, greatly preferring it to Rainloop (or its fork).
+
 ## Things I programmed in 2024
 
 * [https://github.com/keb/brrrrrrrrrrr](https://github.com/keb/brrrrrrrrrrr) - a fork of a firmware that simply boots into Retroarch for the RG Arc, running the RK3356 chip. It's a minimal but fast solution to playing retro games on the go.
