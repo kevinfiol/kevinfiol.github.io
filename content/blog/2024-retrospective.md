@@ -18,6 +18,8 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Became Engineering Lead**. In April of 2024, my boss resigned and recommended me to replace him. It was an admittedly nerve-racking -- I had never been in any kind of management role. That was over eight months ago now, and I'm happy to say that I've become somewhat used to the role, although I admit that I still prefer being hands-on. I'm very grateful to my wonderful team of engineers, designers, and product team who helped fill in where I fell short in learning how to manage a team of engineers.
 
+* **Made the switch to Fedora with KDE on my work PC**. In 2024, I transitioned my work PC to running Fedora with KDE full-time. It has been insanely good; Fedora is stable, has built-in Flatpak support, and up-to-date packages in the Fedora repository. And moving to KDE from GNOME has been wonderful, as KDE includes such a large breadth of mature features and customization, most of which would require buggy extensions with GNOME.
+
 * **Hiked up [Grandfather Mountain](https://mas.to/@kevinf/113320193005275471) (kind of)**. On a trip to North Carolina for my wife's best friend's wedding, we took the time to hike up Grandfather Mountain. The sights and weather were mostly beautiful. Unfortunately, we chose to the day of the ceremony for the hike, and half way through the hike it began raining. A steep cliff climb was made more treacherous by slippery rocks, so we decided to play it safe and turn around to make it to the ceremony without broken bones.
 
 * **Updated the [ceiling fan in our office](https://mas.to/@kevinf/113325978873697565)**. My mother-in-law had an extra ceiling fan lying around from her employer. My father-in-law volunteered to come over and help me install it. I honestly could not have done it without him. It looks great, and I'm happy with the result.
@@ -77,3 +79,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 * **Get back into gamedev**. I've taken a pause from gamedev for a couple years now, but this year, I hope to get back into LOVE2D and Lua while learning some essential game math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course.
 
 * **Build a micro-CMS with Redbean**. This is something I've started and have a lot of momentum with already going into 2025. I've been wanting to build something significant with Redbean for a while, and I'm making great progress so far. I hope to build the Markdown-based CMS system I've always wanted.
+
+* **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now. This year, I'm looking forward to jumping back into the [Justin Guitar](https://www.justinguitar.com/) advanced courses and seeing if I can take my playing to the next level.
+
+* **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I've have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
