@@ -75,3 +75,5 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 * **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). I'm looking forward to taking a deep-dive into the most popular relational database in the world and hopefully learn some tricks to improve the scalability of my applications.
 
 * **Get back into gamedev**. I've taken a pause from gamedev for a couple years now, but this year, I hope to get back into LOVE2D and Lua while learning some essential game math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course.
+
+* **Build a micro-CMS with Redbean**. This is something I've started and have a lot of momentum with already going into 2025. I've been wanting to build something significant with Redbean for a while, and I'm making great progress so far. I hope to build the Markdown-based CMS system I've always wanted.
