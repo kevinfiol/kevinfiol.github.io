@@ -52,6 +52,10 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Move my personal email to Purelymail.com**. I've been using [Migadu](https://migadu.com) for my personal email since 2019, but this year, I've finally switched over all of my domains to using [Purelymail](https://purelymail.com/). I was able to make the migration within a couple hours, and have been loving the Roundcube webmail interface so far, greatly preferring it to Rainloop (or its fork).
 
+* **Migrated my personal servers to Caddy**. I've been using [SWAG](https://github.com/linuxserver/docker-swag) for years now to manage my personal servers as it greatly simplifies having to deal with reverse proxies. After some frustration over adding basic auth to one of my apps, I tried out Caddy and was blown away at the simplicity.
+
+* **Simplified my Sublime Text configs**. For years, I struggled with finding a way to organize and persist my Sublime Text config across multiple machines. I tried the Sync Settings plugin, then tried manually keeping Gists on Github updated and bookmarked, but was never happy with the setup especially considering I use Sublime Text across Windows and Linux. This year, I've resolved to simply committing the `Packages` folder to [Codeberg](https://codeberg.org/keb/sublime-packages), and using `(Windows)` or `(Linux)`-suffixed preference files. So far, it has worked fantastically.
+
 ## Things I programmed in 2024
 
 * [https://github.com/keb/brrrrrrrrrrr](https://github.com/keb/brrrrrrrrrrr) - a fork of a firmware that simply boots into Retroarch for the RG Arc, running the RK3356 chip. It's a minimal but fast solution to playing retro games on the go.
