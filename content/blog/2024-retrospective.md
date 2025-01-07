@@ -16,7 +16,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Adopted [Matcha](https://mas.to/@kevinf/113318071110352461)**. In June/July, we began fostering Matcha, a 1 year old bengal cat who had fallen from a third-story balcony and required a leg amputation. After a couple of months, my wife had fallen in love with him, and sheepishly asked me if he could stay. I had a hard time saying no. He's a constant trouble-maker, but we love him all the same.
 
-* **Became Engineering Lead**. In April of 2024, my boss resigned and recommended me to replace him. It was an admittedly nerve-racking -- I had never been in any kind of management role. That was over eight months ago now, and I'm happy to say that I've become somewhat used to the role, although I admit that I still prefer being hands-on. I'm very grateful to my wonderful team of engineers, designers, and product team who helped fill in where I fell short in learning how to manage a team of engineers.
+* **Became Engineering Lead**. In April of 2024, my boss resigned and recommended me to replace him. It was admittedly nerve-racking since I had never been in any kind of management role. That was over eight months ago now, and I'm happy to say that I've become somewhat used to the role, although I admit that I still prefer being hands-on. I'm very grateful to my wonderful team of engineers, designer(s), and product managers who helped fill in where I fell short.
 
 * **Learned how to ski**. In February, I made a trip to Breckinridge, Colorado with my father and father-in-law, and finally learned how to ski. My father-in-law is an avid skiier (sp?) and great teacher. After three days, I got the hang of it, albeit I was exhausted by that point.
 
