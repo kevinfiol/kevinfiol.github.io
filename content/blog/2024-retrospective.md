@@ -52,7 +52,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Completed [12 video games](https://keb.im/reviews/)**. Hoping I have time to complete more this year.
 
-* **Move my personal email to Purelymail.com**. I've been using [Migadu](https://migadu.com) for my personal email since 2019, but this year, I've finally switched over all of my domains to using [Purelymail](https://purelymail.com/). I was able to make the migration within a couple hours, and have been loving the Roundcube webmail interface so far, greatly preferring it to Rainloop (or its fork).
+* **Moved my personal email to Purelymail.com**. I've been using [Migadu](https://migadu.com) for my personal email since 2019, but this year, I've finally switched over all of my domains to using [Purelymail](https://purelymail.com/). I was able to make the migration within a couple hours, and have been loving the Roundcube webmail interface so far, greatly preferring it to Rainloop (or its fork).
 
 * **Migrated my personal servers to Caddy**. I've been using [SWAG](https://github.com/linuxserver/docker-swag) for years now to manage my personal servers as it greatly simplifies having to deal with reverse proxies. After some frustration over adding basic auth to one of my apps, I tried out Caddy and was blown away at the simplicity.
 
