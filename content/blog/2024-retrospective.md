@@ -74,20 +74,22 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 ## Things I plan to do in 2025
 
-* **See the Grand Canyon and Zion National Park**. For our "honeymoney", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
+* **See the Grand Canyon and Zion National Park**. For our "honeymoon", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
 
 * **Install new blinds in the office**. The blinds in the office currently let in far too much light and heat, making the workday uncomfortably hot in the afternoon. I've already ordered new blackout celullar shades and intend to install them soon.
 
 * **Install an irrigation system and place new sod in the backyard**. The backyard has needed a redo in a while. I hope to be able to rip up the old pavers, and start fresh.
 
-* **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'm looking forward to be able to share the experience with her.
+* **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'm looking forward sharing the experience with her.
 
-* **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). I'm looking forward to taking a deep-dive into the most popular relational database in the world and hopefully learn some tricks to improve the scalability of my applications.
+* **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). Hoping to learn some tricks to improve the scalability of my applications.
 
-* **Get back into gamedev**. I've taken a pause from gamedev for a couple years now, but this year, I hope to get back into LOVE2D and Lua while learning some essential game math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course.
+* **Get back into gamedev**. I took a pause from gamedev for a couple years, but this year I hope to get back into LOVE2D and Lua while learning some essential gamedev math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course.
 
 * **Build a micro-CMS with Redbean**. This is something I've started and have a lot of momentum with already going into 2025. I've been wanting to build something significant with Redbean for a while, and I'm making great progress so far. I hope to build the Markdown-based CMS system I've always wanted.
 
 * **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now. This year, I'm looking forward to jumping back into the [Justin Guitar](https://www.justinguitar.com/) advanced courses and seeing if I can take my playing to the next level.
 
 * **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
+
+* **Finalize and deploy `arkive`**. As mentioned, it's working well, but I would like to limit the scope of it this year and deploy an MVP.
