@@ -60,7 +60,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 ## Things I programmed in 2024
 
-* This year, I moved to using a bunch of my own self-hosted services. I keep a repository of Dockerfiles, Docker Compose files, etc. in a Git repository on [Codeberg](https://codeberg.org/keb/elster), which I clone and use across a VPS and Raspberry Pis.
+* This year, I moved to using a bunch of my own self-hosted services. I keep a repository of Dockerfiles, Docker Compose files, etc. in a Git repository on [Codeberg](https://codeberg.org/keb/elster), which I clone and use across a VPS and my Raspberry Pi.
 
 * [https://codeberg.org/keb/cf-pages-cli](https://codeberg.org/keb/cf-pages-cli) - I wanted to deploy some sites to Cloudflare Pages, but found Cloudflare's Wrangler CLI to be absurdly large and complicated for just deploying static sites. `cf-pages-cli` rewrites parts of Wrangler while vendoring in [globrex](https://github.com/terkelg/globrex). The result is a smaller and more focused CLI tool for deploying to Cloudflare Pages, and I've been happy that it's been working great for 9 months now. 
 
