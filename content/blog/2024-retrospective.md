@@ -72,7 +72,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 ## Things I plan to do in 2025
 
-* **See the Grand Canyon and Zion National Park**. For our "honeymoney", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
+* **See the Grand Canyon and Zion National Park**. For our "honeymoon", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
 
 * **Install new blinds in the office**. The blinds in the office currently let in far too much light and heat, making the workday uncomfortably hot in the afternoon. I've already ordered new blackout celullar shades and intend to install them soon.
 
