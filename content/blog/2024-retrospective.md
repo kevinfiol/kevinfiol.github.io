@@ -62,6 +62,8 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * This year, I moved to using a bunch of my own self-hosted services. I keep a repository of Dockerfiles, Docker Compose files, etc. in a Git repository on [Codeberg](https://codeberg.org/keb/elster), which I clone and use across a VPS and my Raspberry Pi.
 
+* My updates to the [Mithril.js Installation document](https://mithril.js.org/installation.html) were finally merged. This was a source of pain for several years as the instructions were outdated, referencing an old version of Webpack which led to numerous confused users entering the Mithril.js chat asking for clarification. Along with the doc updates, I created templates for [esbuild](https://github.com/kevinfiol/mithril-esbuild-starter) and [rollup](https://github.com/kevinfiol/mithril-rollup-starter).
+
 * [https://codeberg.org/keb/cf-pages-cli](https://codeberg.org/keb/cf-pages-cli) - I wanted to deploy some sites to Cloudflare Pages, but found Cloudflare's Wrangler CLI to be absurdly large and complicated for just deploying static sites. `cf-pages-cli` rewrites parts of Wrangler while vendoring in [globrex](https://github.com/terkelg/globrex). The result is a smaller and more focused CLI tool for deploying to Cloudflare Pages, and I've been happy that it's been working great for 9 months now. 
 
 * [https://github.com/keb/brrrrrrrrrrr](https://github.com/keb/brrrrrrrrrrr) - a fork of a firmware that simply boots into Retroarch for the RG Arc, running the RK3356 chip. It's a minimal but fast solution to playing retro games on the go.
