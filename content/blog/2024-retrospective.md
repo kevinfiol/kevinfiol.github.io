@@ -70,7 +70,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * [https://github.com/kevinfiol/make_readable](https://github.com/kevinfiol/make_readable) - Every now and then, I need readability mode in a browser that doesn't support it. This is a Deno app that wraps Mozilla's Readability library, allowing me to quickly get a readable version of a web article regardless of what browser I'm using.
 
-* [https://github.com/kevinfiol/markdown_file_links](https://github.com/kevinfiol/markdown_file_links) - In my envy of rich note taking apps like Obsidian, but also my stubborness to keep using a copy of Sublime Text 3 as my main note-taking app, I built a tiny plugin for Sublime Text 3/4 that enables file links.
+* [https://github.com/kevinfiol/markdown_file_links](https://github.com/kevinfiol/markdown_file_links) - In my envy of rich note taking apps like Obsidian, but also my stubbornness to continue using a copy of Sublime Text 3 as my main note-taking app, I built a tiny plugin for Sublime Text 3/4 that enables file links.
 
 * [https://github.com/kevinfiol/youtube-random](https://github.com/kevinfiol/youtube-random) - I wrote a tiny service that will return a random YouTube video URL for a given channel. I used this to expand [https://kevinfiol.com/youtube/](https://kevinfiol.com/youtube/) with a "Picks from your subscriptions" section, which helps me discover videos from my existing subscriptions. It's been wonderful so far.
 
