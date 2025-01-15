@@ -32,7 +32,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Stayed at a barn AirBNB**. While visiting my brother in West Florida, we stayed a small AirBnB location owned by a couple living on a farm. They had renovated the second floor of their barn to be a cozy little AirBnB location. We spent our time exploring the farm, meeting the goats and cows, donned beekeeper outfits and handled a bee colony, and went to the zoo with my brother and nieces.
 
-* **Got into retro handhelds**. For better or for worse, I became obsessed with the retro handheld hobby. I purchased multiple devices including the Anbernic RG Arc second-hand on OfferUp. I even forked an [existing firmware](https://github.com/keb/brrrrrrrrrrr) and began customizing it to my liking.
+* **Got into retro handhelds**. For better or for worse, I became obsessed with the retro handheld hobby after a close friend purchased an RG35XX Plus for me as a birthday gift. I purchased multiple devices aftwards including the Anbernic RG Arc second-hand on OfferUp. I even forked an [existing firmware](https://github.com/keb/brrrrrrrrrrr) and began customizing it to my liking.
 
 * **Did a [ropes course](https://mas.to/@kevinf/113783176034636797)**. Knowing full well that I'm terrified of heights, my wife bought us passes to a ropes course. Despite my fear of heights, I had a blast (although I should wear more sunscreen next time).
 
