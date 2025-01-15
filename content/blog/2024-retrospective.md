@@ -86,7 +86,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * **Install an irrigation system and place new sod in the backyard**. The backyard has needed a redo in a while. I hope to be able to rip up the old pavers, and start fresh.
 
-* **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'm looking forward sharing the experience with her.
+* **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'll be happy to share the experience and memories with her.
 
 * **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). Hoping to learn some tricks to improve the scalability of my applications.
 
