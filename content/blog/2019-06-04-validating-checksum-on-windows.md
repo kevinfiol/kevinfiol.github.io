@@ -1,7 +1,5 @@
 +++
 title = "Validating Checksum on Windows"
-date = 2019-06-04
-template = "post.html"
 +++
 
 # Validating Checksum on Windows

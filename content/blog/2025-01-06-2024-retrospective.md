@@ -1,7 +1,5 @@
 +++
 title = "2024 Retrospective"
-date = 2025-01-06
-template = "post.html"
 +++
 
 # 2024 Retrospective

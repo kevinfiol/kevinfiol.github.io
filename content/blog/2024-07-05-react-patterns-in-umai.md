@@ -1,7 +1,5 @@
 +++
 title = "React Patterns in Umai"
-date = 2024-07-05
-template = "post.html"
 +++
 
 # React Patterns in Umai

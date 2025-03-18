@@ -1,7 +1,5 @@
 +++
 title = "Hosting Your Invidious Instance on a VPS"
-date = 2020-08-02
-template = "post.html"
 +++
 
 # Hosting Your Invidious Instance on a VPS

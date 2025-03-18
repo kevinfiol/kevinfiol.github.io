@@ -1,7 +1,5 @@
 +++
 title = "Mithril.js + esbuild + JSX"
-date = 2021-03-18
-template = "post.html"
 +++
 
 # Mithril.js + esbuild + JSX
@@ -30,19 +28,19 @@ Then I just set `jsxFragment` to `m.Fragment` instead of `m.fragment` in my esbu
 
 ```js
 var JSX = {
-    view: function() {
-        return (
-            <>
-                <h2>JSX</h2>
-                <p>You could use JSX with Mithril.js as well.</p>
-                <p>Be aware that this requires a build-step.</p>
-                <p style={{ color: 'red' }}>
-                    Attributes work as expected.
-                </p>
-                <p>This application uses <a href="https://esbuild.github.io/">esbuild</a> to convert JSX.</p>
-            </>
-        );
-    }
+  view: function() {
+    return (
+      <>
+        <h2>JSX</h2>
+        <p>You could use JSX with Mithril.js as well.</p>
+        <p>Be aware that this requires a build-step.</p>
+        <p style={{ color: 'red' }}>
+            Attributes work as expected.
+        </p>
+        <p>This application uses <a href="https://esbuild.github.io/">esbuild</a> to convert JSX.</p>
+      </>
+    );
+  }
 };
 ```
 

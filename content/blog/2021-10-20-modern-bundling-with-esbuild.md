@@ -1,7 +1,5 @@
 +++
 title = "Modern bundling with esbuild"
-date = 2021-10-20
-template = "post.html"
 +++
 
 # Modern bundling with esbuild

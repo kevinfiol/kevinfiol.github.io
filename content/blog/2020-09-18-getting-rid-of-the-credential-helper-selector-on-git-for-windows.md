@@ -1,7 +1,5 @@
 +++
 title = "Getting rid of the Credential Helper Selector on Git for Windows"
-date = 2020-09-18
-template = "post.html"
 +++
 
 # Getting rid of the Credential Helper Selector on Git for Windows

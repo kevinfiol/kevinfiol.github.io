@@ -1,7 +1,5 @@
 +++
 title = "A minimal RSS Feed Reader"
-date = 2021-10-12
-template = "post.html"
 +++
 
 # A minimal RSS Feed Reader

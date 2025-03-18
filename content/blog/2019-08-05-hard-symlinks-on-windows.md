@@ -1,7 +1,5 @@
 +++
 title = "Hard Symlinks on Windows"
-date = 2019-08-05
-template = "post.html"
 +++
 
 # Hard Symlinks on Windows
