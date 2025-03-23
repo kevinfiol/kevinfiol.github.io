@@ -52,6 +52,12 @@ BeanCMS supports other features you'd want in a blog or note taking app, such as
 
 <video controls src="https://github.com/user-attachments/assets/e1af1679-f659-4f5e-95c5-a5bafb31d1da"></video>
 
+You can grab the raw Markdown of a post by appending `/raw` to any post url.
+
+Lastly, Atom feeds are enabled for all user blogs by appending `/feed` to a user's profile url!
+
+<video controls src="https://github.com/user-attachments/assets/290d9738-9a35-4243-ba6a-d9a6d27deac9"></video>
+
 ## Admin Panel
 
 BeanCMS comes with an included admin panel only accessible to a list of specified IP Addresses. By default, only `127.0.0.1` is allowed to access the admin panel, which provides information such as registered users, active sessions, uploaded images, and storage usage.
