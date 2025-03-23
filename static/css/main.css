@@ -8,6 +8,7 @@
     --post-line-height: 2rem;
 
     --img-max-width: 85%;
+    --video-max-width: 100%;
 
     --color: #111;
     --bg-color: #fffff8;
@@ -128,6 +129,9 @@ p > code {
     border: 3px solid rgba(0, 0, 0, 0.2);
     height: auto;
     fill: currentColor;
+}
+.page-content video {
+    max-width: var(--video-max-width);
 }
 .page-content a:not(.zola-anchor) {
     font-weight: bold;
