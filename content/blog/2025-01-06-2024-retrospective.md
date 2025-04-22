@@ -78,13 +78,13 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 ## Things I plan to do in 2025
 
-* [ ] **See the Grand Canyon and Zion National Park**. For our "honeymoon", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
+* [x] **See the Grand Canyon and Zion National Park**. For our "honeymoon", my wife and I will be renting a camper van, and traveling through Arizona, Utah and Nevada to see the Grand Canyon, Zion, and other amazing sights.
 
 * [x] **Install new blinds in the office**. The blinds in the office currently let in far too much light and heat, making the workday uncomfortably hot in the afternoon. I've already ordered new blackout celullar shades and intend to install them soon.
 
 * [ ] **Install an irrigation system and place new sod in the backyard**. The backyard has needed a redo in a while. I hope to be able to rip up the old pavers, and start fresh.
 
-* [ ] **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'll be happy to share the experience and memories with her.
+* [x] **Do a rock-climbing course**. My wife got me a pass to a rock-climbing gym for Christmas. While I'm still afraid of heights, I'll be happy to share the experience and memories with her.
 
 * [ ] **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). Hoping to learn some tricks to improve the scalability of my applications.
 
