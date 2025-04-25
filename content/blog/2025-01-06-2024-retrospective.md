@@ -92,7 +92,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * [x] **Build a micro-CMS with Redbean**. This is something I've started and have a lot of momentum with already going into 2025. I've been wanting to build something significant with Redbean for a while, and I'm making great progress so far. I hope to build the Markdown-based CMS system I've always wanted.
 
-* [ ] **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now. This year, I'm looking forward to jumping back into the [Justin Guitar](https://www.justinguitar.com/) advanced courses and seeing if I can take my playing to the next level.
+* [ ] **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now..
 
 * [ ] **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
 
