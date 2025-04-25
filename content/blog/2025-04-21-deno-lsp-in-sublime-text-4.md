@@ -13,48 +13,48 @@ Assuming you're on Sublime Text 4, you can simply add this entry to your `LSP.su
 ```json
 // Settings in here override those in "LSP/LSP.sublime-settings"
 {
-    "clients": {
-      "deno": {
-        "command": ["deno", "lsp"],
-        "initializationOptions": {
-          // "config": "", // Sets the path for the config file in your project
-          "enable": false,
-          // "importMap": "", // Sets the path for the import-map in your project
-          "lint": true,
-          "unstable": false
+  "clients": {
+    "deno": {
+      "command": ["deno", "lsp"],
+      "initializationOptions": {
+        // "config": "", // Sets the path for the config file in your project
+        "enable": false,
+        // "importMap": "", // Sets the path for the import-map in your project
+        "lint": true,
+        "unstable": false
+      },
+      "enabled": true,
+      "languages": [
+        {
+          "languageId": "javascript",
+          "scopes": ["source.js"],
+          "syntaxes": [
+            "Packages/JavaScript/JavaScript.sublime-syntax"
+          ]
         },
-        "enabled": true,
-        "languages": [
-          {
-            "languageId": "javascript",
-            "scopes": ["source.js"],
-            "syntaxes": [
-              "Packages/JavaScript/JavaScript.sublime-syntax"
-            ]
-          },
-          {
-            "languageId": "javascriptreact",
-            "scopes": ["source.jsx"],
-            "syntaxes": [
-              "Packages/JavaScript/JSX.sublime-syntax"
-            ]
-          },
-          {
-            "languageId": "typescript",
-            "scopes": ["source.ts"],
-            "syntaxes": [
-              "Packages/JavaScript/TypeScript.sublime-syntax"
-            ]
-          },
-          {
-            "languageId": "typescriptreact",
-            "scopes": ["source.tsx"],
-            "syntaxes": [
-              "Packages/JavaScript/TSX.sublime-syntax"
-            ]
-          }
-        ]
-      }
+        {
+          "languageId": "javascriptreact",
+          "scopes": ["source.jsx"],
+          "syntaxes": [
+            "Packages/JavaScript/JSX.sublime-syntax"
+          ]
+        },
+        {
+          "languageId": "typescript",
+          "scopes": ["source.ts"],
+          "syntaxes": [
+            "Packages/JavaScript/TypeScript.sublime-syntax"
+          ]
+        },
+        {
+          "languageId": "typescriptreact",
+          "scopes": ["source.tsx"],
+          "syntaxes": [
+            "Packages/JavaScript/TSX.sublime-syntax"
+          ]
+        }
+      ]
     }
+  }
 }
 ```
