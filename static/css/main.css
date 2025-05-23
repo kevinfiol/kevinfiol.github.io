@@ -167,6 +167,9 @@ h1 > .zola-anchor {
 .archive-link {
     margin: 0.4rem 0;
     line-height: 1.4;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .toc-header {
     display: none;
