@@ -88,7 +88,7 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * [ ] **Deep-dive into Postgres**. I used continuing education funds to purchase [Mastering Postgres](https://masteringpostgres.com/). Hoping to learn some tricks to improve the scalability of my applications.
 
-* [ ] **Get back into gamedev**. I took a pause from gamedev for a couple years, but this year I hope to get back into LOVE2D and Lua while learning some essential gamedev math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course.
+* [ ] **Get back into gamedev**. I took a pause from gamedev for a couple years, but this year I hope to get back into LOVE2D and Lua while learning some essential gamedev math from [Freya Holmér's](https://www.youtube.com/watch?v=fjOdtSu4Lm4&list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF) YouTube course and [Godot docs](https://docs.godotengine.org/en/stable/tutorials/math/index.html).
 
 * [x] **Build a micro-CMS with Redbean**. This is something I've started and have a lot of momentum with already going into 2025. I've been wanting to build something significant with Redbean for a while, and I'm making great progress so far. I hope to build the Markdown-based CMS system I've always wanted.
 
