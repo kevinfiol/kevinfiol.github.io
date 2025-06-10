@@ -94,6 +94,6 @@ I have never done a retrospective, but I've been inspired by a peer at work to s
 
 * [ ] **Start practicing guitar again**. While I love playing songs on my guitar, my skill level has plateaud for several years now..
 
-* [ ] **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
+* [x] **Switch my personal PC to Linux**. This year, I hope to finally move my personal PC from Windows 10 to Fedora KDE. For years, I have stayed on Windows for video game compatibility. This year, I intend to go all-in on Proton and finally modernizing my personal PC development environment.
 
 * [ ] **Finalize and deploy `arkive`**. As mentioned, it's working well, but I would like to limit the scope of it this year and deploy an MVP.
