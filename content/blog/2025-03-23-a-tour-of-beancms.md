@@ -20,6 +20,8 @@ In short, download `beancms.com` from the [releases](https://github.com/kevinfio
 ./beancms.com -D ./
 ``` 
 
+Note: On some Linux systems with Wine installed you might run into some issues running `beancms.com`. See [redbean.dev/#linux](https://redbean.dev/#linux).
+
 Right away, you'll notice a `data` directory created next to your executable. This is where all persisted data for BeanCMS is stored. BeanCMS uses SQLite as supported by Redbean, which means to back up your site data, all you have to do is copy the `data` folder.
 
 {{ img(src="https://github.com/user-attachments/assets/18ed9c08-6e1e-456b-89b4-4421aa34c2c4" alt="files screenshot") }}
