@@ -1,0 +1,247 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="ie=edge" http-equiv=X-UA-Compatible><meta content="kevin f.'s personal site" name=description><link rel="shortcut icon" href=https://kevinfiol.com/img/favicon.png type=image/x-icon><link href=https://kevinfiol.com/css/main.css rel=stylesheet><link href=https://kevinfiol.com/atom.xml rel=alternate title=feed type=application/atom+xml><title>
+            
+                React Patterns in Umai
+            
+        </title><body><div class=dark-mode-container><input id=darkSwitch type=checkbox><label class=dark-mode-btn for=darkSwitch>🌒</label></div><main class="main-content max-width-3 mx-auto"><div><div class="controls p1"><a href=https://github.com/kevinfiol/kevinfiol.com/edit/master/content/blog/2024-07-05-react-patterns-in-umai.md>edit</a></div><header><nav><p class=h3><a href=/>kevin f.</a></nav></header><small class="h5 p0 m0 light-subdue"> July 05, 2024 </small><aside><div class="toc h5 py1"><div class="toc-header pb1"><div class=h3>React Patterns in Umai</div><span class=light-subdue>table of contents</span></div><ul><li><a title="Component Composition" href=#component-composition>Component Composition</a> <ul><li><a href=#react title=React>React</a><li><a href=#umai title=umai>umai</a></ul><li><a title="Updating the screen" href=#updating-the-screen>Updating the screen</a> <ul><li><a href=#react-1 title=React>React</a><li><a href=#umai-1 title=umai>umai</a></ul><li><a title="Focusing a text input" href=#focusing-a-text-input>Focusing a text input</a> <ul><li><a href=#react-2 title=React>React</a><li><a href=#umai-2 title=umai>umai</a></ul><li><a title="Updating state based on previous state from an effect" href=#updating-state-based-on-previous-state-from-an-effect>Updating state based on previous state from an effect</a> <ul><li><a href=#react-3 title=React>React</a><li><a href=#umai-3 title=umai>umai</a></ul><li><a title="Adding a reducer to a component" href=#adding-a-reducer-to-a-component>Adding a reducer to a component</a> <ul><li><a href=#react-4 title=React>React</a><li><a href=#umai-4 title=umai>umai</a></ul><li><a title="Wait, so should I migrate to umai?" href=#wait-so-should-i-migrate-to-umai>Wait, so should I migrate to umai?</a></ul></div></aside><article class=page-content><h1 id=react-patterns-in-umai><a aria-label="Anchor link for: react-patterns-in-umai" class=zola-anchor href=#react-patterns-in-umai>#</a>React Patterns in Umai</h1><p>Last year, I forked <a href=https://github.com/jorgebucaran/hyperapp>hyperapp</a> to create the single-page application library I've always wanted -- <a href=https://github.com/kevinfiol/umai>umai</a>. umai is heavily influenced by <a href=https://mithril.js.org>Mithril.js</a>, which has unfortunately been in stasis for a few years now. My goal in creating umai can be summed up in a few bullet points:<ul><li>Create a hyper minimal, but ergonomic UI library in a tiny package size (~1.7kb)<li>Fully embrace Mithril.js's closure components, while cutting the cruft and unnecessary baggage (class components, object components, lifecycle events, <code>view</code> property).<li>Full tree redraws on event handler calls with support for async handlers</ul><p>Since then, I've used umai on multiple small personal projects and have been happy with the speed and minimalism I've been able to rebuild apps I had previously written in React, Mithril, and Svelte.<p>In this post, I'd like to translate React patterns taken from <a href=https://react.dev>react.dev</a> into umai equivalents to demonstrate how easy it is for someone with previous SPA experience to get started with umai. I'll be providing links to live examples if you'd like to alter the examples.<h2 id=component-composition><a aria-label="Anchor link for: component-composition" class=zola-anchor href=#component-composition>#</a><a href=https://react.dev/learn#components>Component Composition</a></h2><p>Let's start with a very basic example of component composition. Being able to reuse components is the bread and butter of any UI library.<h3 id=react><a aria-label="Anchor link for: react" class=zola-anchor href=#react>#</a>React</h3><pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> MyButton() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTbutton>
+</span><span>      I'm a button
+</span><span>    </span><span style=color:#bf616a>&LT/button>
+</span><span>  );
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyApp() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTh1></span><span>Welcome to my app</span><span style=color:#bf616a>&LT/h1>
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span><span>
+</span></code></pre><h3 id=umai><a aria-label="Anchor link for: umai" class=zola-anchor href=#umai>#</a>umai</h3><pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> MyButton() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTbutton>
+</span><span>      I'm a button
+</span><span>    </span><span style=color:#bf616a>&LT/button>
+</span><span>  );
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyApp() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTh1></span><span>Welcome to my app</span><span style=color:#bf616a>&LT/h1>
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKYsDHmSzcDQAWQAngAhZRiMSyAAUAEpblMNBoEmJlCRyUyOZyNAAeGr0xncAB8gqFGgAkhtlnkxQzZDKRWEVRLpeSNCy9twnITuMTuKTZJSqQBBPR6Vns3Xc3n89XCqAQABuOtlnOFIjQkoA6qYZAJKksqRpeLbhWF-d6fcLqXTVeSwgnfWF3V7BfqpkbuFMwOi5EyTkRVCEMDUyFAqajqTa9PqAqG9Ox4CQlDVeDVTF9TPBzdxrCBbABmRwuNzgoQYIgEKGBGEhJTORhOIA">Live Example</a><p>Notice anything interesting? They're both the same! If you're used to stateless components in React, moving to umai will be a breeze. This includes basics like props and conditional rendering. The following example is compatible with React and umai:<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> MyButton() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTbutton>
+</span><span>      I'm a button
+</span><span>    </span><span style=color:#bf616a>&LT/button>
+</span><span>  );
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyApp({ showButton = </span><span style=color:#d08770>true</span><span> } = {}) {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTh1></span><span>Welcome to my app</span><span style=color:#bf616a>&LT/h1>
+</span><span>      </span><span style=color:#bf616a>{</span><span>showButton ? </span><span style=color:#bf616a>&LTMyButton /></span><span> : </span><span style=color:#a3be8c>'Button is hidden!'</span><span style=color:#bf616a>}
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKYsDHmSzcDQAWQAngAhZRiMSyAAUAEpblMNBoEmJlCRyUyOZyNAAeGr0xncAB8gqFGgAkhtlnkxQzZDKRWEVRLpeSNCy9twnITuMTuKTZJSqQBBPR6JmLAgiU501Xkm4sXiwExYm7AJxs4CC7m8-nq4VQCAANx1ss5wpEaElAHVTDIBJUllSNLxbcKwgmY7HgI7neKLQB+EXUl0SjRhSUaN4bGsW1IaFIwBQAQg2Rt1cbCEejgv1Uz7UzA6LkTJORFUIQwNTIUCpqOpNr0+oCab07HgJCUNV4NVMX1M8HN3GsIDQAHY7O17EhaMC3OChBgiAQoYEYSElM4jBOEAA">Live Example</a><p>Let's get started with examples that contain actual differences.<h2 id=updating-the-screen><a aria-label="Anchor link for: updating-the-screen" class=zola-anchor href=#updating-the-screen>#</a><a href=https://react.dev/learn#updating-the-screen>Updating the screen</a></h2><h3 id=react-1><a aria-label="Anchor link for: react-1" class=zola-anchor href=#react-1>#</a>React</h3><p>Basic state management takes center stage for this example. In React, we'll use the familiar <code>useState</code> hook to create a reusable component that retains its own state.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>import</span><span> { useState } </span><span style=color:#b48ead>from </span><span style=color:#a3be8c>'react'</span><span>;
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyApp() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTh1></span><span>Counters that update separately</span><span style=color:#bf616a>&LT/h1>
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyButton() {
+</span><span>  </span><span style=color:#b48ead>const</span><span> [count, setCount] = useState(</span><span style=color:#d08770>0</span><span>);
+</span><span>
+</span><span>  </span><span style=color:#b48ead>function</span><span> handleClick() {
+</span><span>    setCount(count + </span><span style=color:#d08770>1</span><span>);
+</span><span>  }
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onClick</span><span style=color:#bf616a>={</span><span>handleClick</span><span style=color:#bf616a>}>
+</span><span>      Clicked </span><span style=color:#bf616a>{</span><span>count</span><span style=color:#bf616a>}</span><span> times
+</span><span>    </span><span style=color:#bf616a>&LT/button>
+</span><span>  );
+</span><span>}
+</span></code></pre><h3 id=umai-1><a aria-label="Anchor link for: umai-1" class=zola-anchor href=#umai-1>#</a>umai</h3><p>umai does not feature hooks. Instead, umai uses the concept of "<a href="https://github.com/kevinfiol/umai?tab=readme-ov-file#stateful-components">closure components</a>". State is defined using simple, mutable variables declared with <code>let</code>.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> MyApp() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTh1></span><span>Counters that update separately</span><span style=color:#bf616a>&LT/h1>
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>      </span><span style=color:#bf616a>&LTMyButton />
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> MyButton() {
+</span><span>  </span><span style=color:#b48ead>let</span><span> count = </span><span style=color:#d08770>0</span><span>;
+</span><span>
+</span><span>  </span><span style=color:#b48ead>function</span><span> handleClick() {
+</span><span>    count += </span><span style=color:#d08770>1</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return </span><span>() => (
+</span><span>    </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onclick</span><span style=color:#bf616a>={</span><span>handleClick</span><span style=color:#bf616a>}>
+</span><span>      Clicked </span><span style=color:#bf616a>{</span><span>count</span><span style=color:#bf616a>}</span><span> times
+</span><span>    </span><span style=color:#bf616a>&LT/button>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKYsDHmSzcDQAWQAngBBPR6AAUAEpblMNBoEmJlCRyQy2eyNAAeKAQABuAD5+QKhSI0OKAMLo4IkbLJXh9ZR6KDqxImPQjHWwKmCsKyyXk6VC6kAIWUYjEsg0YXNlqtVNt9sdzqlQrCIol-KZe24TkJ3GJ3FJjptdod3GZrItCD6MgxfRutGD-IjUfJJWOCHlA3KCeAPtTmIA1Dc0MH2aHuPzOdzeSyruKNHyLezBTVY47ZERi2UrsB83B4EWIOUnC7LVPyvAoLcK2JVhYBJNu76+57uHOg1MG1MwEqxAyTkRVCEMDUyFAqajqXS9EGAjJZux4CQlDVeDVTC+Ux4FzawQFsABmRwXDccEhAwIgCChQIYRCJQACpE3ZO9tHaAgIAALyOaI3jvEgoG-docODY9uDvB8sOaOR2hYfh2CpN4CF4bgCDw78IBYOslhGaIjjeexaD0bQhP1GBiLeTMjzDWVGLUEhRI6B09AUoSWBhPDCPgcT7CkmjlPsVSRKOdotJ07N9PwgijI0CTTKUxtuBECDLPU6zbI0RSLT05jHOctAsDckNlIAFh8jSbLIbSAt0hzDLeNAADZItokQUDivzErsoLUqc9Louy5SMvyzTCuS+yQrSjQHAqjyZAoxjgrEAzSqajB7HgMAzI85RYEY2SRW4aJ2iOAZuHgPCxBGMRxMk6T3KmXc40YkUCAMXgOI0OoyHKIS1Piu9PTAN4UBaoCfjJMCUHsJBaGcRgnCAA">Live Example</a><p>A few important distinctions to be made with the umai version:<ul><li>umai uses browser standard names for event handlers (<code>onclick</code> vs <code>onClick</code>)<li>Notice that the <code>handleClick</code> function in React will be re-created on every re-render. This is because React components are <em>also</em> render functions. Hooks are needed to get around this limitation and to store stateful data in a hidden global store invisible to the developer. When declaring stateful components with umai, instead of returning JSX, we return a <strong>render function</strong>. This forms a closure that retains the state of the <strong>outer function</strong>. <code>handleClick</code> in the umai version is only created once. <ul><li>This means no need for <code>useCallback</code>! Memoizing components is much simpler in umai.</ul></ul><h2 id=focusing-a-text-input><a aria-label="Anchor link for: focusing-a-text-input" class=zola-anchor href=#focusing-a-text-input>#</a><a href=https://react.dev/learn/manipulating-the-dom-with-refs#example-focusing-a-text-input>Focusing a text input</a></h2><h3 id=react-2><a aria-label="Anchor link for: react-2" class=zola-anchor href=#react-2>#</a>React</h3><p>Sometimes, you need access to the DOM, whether it be to integrate with a third-party library or trigger DOM-specific effects. In React, a <code>ref</code> can be used to attach a DOM node to a variable accessible to React, often using the <code>useRef</code> hook.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>import</span><span> { useRef } </span><span style=color:#b48ead>from </span><span style=color:#a3be8c>'react'</span><span>;
+</span><span>
+</span><span style=color:#b48ead>function</span><span> Form() {
+</span><span>  </span><span style=color:#b48ead>const</span><span> inputRef = useRef(</span><span style=color:#d08770>null</span><span>);
+</span><span>
+</span><span>  </span><span style=color:#b48ead>function</span><span> handleClick() {
+</span><span>    inputRef.current.focus();
+</span><span>  }
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    <>
+</span><span>      </span><span style=color:#bf616a>&LTinput</span><span style=color:#d08770> ref</span><span style=color:#bf616a>={</span><span>inputRef</span><span style=color:#bf616a>} />
+</span><span>      </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onClick</span><span style=color:#bf616a>={</span><span>handleClick</span><span style=color:#bf616a>}>
+</span><span>        Focus the input
+</span><span>      </span><span style=color:#bf616a>&LT/button>
+</span><span>    &LT/</span><span style=color:#bf616a>>
+</span><span>  );
+</span><span>}
+</span></code></pre><h3 id=umai-2><a aria-label="Anchor link for: umai-2" class=zola-anchor href=#umai-2>#</a>umai</h3><p>In umai, every element has a special <code>dom</code> property which accepts a handler that receives the DOM node upon creation. Using a <code>let</code> variable, we can grab a reference to this node and use it at a later time.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> Form() {
+</span><span>  </span><span style=color:#b48ead>let</span><span> inputEl = </span><span style=color:#d08770>null</span><span>;
+</span><span>
+</span><span>  </span><span style=color:#b48ead>function</span><span> handleClick() {
+</span><span>    inputEl.focus();
+</span><span>  }
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return </span><span>() => (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTinput</span><span style=color:#d08770> dom</span><span style=color:#bf616a>={</span><span>node => inputEl = node</span><span style=color:#bf616a>} />
+</span><span>      </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onclick</span><span style=color:#bf616a>={</span><span>handleClick</span><span style=color:#bf616a>}>
+</span><span>        Focus the input
+</span><span>      </span><span style=color:#bf616a>&LT/button>
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKYsDHmSzcDQAMXiYAAFABKW5TDT9eB9I56ZRiZ7XVrKSh7bhM-Ik37kkrHBAAYQG5XpjPJzKi3A5XNgGBYZCIygI9IFzKchIVCTEyhI5LlVwAfBoaULmQAeKAQABulrtivt7M5GhOYCuwDiUESVqVKu5N0D8FWYTdCsVGntNU5YlkGlkRBlZX94rg8GlEHKTlj8fjVK12WSiS9YndDrCSbEKe4xY9YSdrqFdIFBsF3DA6LkNJOWoEcgwNTIUAAnqiLdb7VSSMsY12AjJZux4CQlDVeDVTF9TPBSX8bEgAMyOFxucFCDBEAhQwIwkJKABU8uZE+07QIEAAXkc0RvBOJBBiQ7Tft2hoTtOn7NHI7QsPw7BTm8BC8NwBC-luEAsHqSwjNERxvPYtB6NoBF6LwMBAW8tDQb2IhoPBagkMRHQpno9EERqiF-v+8CkfYFGMVMIj2KxRFHO0XE8UKfFiL+AFCRoZGiVMPbieeUnsTJckaAxCkwspglvGgWAadwWncCIAAsukcbJZDcYZvEmQJqloAAbFZNkiCgjn6S58kKoppleXZfmGiI3lBZxIVucZ-EqeZImUZphoyEG8HhZ55kYPY8BgGJ3B8vB1G0dw0TtEcAzcPAv5iCMYikeRGXWYah4-GS1ggHZWBILQziME4QA">Live Example</a><h2 id=updating-state-based-on-previous-state-from-an-effect><a aria-label="Anchor link for: updating-state-based-on-previous-state-from-an-effect" class=zola-anchor href=#updating-state-based-on-previous-state-from-an-effect>#</a><a href=https://react.dev/reference/react/useEffect#updating-state-based-on-previous-state-from-an-effect>Updating state based on previous state from an effect</a></h2><h3 id=react-3><a aria-label="Anchor link for: react-3" class=zola-anchor href=#react-3>#</a>React</h3><p>React heavily relies on the <code>useEffect</code> hook for usecases involving:<ul><li>Running code on mounting of a component<li>Running code on dependency updates (whether it be state or props)<li>Running code on unmounting of a component<li>Running code related to external systems (the DOM, third-party libraries, etc.)</ul><p>This hook famously replaced every lifecycle event used when class components were idiomatic React.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> Counter() {
+</span><span>  </span><span style=color:#b48ead>const</span><span> [count, setCount] = useState(</span><span style=color:#d08770>0</span><span>);
+</span><span>
+</span><span>  useEffect(() => {
+</span><span>    </span><span style=color:#b48ead>const</span><span> intervalId = setInterval(() => {
+</span><span>      setCount(c => c + </span><span style=color:#d08770>1</span><span>);
+</span><span>    }, </span><span style=color:#d08770>1000</span><span>);
+</span><span>    </span><span style=color:#b48ead>return </span><span>() => clearInterval(intervalId);
+</span><span>  }, []);
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return </span><span style=color:#bf616a>&LTh1>{</span><span>count</span><span style=color:#bf616a>}&LT/h1></span><span>;
+</span><span>}
+</span></code></pre><h3 id=umai-3><a aria-label="Anchor link for: umai-3" class=zola-anchor href=#umai-3>#</a>umai</h3><p>In comparison, umai is much more minimal. There is no special API for effects. However, we can re-use an existing concept we touched on earlier.<p>The handler passed to the <code>dom</code> property is only called once upon DOM node creation. Therefore, we can leverage it to run effects on "component mount". Additionally, a cleanup function can be returned in this handler to run code upon element removal.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>function</span><span> Counter() {
+</span><span>  </span><span style=color:#b48ead>let</span><span> count = </span><span style=color:#d08770>0</span><span>;
+</span><span>  </span><span style=color:#b48ead>let</span><span> intervalId = </span><span style=color:#d08770>null</span><span>;
+</span><span>
+</span><span>  </span><span style=color:#b48ead>function</span><span> onMount() {
+</span><span>    intervalId = setInterval(() => {
+</span><span>      count += </span><span style=color:#d08770>1</span><span>;
+</span><span>      redraw();
+</span><span>    }, </span><span style=color:#d08770>1000</span><span>);
+</span><span>
+</span><span>    </span><span style=color:#b48ead>return </span><span>() => clearInterval(intervalId);
+</span><span>  }
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return </span><span>() => </span><span style=color:#bf616a>&LTh1</span><span style=color:#d08770> dom</span><span style=color:#bf616a>={</span><span>onMount</span><span style=color:#bf616a>}>{</span><span>count</span><span style=color:#bf616a>}&LT/h1></span><span>;
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyVEJKDDfYrNZkTbbCC7KZTFgY8yWbgaADC6OCJAAFABKW5TDT9eB9GQYvo3Wh7GlcvpHeQkABuvFgAEkoNdWspKEKOflKb8abIALIMsSs9nCzli+CS6VyhUmMQyxlS2BM-VXAB8Bs5ro0vLkGgA1Dc0EK3ZzsbjWf7XS4NGhaFGWSrDRoEmJlCQaQ7ncBVW6iAgRtbxbamcbTbKoDGMx9VU4ycKE0mU2ynRoADwiNAaE5gK7AbW6pyO4AesRORthFuOoWV7jk9XUjQAQT0en16eFCD6BBEpwVLGlJljnIp3Cpsg0loAyhv9kztGzl2715ubtpQxPVTXkxpUx+y42oBAJY6y05RsamUMQxGPWQswgcpO0-M8LyZABCe99hZXtANdYAUI0AB+DQNgAVW4MBdQ2DQ3g2HU+Q2VZkkSGRZlkEIMOHECwNkAC405LCLw0AAyPim3pPkTQ0MJHQnN1h1-f9VVLbgX0nYjdSZE4iFUEIMBqMgoAAT1RT9G3nPQxMdGMAgYvR2BNJQal4GpTC+Ux4CPbhrBAWwABZaGBNxwSEDAiAIKFAhhEIlAAKhdDRtO0doCAgAAvI5ojebSSCgE12li8cq20vTopYGF2m3SBYF0t4CF4Nz4pNCAWFDNQSGiI43nsWg9CfVU9F4GAUreQUpkUltoqalqOnAvQBtDIq5HipL4Da+xOtypSRHsUaRnG9pJum1VZrEebEsWjR2pWoaqxEABmTbmqOHayCmjRBuFA6jpOtAsHOhTLs827tt256ZuKhLjreNAADZvuGlB-vuwGXv3EGFvBzzocuiG4Ymx69te5GwYjZaup+pSZEywr8Y+jB7HgMBVqmJVop6vruGidojgGbh4HisQRjENqOuJxSnJ+al3M8rAkB8pxGCcIA">Live Example</a><p>Some interesting things to note:<ul><li>Since stateful components in umai are "closure components", we don't have to keep track of dependencies with dependency arrays like in React -- the outer function is only run once on component mount.<li>umai uses "<a href="https://github.com/kevinfiol/umai?tab=readme-ov-file#redraws--state-management">global redraws</a>". Rerenders are only triggered by event handlers defined in your JSX, or by manual <code>redraw()</code> calls. During asynchronous operations, calling <code>redraw()</code> is necessary to tell umai to re-render.</ul><h2 id=adding-a-reducer-to-a-component><a aria-label="Anchor link for: adding-a-reducer-to-a-component" class=zola-anchor href=#adding-a-reducer-to-a-component>#</a><a href=https://react.dev/reference/react/useReducer#adding-a-reducer-to-a-component>Adding a reducer to a component</a></h2><h3 id=react-4><a aria-label="Anchor link for: react-4" class=zola-anchor href=#react-4>#</a>React</h3><p>React's <code>useReducer</code> hook allows developers to implement an immutable store similar to Redux. A nice thing about this pattern is multi-property state alterations can be designated as "actions" which may optionally contain payloads.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>import</span><span> { useReducer } </span><span style=color:#b48ead>from </span><span style=color:#a3be8c>'react'</span><span>;
+</span><span>
+</span><span style=color:#b48ead>function</span><span> reducer(state, action) {
+</span><span>  </span><span style=color:#b48ead>if</span><span> (action.type === </span><span style=color:#a3be8c>'incremented_age'</span><span>) {
+</span><span>    </span><span style=color:#b48ead>return</span><span> {
+</span><span>      age: state.age + </span><span style=color:#d08770>1
+</span><span>    };
+</span><span>  }
+</span><span>  </span><span style=color:#b48ead>throw </span><span style=color:#ebcb8b>Error</span><span>(</span><span style=color:#a3be8c>'Unknown action.'</span><span>);
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> Counter() {
+</span><span>  </span><span style=color:#b48ead>const</span><span> [state, dispatch] = useReducer(reducer, { age: </span><span style=color:#d08770>42</span><span> });
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    <>
+</span><span>      </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onClick</span><span style=color:#bf616a>={</span><span>() => {
+</span><span>        dispatch({ type: </span><span style=color:#a3be8c>'incremented_age'</span><span> })
+</span><span>      }</span><span style=color:#bf616a>}>
+</span><span>        Increment age
+</span><span>      </span><span style=color:#bf616a>&LT/button>
+</span><span>      </span><span style=color:#bf616a>&LTp></span><span>Hello! You are </span><span style=color:#bf616a>{</span><span>state.age</span><span style=color:#bf616a>}</span><span>.</span><span style=color:#bf616a>&LT/p>
+</span><span>    &LT/</span><span style=color:#bf616a>>
+</span><span>  );
+</span><span>}
+</span></code></pre><h3 id=umai-4><a aria-label="Anchor link for: umai-4" class=zola-anchor href=#umai-4>#</a>umai</h3><p>You may have already guessed, but umai does not feature any reducer methods or utilities to build a store. However, you may leverage any store/observable library to implement your own, such as dipole, preact-signals, MobX, Immer, or even Redux. Below, I give an example using <a href=https://github.com/kevinfiol/vyce>vyce</a>, a 463 byte observable store. Notice that the reducer is unchanged from the React example.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>import</span><span> { store } </span><span style=color:#b48ead>from </span><span style=color:#a3be8c>'vyce'</span><span>;
+</span><span>
+</span><span style=color:#b48ead>function</span><span> reducer(state, action) {
+</span><span>  </span><span style=color:#b48ead>if</span><span> (action.type === </span><span style=color:#a3be8c>'incremented_age'</span><span>) {
+</span><span>    </span><span style=color:#b48ead>return</span><span> {
+</span><span>      age: state.age + </span><span style=color:#d08770>1
+</span><span>    };
+</span><span>  }
+</span><span>  </span><span style=color:#b48ead>throw </span><span style=color:#ebcb8b>Error</span><span>(</span><span style=color:#a3be8c>'Unknown action.'</span><span>);
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>function</span><span> Counter() {
+</span><span>  </span><span style=color:#b48ead>const</span><span> state = store({ age: </span><span style=color:#d08770>42</span><span> });
+</span><span>  </span><span style=color:#b48ead>const</span><span> dispatch = (action) => state((prev) => reducer(prev, action));
+</span><span>
+</span><span>  </span><span style=color:#b48ead>return </span><span>() => (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onclick</span><span style=color:#bf616a>={</span><span>() => {
+</span><span>        dispatch({ type: </span><span style=color:#a3be8c>'incremented_age'</span><span> })
+</span><span>      }</span><span style=color:#bf616a>}>
+</span><span>        Increment age
+</span><span>      </span><span style=color:#bf616a>&LT/button>
+</span><span>      </span><span style=color:#bf616a>&LTp></span><span>Hello! You are </span><span style=color:#bf616a>{</span><span>state().age</span><span style=color:#bf616a>}</span><span>.</span><span style=color:#bf616a>&LT/p>
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTBHzW4aAhieKJVYsdYaDYANwAnkR4ATuFMWBjzJZuBoElBlMySAAKMm8eSo3rcgCUtymGiiLA0QslsgwYgZekSV21tKO9wEwSgAH1eNEWTLgHL5bz4GJlCQeZaedb5ab4G9RfIMG6NABqDRoK3ypx7Z1OK3Jcj7DSPEjkYUbACq3DKcX2PJV3AwGylofDbO4HO4XNkGgAwujgsKLVagmTSWIxVqGxShYs3W8ACz2Fa52tWPpQVJ6MVEETXJWZmVXAB8DabQqFegSdOnc75AvgwuX8DpEpL3ClfYL8oSdodSrXSqDGgAPEO6TOb-LbzVlGJyTzZEQBuUrsAhSvJ0XRdIcCBHMQxzbJINXdXViwSA15GNN0Nl7Z8VicJ9nRAjQAEkEPgJCNDdDDbzCN8P1kbDcNvPQZwACVMWAyAAQg0ABNdESISW5PXgQDvTNJwMHI+ib3Ih8aI0Y98ymMBKzEIUTiIVQQgwGoyCgBlUUA6451vCsMXkEgNDCGdcwCGRZnYLclBqXgalML5THgA9rBAWxaHaewsCQTtaGBNxwSEDAiAIKFAhhEIlAAKllZ1NO0doCAgAAvI5ojeTSSCgLd2iSvMpimTTtIS+UWBhdoWH4dgGQ9XhuAIFKtwgFhQ3lNQSGiI43nsWg9G0DqNBHGBMreWgioLEQ0HKpYRh6jpyT0CbhsquQUvSuD7HsQapqmEQe2A+buqOdpltWq11rETa0u2gahqmOTuBEABmOausW86yBWjRJquqrUrut40CwPanuKl7Ow+hazouv61sBraQYANnB7hnpEFAYdOpafsu51rtuuC0E7dHMZRnGvvh-7CaR4GA12x6MchmQ8rmomgZJjB7CI-buGUWA5tGoduGidojgGbh4BSxskT6h7+Zcn5uQ8zs-MCpxGCcIA">Live Example</a><p>umai aims to be closer to vanilla JavaScript than React. In the same spirit, we can choose to embrace mutability using a pattern that avoids bugs that would normally arise from it -- and we can do so without any third-party libraries.<pre class=language-jsx data-lang=jsx style=color:#c0c5ce;background-color:#2b303b><code class=language-jsx data-lang=jsx><span style=color:#b48ead>const</span><span> createState = () => ({ age: </span><span style=color:#d08770>42</span><span> });
+</span><span>
+</span><span style=color:#b48ead>const</span><span> createActions = (state) => ({
+</span><span>  incrementAge() { state.age += </span><span style=color:#d08770>1</span><span>; }  
+</span><span>});
+</span><span>
+</span><span style=color:#b48ead>const</span><span> state = createState();
+</span><span style=color:#b48ead>const</span><span> actions = createActions(state);
+</span><span>
+</span><span style=color:#b48ead>function</span><span> Counter() {
+</span><span>  </span><span style=color:#b48ead>return</span><span> (
+</span><span>    </span><span style=color:#bf616a>&LTdiv>
+</span><span>      </span><span style=color:#bf616a>&LTbutton</span><span style=color:#d08770> onclick</span><span style=color:#bf616a>={</span><span>actions.incrementAge</span><span style=color:#bf616a>}>
+</span><span>        Increment age
+</span><span>      </span><span style=color:#bf616a>&LT/button>
+</span><span>      </span><span style=color:#bf616a>&LTp></span><span>Hello! You are </span><span style=color:#bf616a>{</span><span>state.age</span><span style=color:#bf616a>}</span><span>.</span><span style=color:#bf616a>&LT/p>
+</span><span>    </span><span style=color:#bf616a>&LT/div>
+</span><span>  );
+</span><span>}
+</span></code></pre><p><a href="https://flems.io/#0=N4IgtglgJlA2CmIBcBWAjAOgBxYDQgGcBjAJwHtZZkBtABl1oF18AzCBAm0AOwEMxESEBgAWAFzBV8RMtzHw5yEAFcwvCAAJ4AD34AHBCHwF4CImIizOQ2kjQAmEAF9cPfoJAArAtozejIDJyCmJKAPRhGhAA5txkJPAaYiIQBADcSSkEUdm8GiwIYNkivEQA1klkWnwARgga3tr58Rpx3AC0AErwpWIasBA1JLwkEPAEADrcEGB68X3AGmAaTvnkywDkquobaVMA7hDcUGT7GN29GgC8GoukPfIAooUhSEsraQEmZhZWSrb2FDOVwgPgCJR+TjSWTyRRCGZzEgLJa4JZkZRyFZrMibbYQXZTKZBAh9e68eQAZTE5MSNwAFABKa4APg0dMWvGi8DeABZ7CsGXtuESrKSEjSAILmSzcbL0kk0plXVnsqYaKLce4COQSrmM24aBXyDCcxIAahuaAyqw0UycgsJmtFhup8muGjJlNd8EZQuJfV6MrlHvF8ilv1ldKN8Adwu4LAx0tkGgAwujgiR9cA1RoEmJlCRuGyc+qADxQCAAN2ZJfVGlLNWUYjEydkRAG5SuwEDVgwRy1IV18CcNaLdfHAElNQltQGubWy2FG83ZKPx2W9MyABKmWBkACEGgAmuiNCNEsBoyauU4MKWwpva-eK9Wc7GnI6wOmxHSTkRVCEGA1GQUAAJ6ovqyr1mmGLyCQGhhMygoBDIszsPAJBKDUvA1KYXymPASayv8SC0O09j2EgPK0MCbjgkIGBEAQUKBDCIRKAAVLcObAdo7QEBAABeRzRG8wEkFAGHtLxQofnGwFgdxY4sDC7QsPw7CgW8BC8LK-EYRALBCuqagkNERxvPYtB6NoxkaHovAwCJby0LJjoiGgSkmSM5kdC2eguXZKlyPxQnchoFE2W5cYiPy2ZjqZvntP5gU5sFYihYJ4VWVFdruQAzF5Sw+UcyVkAFGiuWlqkCVlbxoFguXcHJUwiDyRWJaVKWVUFNVhfVABsTUtdwIgoB1JV+eVqXKX1dUaGgPLDe5A0TWZXXTT11UhbV4UOMtcYyJJRXpZle0YPY8BgNFUzKLARUOU53DRO0RwDNw8D8dSSKWdZtl5XG+E-EGSg8lgpHOIwThAA">Live Example</a><ul><li>Instead of using strings to name actions, we simply use functions, e.g., <code>incrementAge</code><li>The <code>createActions</code> factory function produces a unique actions bag <em>scoped</em> to the state object passed to it. These actions are the only means of updating the state.</ul><p>One caveat of this approach is that it is still possible to mutate the <code>state</code> object directly. If you are using TypeScript, you can use the <a href=https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype><code>Readonly</code></a> utility type to discourage this.<pre class=language-ts data-lang=ts style=color:#c0c5ce;background-color:#2b303b><code class=language-ts data-lang=ts><span style=color:#b48ead>interface </span><span>State {
+</span><span>  </span><span style=color:#bf616a>age</span><span>: number;
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead>const </span><span style=color:#8fa1b3>createState </span><span>= (): State </span><span style=color:#b48ead>=> </span><span>({ age: </span><span style=color:#d08770>42 </span><span>});
+</span><span>
+</span><span style=color:#b48ead>const </span><span style=color:#8fa1b3>createActions </span><span>= (</span><span style=color:#bf616a>state</span><span>: State) </span><span style=color:#b48ead>=> </span><span>({
+</span><span>  </span><span style=color:#8fa1b3>incrementAge</span><span>() { </span><span style=color:#bf616a>state</span><span>.</span><span style=color:#bf616a>age </span><span>+= </span><span style=color:#d08770>1</span><span>; }
+</span><span>});
+</span><span>
+</span><span style=color:#b48ead>const </span><span style=color:#bf616a>state</span><span>: Readonly&LTState> = </span><span style=color:#8fa1b3>createState</span><span>();
+</span><span style=color:#b48ead>const </span><span style=color:#bf616a>actions </span><span>= </span><span style=color:#8fa1b3>createActions</span><span>(</span><span style=color:#bf616a>state</span><span>);
+</span><span>
+</span><span style=color:#bf616a>state</span><span>.</span><span style=color:#bf616a>age </span><span>= </span><span style=color:#d08770>10</span><span>; </span><span style=color:#65737e>// Cannot assign to 'age' because it is a read-only property.
+</span></code></pre><p>Another interesting thing to point out is that React <strong>batches state updates</strong>. This is to prevent unncessary re-renders upon updating multiple state variables. For example, if you call <code>setState(x => x + 1)</code> 3 times in a row, React will only re-render once. This is a smart and sophisticated optimization.<p>This kind of optimization is <strong>unneeded</strong> in umai. Whereas the developer must remember the rules of re-rendering in React as it pertains to several hooks, umai only re-renders in these two instances:<ol><li>An event handler is called, e.g., <code>onclick</code>, <code>onchange</code>, <code>oninput</code><li><code>redraw()</code> is called</ol><h2 id=wait-so-should-i-migrate-to-umai><a aria-label="Anchor link for: wait-so-should-i-migrate-to-umai" class=zola-anchor href=#wait-so-should-i-migrate-to-umai>#</a>Wait, so should I migrate to umai?</h2><p>No. Unsurprisingly, <a href=https://github.com/kevinfiol/umai>umai</a> is very much a work-in-progress, a one-man hobby project, and not as feature-filled as React or Mithril.js for that matter. At the time of writing, umai is at version <code>0.2.6</code>. Here is a short list of things React has that umai does not:<ul><li>SSR support -- there is currently no way to render umai components with Node/Deno/Bun<li>Keyed fragment support<li>Error handling and useful error messaging<li>Developer Tools<li>Frameworks (Next.js, Remix, Gatsby, Waku)<li>Mobile frameworks like React Native</ul><p>Nevertheless, I think there is value in comparing it to React, if only to see what else is possible in the realm of uncompiled, single-page application libraries. I firmly believe the patterns presented by umai, and its main inspiration (<a href=https://mithril.js.org>Mithril.js</a>) are viable alternatives. And, in my opinion, these patterns are <em>better</em> than the status quo set by React and Facebook/Meta. For that reason, I do encourage anyone with a small, low-stakes hobby project in mind to take <code>umai</code> for a spin.<p>For more examples of umai in action, check out the <a href="https://github.com/kevinfiol/umai?tab=readme-ov-file#examples">examples</a> section of the README.</article><footer class=mt2><small> <a href=#>return to top</a> </small></footer></div></main><script src=https://kevinfiol.com/js/dark-mode-switch.min.js></script>

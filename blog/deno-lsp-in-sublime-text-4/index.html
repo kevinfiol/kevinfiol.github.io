@@ -1,0 +1,51 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="ie=edge" http-equiv=X-UA-Compatible><meta content="kevin f.'s personal site" name=description><link rel="shortcut icon" href=https://kevinfiol.com/img/favicon.png type=image/x-icon><link href=https://kevinfiol.com/css/main.css rel=stylesheet><link href=https://kevinfiol.com/atom.xml rel=alternate title=feed type=application/atom+xml><title>
+            
+                Deno LSP in Sublime Text 4
+            
+        </title><body><div class=dark-mode-container><input id=darkSwitch type=checkbox><label class=dark-mode-btn for=darkSwitch>🌒</label></div><main class="main-content max-width-3 mx-auto"><div><div class="controls p1"><a href=https://github.com/kevinfiol/kevinfiol.com/edit/master/content/blog/2025-04-21-deno-lsp-in-sublime-text-4.md>edit</a></div><header><nav><p class=h3><a href=/>kevin f.</a></nav></header><small class="h5 p0 m0 light-subdue"> April 21, 2025 </small><aside></aside><article class=page-content><h1 id=deno-lsp-in-sublime-text-4><a aria-label="Anchor link for: deno-lsp-in-sublime-text-4" class=zola-anchor href=#deno-lsp-in-sublime-text-4>#</a>Deno LSP in Sublime Text 4</h1><p>Using <a href=https://deno.com>Deno</a> with Sublime Text 4 can be surprisingly tricky. At the time of this writing, the <a href=https://lsp.sublimetext.io>SublimeLSP Docs</a> still recommend using the <code>LSP-Deno</code> package on packagecontrol.io. Unfortunately, the package is outdated, with its last update being before the release of Deno 2.<p>Deno's official docs include a section about using Deno LSP with <a href=https://docs.deno.com/runtime/getting_started/setup_your_environment/#sublime-text>Sublime Text</a>. The catch is it tries to encompass Sublime Text 3 and 4, and suggests using third-party <code>.sublime-syntax</code> files to enable the language server. This is unneeded in Sublime Text 4, which already includes syntax definitions for JavaScript, TypeScript, JSX, and TSX.<p>Assuming you're on Sublime Text 4, you can simply add this entry to your <code>LSP.sublime-settings</code> file:<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span style=color:#65737e>// Settings in here override those in "LSP/LSP.sublime-settings"
+</span><span>{
+</span><span>  "</span><span style=color:#a3be8c>clients</span><span>": {
+</span><span>    "</span><span style=color:#a3be8c>deno</span><span>": {
+</span><span>      "</span><span style=color:#a3be8c>command</span><span>": ["</span><span style=color:#a3be8c>deno</span><span>", "</span><span style=color:#a3be8c>lsp</span><span>"],
+</span><span>      "</span><span style=color:#a3be8c>initializationOptions</span><span>": {
+</span><span>        </span><span style=color:#65737e>// "config": "", // Sets the path for the config file in your project
+</span><span>        "</span><span style=color:#a3be8c>enable</span><span>": </span><span style=color:#d08770>false</span><span>,
+</span><span>        </span><span style=color:#65737e>// "importMap": "", // Sets the path for the import-map in your project
+</span><span>        "</span><span style=color:#a3be8c>lint</span><span>": </span><span style=color:#d08770>true</span><span>,
+</span><span>        "</span><span style=color:#a3be8c>unstable</span><span>": </span><span style=color:#d08770>false
+</span><span>      },
+</span><span>      "</span><span style=color:#a3be8c>enabled</span><span>": </span><span style=color:#d08770>true</span><span>,
+</span><span>      "</span><span style=color:#a3be8c>languages</span><span>": [
+</span><span>        {
+</span><span>          "</span><span style=color:#a3be8c>languageId</span><span>": "</span><span style=color:#a3be8c>javascript</span><span>",
+</span><span>          "</span><span style=color:#a3be8c>scopes</span><span>": ["</span><span style=color:#a3be8c>source.js</span><span>"],
+</span><span>          "</span><span style=color:#a3be8c>syntaxes</span><span>": [
+</span><span>            "</span><span style=color:#a3be8c>Packages/JavaScript/JavaScript.sublime-syntax</span><span>"
+</span><span>          ]
+</span><span>        },
+</span><span>        {
+</span><span>          "</span><span style=color:#a3be8c>languageId</span><span>": "</span><span style=color:#a3be8c>javascriptreact</span><span>",
+</span><span>          "</span><span style=color:#a3be8c>scopes</span><span>": ["</span><span style=color:#a3be8c>source.jsx</span><span>"],
+</span><span>          "</span><span style=color:#a3be8c>syntaxes</span><span>": [
+</span><span>            "</span><span style=color:#a3be8c>Packages/JavaScript/JSX.sublime-syntax</span><span>"
+</span><span>          ]
+</span><span>        },
+</span><span>        {
+</span><span>          "</span><span style=color:#a3be8c>languageId</span><span>": "</span><span style=color:#a3be8c>typescript</span><span>",
+</span><span>          "</span><span style=color:#a3be8c>scopes</span><span>": ["</span><span style=color:#a3be8c>source.ts</span><span>"],
+</span><span>          "</span><span style=color:#a3be8c>syntaxes</span><span>": [
+</span><span>            "</span><span style=color:#a3be8c>Packages/JavaScript/TypeScript.sublime-syntax</span><span>"
+</span><span>          ]
+</span><span>        },
+</span><span>        {
+</span><span>          "</span><span style=color:#a3be8c>languageId</span><span>": "</span><span style=color:#a3be8c>typescriptreact</span><span>",
+</span><span>          "</span><span style=color:#a3be8c>scopes</span><span>": ["</span><span style=color:#a3be8c>source.tsx</span><span>"],
+</span><span>          "</span><span style=color:#a3be8c>syntaxes</span><span>": [
+</span><span>            "</span><span style=color:#a3be8c>Packages/JavaScript/TSX.sublime-syntax</span><span>"
+</span><span>          ]
+</span><span>        }
+</span><span>      ]
+</span><span>    }
+</span><span>  }
+</span><span>}
+</span></code></pre></article><footer class=mt2><small> <a href=#>return to top</a> </small></footer></div></main><script src=https://kevinfiol.com/js/dark-mode-switch.min.js></script>
