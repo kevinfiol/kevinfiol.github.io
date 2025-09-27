@@ -1,3 +1,18 @@
 media:
   input: static/img
   output: /img
+content:
+  - name: blog
+    label: Blog
+    path: content/blog
+    type: collection
+    format: toml-frontmatter
+    fields: [ title, date ]
+    view: 
+      fields: [ title, date ]
+      sort: [ date, title ]
+      primary: title
+      default:
+        search: ''
+        sort: title
+        order: desc
