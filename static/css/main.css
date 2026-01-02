@@ -212,6 +212,11 @@ hr {
     border-color: var(--line-color);
     border-width: 0 0 1px 0;
 }
+.fade-in { animation: fade-in 0.25s; }
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 /*! Basscss | http://basscss.com | MIT License */
 .h1 {
     font-size: 2rem;
