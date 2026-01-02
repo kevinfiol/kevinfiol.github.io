@@ -15,7 +15,10 @@ template = "resume.html"
 
 ## Work Experience
 
-* __06/2022 - Present__ • *Senior Software Engineer* - Ad Hoc
+* __03/2025 - Present__ • *Senior Software Engineer* - Skylight
+    * Working on projects for the CDC.
+
+* __06/2022 - 03/2025__ • *Senior Software Engineer* - Ad Hoc
     * Developed TypeScript/React and Ruby/Rails applications for HealthCare.gov, enabling millions of Americans to enroll in healthcare and reducing insurance costs.
     * Spearheaded backend containerization and migration to encrypted web server in collaboration with internal DevOps team and CMS stakeholders, enhancing security and scalability of hc.gov systems.
     * Led a migration of react-scripts 4 to Vite, removing 1237 lines of code in the process, reducing configuration files, and cutting build times in half.
