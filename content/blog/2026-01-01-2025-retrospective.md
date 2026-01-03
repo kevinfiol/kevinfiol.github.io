@@ -14,23 +14,23 @@ title = "2025 Retrospective"
 
 * **Installed new blinds in the house**. The office in particular had some awful old blinds that would let in way too much sun. I replaced them with cellular blinds from Home Depot. We ended up liking them so much, we bought the same blinds to replace the busted up blackout curtain in the master bedroom.
 
-* **Did a rock-climbing course**. Last year, my wife bought us passes to ProjectROCK to help me conquer my fear of heights. After a lengthy introduction to belay, we belayed for several hours. It was physically demanding and I'm not sure I'm in the best shape to rock climb, but we had a ton of fun and ended the night with some [Thai food](https://mas.to/@kevinf/113985618684957597).
+* **Did a rock-climbing course**. Last year, my wife bought us passes to ProjectROCK to help me conquer my fear of heights. After a lengthy introduction to belaying, we belayed for several hours. It was physically demanding and I'm not sure I'm in the best shape to rock climb, but we had a ton of fun and ended the night with some [Thai food](https://mas.to/@kevinf/113985618684957597).
 
 * **Got a new job**. Probably the biggest change of 2025 came with my new employment. In March 2025, I joined [Skylight](https://skylight.digital) to work on a project for the CDC, which I had the privilege of [visiting](https://mas.to/@kevinf/114262992758074301) in Atlanta. I'm very blessed to still have a career in government contracting, and to work among very intelligent and inspirational people at Skylight.
 
-* **Got an old Sony Triniton for my [retro CRT station](https://mas.to/@kevinf/113827181030129306)**. Along with getting a SummerCart64, I now have a dedicated little nook for CRT gaming in the office using an old CRT my uncle was throwing out.
+* **Got an old Sony Trinitron for my [retro CRT station](https://mas.to/@kevinf/113827181030129306)**. Along with getting a SummerCart64, I now have a dedicated little nook for CRT gaming in the office using an old CRT my uncle was throwing out.
 
 * **Attended a [Renaissance Fair](https://mas.to/@kevinf/114186632926639985)**. This was a first for me after many years of wondering what they were like. We saw jousting, a catapult demonstration, sword fighting, jester performances, and fire juggling. Food-wise, nothing impressive, but definitely a fun atmosphere to attend with friends.
 
 * **Started practicing guitar again**. For years I found a comfort zone on guitar where I would play chords or patterns I've learned from songs, or just noodle until I heard something pretty. This year, after many months of failing to stick to a self-learning regimen, I hired a guitar instructor from Argentina to give me lessons on lead blues guitar and some basic theory. Within a few weeks, I felt like I already made tremendous progress, and I'm excited to continue into 2026.
 
-* **Joined a run club and ran a 10K**. In early 2025, my wife found a local run club that meets at a park within walking distance of our house. The short walk made it hard to cheat going, so we began attending regularly to run 5Ks on each meet. After a few runs, I started to get addicted, and now I am a happy participant. I also enjoy the community that has formed around the club. In November, some club members informed us a 10K, and after training for a couple weeks, my wife and I successfully ran [our first 10K](https://mas.to/@kevinf/115574883843580588).
+* **Joined a run club and ran a 10K**. In early 2025, my wife found a local run club that meets at a park within walking distance of our house. The short walk made it hard to cheat going, so we began attending regularly to run 5Ks on each meet. After a few runs, I started to get addicted, and now I am a happy participant. I also enjoy the community that has formed around the club. In November, some club members informed us of a 10K, and after training for a couple of weeks, my wife and I successfully ran [our first 10K](https://mas.to/@kevinf/115574883843580588).
 
 * **Scored some retro goodies from Japan**. This is less something I did and more received -- but my father traveled to Japan this year, and brought several of my favorite games he found in bargain bins at thrift shops. [This made me feel like a kid again](https://mas.to/@kevinf/115595435011705701).
 
 * **Laid new pavers in the backyard**. As part of our ongoing project to revitalize our backyard, we found a contractor through a family friend who helped remove a large slab of concrete where an old extension to the house used to stand. We replaced it using a combination of reused pavers and newly bought ones. While we were not completely happy with the job, it came at a significant discount, and overall, it's a major improvement.
 
-* **Deep-dove into SQLite**. In 2024, I used continuing education funds to purchase an online course on SQLite. In 2025, I went through the whole course while applying its lessons to a [SvelteKit application](https://codeberg.org/kevinfiol/sqlite-bench) (which gave me a solid opportunity to learn a bit of SvelteKit!).
+* **Deep-dived into SQLite**. In 2024, I used continuing education funds to purchase an online course on SQLite. In 2025, I went through the whole course while applying its lessons to a [SvelteKit application](https://codeberg.org/kevinfiol/sqlite-bench) (which gave me a solid opportunity to learn a bit of SvelteKit!).
 
 * **Switched my personal PC to Linux**. While I've used Linux-based operating systems on my work machines for years, I never made the switch on my personal PC due to my love of video games. In 2025, after much encouragement from some friends, I made the jump from Windows 10 LTSC to Fedora KDE and couldn't be happier. The transition has been overall smooth, and software development on my personal PC is finally a joy after years of fighting Windows.
 
@@ -42,9 +42,9 @@ title = "2025 Retrospective"
 
 * I created a bootable image of Alpine Linux for the RK3566 chip and RG-Arc handhelds. While I have yet to clean up the repository for Codeberg, I hope to polish this and upload it in 2026.
 
-* [https://github.com/kevinfiol/arkive](https://github.com/kevinfiol/arkive) - I got arkive to an MVP level I was comfortable with, and even hosted it on my personal server for private use. However, I eventually discovered [linkding](https://github.com/sissbruecker/linkding) which was already miles ahead of arkive in featureset, simple to host, and performant *enough*. I may return to developing arkive, but in the meantime, I've been happy with linkding.
+* [https://github.com/kevinfiol/arkive](https://github.com/kevinfiol/arkive) - I got arkive to an MVP level I was comfortable with, and even hosted it on my personal server for private use. However, I eventually discovered [linkding](https://github.com/sissbruecker/linkding) which was already miles ahead of arkive in feature set, simple to host, and performant *enough*. I may return to developing arkive, but in the meantime, I've been happy with linkding.
 
-* [https://github.com/kevinfiol/beancms](https://github.com/kevinfiol/beancms) - I built a micro-CMS using Redbean. This is a single-file web application with multiple user support for simple, light-weight, Markdown-based blogging. In 2025, I wrote a [blogpost](/blog/a-tour-of-beancms/) about its features and expanded on the reasons for its existence. It was well-received by the Redbean community, and even got starred on Github by Justine Tunney, creator of Redbean -- which made me happy. :)
+* [https://github.com/kevinfiol/beancms](https://github.com/kevinfiol/beancms) - I built a micro-CMS using Redbean. This is a single-file web application with multiple user support for simple, lightweight, Markdown-based blogging. In 2025, I wrote a [blog post](/blog/a-tour-of-beancms/) about its features and expanded on the reasons for its existence. It was well-received by the Redbean community, and even got starred on Github by Justine Tunney, creator of Redbean -- which made me happy. :)
 
 * [https://codeberg.org/kevinfiol/quilt](https://codeberg.org/kevinfiol/quilt) - I wanted a quick way to create a fullscreen, tiled, slideshow similar to the iTunes Album Art screensavers of old. This was a quick and dirty attempt again using Redbean.
 
@@ -66,7 +66,7 @@ Here are some things I said I planned to do in 2025 that I did not get around to
 
 ## Things I plan to do in 2026
 
-* [ ] **Travel to Spain.** My wife and I are planning to travel to Spain in May-June. My wife has wanted to see to a Spanish-speaking country for several years, and I suggested Spain as a great place to start. The last time I had been to Spain was 2018, so it would be nice to revisit. I also have a few cousins who live in Barcelona, and it would be nice to catch up.
+* [ ] **Travel to Spain.** My wife and I are planning to travel to Spain in May-June. My wife has wanted to see a Spanish-speaking country for several years, and I suggested Spain as a great place to start. The last time I had been to Spain was 2018, so it would be nice to revisit. I also have a few cousins who live in Barcelona, and it would be nice to catch up.
 
 * [ ] **Get back into gamedev.** As mentioned earlier, I hope 2026 is the year I finally get comfortable with game development as a hobby.
 
