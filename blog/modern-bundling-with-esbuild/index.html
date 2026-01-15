@@ -1,0 +1,115 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="ie=edge" http-equiv=X-UA-Compatible><meta content="kevin f.'s personal site" name=description><link rel="shortcut icon" href=https://kevinfiol.com/img/favicon.png type=image/x-icon><link href=https://kevinfiol.com/css/main.css rel=stylesheet><link href=https://kevinfiol.com/atom.xml rel=alternate title=feed type=application/atom+xml><title>
+            
+                Modern bundling with esbuild
+            
+        </title><body><div class=dark-mode-container><input id=darkSwitch type=checkbox><label class=dark-mode-btn for=darkSwitch>🌒</label></div><main class="main-content max-width-3 mx-auto"><div><div class="controls p1"><a href=https://github.com/kevinfiol/kevinfiol.com/edit/master/content/blog/2021-10-20-modern-bundling-with-esbuild.md>edit</a></div><header><nav><p class=h3><a href=/>kevin f.</a></nav></header><small class="h5 p0 m0 light-subdue"> October 20, 2021 </small><aside><div class="toc h5 py1"><div class="toc-header pb1"><div class=h3>Modern bundling with esbuild</div><span class=light-subdue>table of contents</span></div><ul><li><a title="Dead-simple setup" href=#dead-simple-setup>Dead-simple setup</a><li><a title="Using the Build API" href=#using-the-build-api>Using the Build API</a><li><a title="What about the server?" href=#what-about-the-server>What about the server?</a><li><a href=#conclusion title=Conclusion>Conclusion</a></ul></div></aside><article class=page-content><h1 id=modern-bundling-with-esbuild><a aria-label="Anchor link for: modern-bundling-with-esbuild" class=zola-anchor href=#modern-bundling-with-esbuild>#</a>Modern bundling with esbuild</h1><p>These days, you can get a pretty robust build setup for a modern browser app using just <a href=https://esbuild.github.io/>esbuild</a>. The benefits of using esbuild over rollup, webpack, or parcel are numerous, but the few that stand out to me are:<ul><li>esbuild ships as a static binary; in practice this means adding it as a dependency won't bloat your project with npm packages<li>that lack of npm packages also means less dependabot alerts, since the less dependencies your project relies on, the less likely it is to be vulnerable to security concerns<li>esbuild's bundle times are <em>much</em> faster than rollup/webpack/parcel<li>esbuild includes support for TypeScript and JSX transpilation</ul><p>That's a lot of bang for your buck for a single dev dependency.<h2 id=dead-simple-setup><a aria-label="Anchor link for: dead-simple-setup" class=zola-anchor href=#dead-simple-setup>#</a>Dead-simple setup</h2><p>First off, install esbuild in your project if you haven't already.<pre class=language-bash data-lang=bash style=color:#c0c5ce;background-color:#2b303b><code class=language-bash data-lang=bash><span style=color:#bf616a>npm</span><span> install</span><span style=color:#bf616a> --save-dev</span><span> esbuild
+</span></code></pre><p>You can use esbuild via CLI or its Node API. For tiny apps where your build config is practically non-existent, using the CLI is fine. You can simply define a script in your <code>package.json</code> file and be ready to go.<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span>"</span><span style=color:#a3be8c>scripts</span><span>": {
+</span><span>  "</span><span style=color:#a3be8c>build</span><span>": "</span><span style=color:#a3be8c>esbuild index.js --bundle --minify --outfile=./dist/app.js</span><span>"
+</span><span>}
+</span></code></pre><p>Define a script like the one above, run <code>npm run build</code>, and your lightning-fast build is there, minified in all its glory. This isn't terribly different than what you can already do with webpack, but when was the last time you saw webpack's <a href=https://npm.anvaka.com/#/view/2d/webpack>dependency graph</a>? And that doesn't even include <a href=https://npm.anvaka.com/#/view/2d/webpack-cli>webpack-cli</a>. Not to rag on webpack; it is an immensely powerful tool that many great projects rely on, but unless you're already tangled in that web (heh), I'd suggest steering clear.<p>esbuild also includes a built-in watch mode. No extra plugins needed! Let's go ahead and define another script:<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span>"</span><span style=color:#a3be8c>scripts</span><span>": {
+</span><span>  "</span><span style=color:#a3be8c>build</span><span>": "</span><span style=color:#a3be8c>esbuild index.js --outfile=dist/app.js --bundle --minify</span><span>",
+</span><span>  "</span><span style=color:#a3be8c>dev</span><span>": "</span><span style=color:#a3be8c>esbuild index.js --outfile=dist/app.js --bundle --sourcemap --watch</span><span>"
+</span><span>}
+</span></code></pre><p>Make changes to <code>index.js</code> and you'll see that <code>dist/app.js</code> is re-bundled automatically. It's even got source map support! Alternatively, we could take things a step further and utilize esbuild's built-in server. Let's change the <code>dev</code> script a bit:<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span>"</span><span style=color:#a3be8c>scripts</span><span>": {
+</span><span>  "</span><span style=color:#a3be8c>build</span><span>": "</span><span style=color:#a3be8c>esbuild index.js --outfile=dist/app.js --bundle --minify</span><span>",
+</span><span>  "</span><span style=color:#a3be8c>dev</span><span>": "</span><span style=color:#a3be8c>esbuild src/index.jsx --outfile=dist/app.js --servedir=dist --bundle</span><span>"
+</span><span>}
+</span></code></pre><p>After running dev, you'll see in your terminal that a server has been started. Navigate to <code>localhost:8000</code> to see the contents of your <code>dist</code> folder hosted locally.<pre class=language-bash data-lang=bash style=color:#c0c5ce;background-color:#2b303b><code class=language-bash data-lang=bash><span style=color:#bf616a>$</span><span> npm run dev
+</span><span>
+</span><span> > Local:   </span><span style=color:#bf616a>http://127.0.0.1:8000/
+</span><span> > Network: </span><span style=color:#bf616a>http://192.168.1.12:8000/
+</span><span> > Network: </span><span style=color:#bf616a>http://172.11.100.1:8000/
+</span><span> > Network: </span><span style=color:#bf616a>http://192.168.1.3:8000/
+</span></code></pre><p>If you're wondering where your generated output files are, no worries: esbuild's serve mode serves the bundled files directly from memory. They are never written to your disk unless you intentionally omit the <code>servedir</code> variable.<h2 id=using-the-build-api><a aria-label="Anchor link for: using-the-build-api" class=zola-anchor href=#using-the-build-api>#</a>Using the Build API</h2><p>Configuring our buildstep via CLI flags can get unwieldy over time. With other bundlers, you get the benefit of config files, e.g., <code>rollup.config.js</code> or <code>webpack.config.js</code>. With esbuild, we can just use plain old Node scripts plus the existing Node APIs to configure our builds. Start by creating a new <code>.js</code> file under a directory for scripts, <code>scripts/build.js</code>. Then, change our existing <code>build</code> script in our <code>package.json</code>:<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span>"</span><span style=color:#a3be8c>scripts</span><span>": {
+</span><span>  "</span><span style=color:#a3be8c>build</span><span>": "</span><span style=color:#a3be8c>node ./scripts/build.js</span><span>"
+</span><span>}
+</span></code></pre><p>This doesn't do anything yet, because <code>scripts/build.js</code> is empty. Let's fix that by translating our previous build CLI call to a Node script. That will look something like this:<pre class=language-js data-lang=js style=color:#c0c5ce;background-color:#2b303b><code class=language-js data-lang=js><span style=color:#65737e>// scripts/build.js
+</span><span style=color:#b48ead>import </span><span style=color:#bf616a>esbuild </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>esbuild</span><span>';
+</span><span style=color:#b48ead>import </span><span>{ </span><span style=color:#bf616a>resolve </span><span>} </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>path</span><span>';
+</span><span>
+</span><span style=color:#bf616a>esbuild</span><span>.</span><span style=color:#8fa1b3>bundle</span><span>({
+</span><span>  format: '</span><span style=color:#a3be8c>iife</span><span>',
+</span><span>  entryPoints: [</span><span style=color:#8fa1b3>resolve</span><span>('</span><span style=color:#a3be8c>index.js</span><span>')],
+</span><span>  bundle: </span><span style=color:#d08770>true</span><span>,
+</span><span>  outfile: </span><span style=color:#8fa1b3>resolve</span><span>('</span><span style=color:#a3be8c>dist/app.js</span><span>')
+</span><span>}).</span><span style=color:#96b5b4>catch</span><span>((</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#b48ead>=> </span><span>{
+</span><span>  </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>);
+</span><span>  process.</span><span style=color:#96b5b4>exit</span><span>(</span><span style=color:#d08770>1</span><span>);
+</span><span>});
+</span></code></pre><p>Running <code>npm run build</code> should function the same as before, but now we have more control over our bundles! But what about our dev script? And what if we want to reduce code duplication? After all, <code>build</code> and <code>dev</code> are very similar with just a couple different options.<p>Let's create a new file in our scripts folder, called <code>scripts/bundle.js</code> that will contain the config that both <code>build.js</code> and <code>dev.js</code> will use.<pre class=language-js data-lang=js style=color:#c0c5ce;background-color:#2b303b><code class=language-js data-lang=js><span style=color:#65737e>// scripts/bundle.js
+</span><span style=color:#b48ead>import </span><span style=color:#bf616a>esbuild </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>esbuild</span><span>';
+</span><span style=color:#b48ead>import </span><span>{ </span><span style=color:#bf616a>resolve </span><span>} </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>path</span><span>';
+</span><span>
+</span><span style=color:#b48ead>export function </span><span style=color:#8fa1b3>bundle</span><span>(</span><span style=color:#bf616a>config </span><span>= {}) {
+</span><span>  </span><span style=color:#b48ead>return </span><span style=color:#bf616a>esbuild</span><span>.</span><span style=color:#8fa1b3>build</span><span>({
+</span><span>    format: '</span><span style=color:#a3be8c>iife</span><span>',
+</span><span>    entryPoints: [</span><span style=color:#8fa1b3>resolve</span><span>('</span><span style=color:#a3be8c>index.js</span><span>')],
+</span><span>    bundle: </span><span style=color:#d08770>true</span><span>,
+</span><span>    outfile: </span><span style=color:#8fa1b3>resolve</span><span>('</span><span style=color:#a3be8c>dist/app.js</span><span>')
+</span><span>    ...</span><span style=color:#bf616a>config
+</span><span>  });
+</span><span>}
+</span></code></pre><p>As you see, <code>bundle.js</code> will contain all of our default configs. Let's refactor <code>scripts/build.js</code> to specifically create one minified build:<pre class=language-js data-lang=js style=color:#c0c5ce;background-color:#2b303b><code class=language-js data-lang=js><span style=color:#65737e>// scripts/build.js
+</span><span style=color:#b48ead>import </span><span>{ </span><span style=color:#bf616a>bundle </span><span>} </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>./bundle.js</span><span>';
+</span><span>
+</span><span style=color:#8fa1b3>bundle</span><span>({ minify: </span><span style=color:#d08770>true </span><span>})
+</span><span>  .</span><span style=color:#96b5b4>then</span><span>(() </span><span style=color:#b48ead>=> </span><span>{
+</span><span>    </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>log</span><span>('</span><span style=color:#a3be8c>Bundled!</span><span>');
+</span><span>  })
+</span><span>  .</span><span style=color:#96b5b4>catch</span><span>((</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#b48ead>=> </span><span>{
+</span><span>    </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>);
+</span><span>    process.</span><span style=color:#96b5b4>exit</span><span>(</span><span style=color:#d08770>1</span><span>);
+</span><span>  });
+</span></code></pre><p>Our build script should now function like before. Let's create <code>scripts/dev.js</code> now:<pre class=language-js data-lang=js style=color:#c0c5ce;background-color:#2b303b><code class=language-js data-lang=js><span style=color:#65737e>// scripts/dev.js
+</span><span style=color:#b48ead>import </span><span>{ </span><span style=color:#bf616a>bundle </span><span>} </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>./bundle.js</span><span>';
+</span><span>
+</span><span style=color:#8fa1b3>bundle</span><span>({
+</span><span>  minify: </span><span style=color:#d08770>false</span><span>,
+</span><span>  sourcemap: </span><span style=color:#d08770>true</span><span>,
+</span><span>  watch: {
+</span><span>    </span><span style=color:#8fa1b3>onRebuild</span><span>(</span><span style=color:#bf616a>error</span><span>) {
+</span><span>      </span><span style=color:#b48ead>if </span><span>(</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>);
+</span><span>      </span><span style=color:#b48ead>else </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>log</span><span>('</span><span style=color:#a3be8c>Bundled!</span><span>');
+</span><span>    }
+</span><span>  }
+</span><span>}).</span><span style=color:#96b5b4>catch</span><span>((</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#b48ead>=> </span><span>{
+</span><span>  </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>)
+</span><span>  process.</span><span style=color:#96b5b4>exit</span><span>(</span><span style=color:#d08770>1</span><span>);
+</span><span>});
+</span></code></pre><p>Add the <code>dev</code> script to your <code>package.json</code>:<pre class=language-json data-lang=json style=color:#c0c5ce;background-color:#2b303b><code class=language-json data-lang=json><span>"</span><span style=color:#a3be8c>scripts</span><span>": {
+</span><span>  "</span><span style=color:#a3be8c>build</span><span>": "</span><span style=color:#a3be8c>node ./scripts/build.js</span><span>",
+</span><span>  "</span><span style=color:#a3be8c>dev</span><span>": "</span><span style=color:#a3be8c>node ./scripts/dev.js</span><span>"
+</span><span>}
+</span></code></pre><p>And now <code>npm run dev</code> will watch and rebundle your app on every file change.<h2 id=what-about-the-server><a aria-label="Anchor link for: what-about-the-server" class=zola-anchor href=#what-about-the-server>#</a>What about the server?</h2><p>You very well could use esbuild's "serve" mode in your <code>scripts/dev.js</code> script if you'd like to. You would have to adjust the scripts we've created so that "dev" mode uses <code>esbuild.serve</code> instead of <code>esbuild.build</code>. While I like that esbuild has a built-in server, it does not support live-reload, which is a nice feature to have. You could implement your own live reload using <code>esbuild.serve</code>, but a simpler solution would be to include some kind of server in our project as a dev dependency. I've found that <a href=https://github.com/nativew/serve>nativew/serve</a> was a fine candidate for this. At <a href="https://packagephobia.com/result?p=create-serve">18.7kb</a> with 0 dependencies, it was a guilt-free inclusion. Install with npm as normal.<p><strong>Update (12/18/2021):</strong> Since writing this article, I've published a fork of lukejacksonn's <a href=https://github.com/lukejacksonn/servor>servor</a> project titled <a href=https://github.com/kevinfiol/servbot>servbot</a>, which is smaller in scope and intended to be used with existing JS build tools. My move away from <strong>nativew/serve</strong> was motivated by its lack of SPA support. The instructions below have been updated for <strong>servbot</strong>:<pre class=language-bash data-lang=bash style=color:#c0c5ce;background-color:#2b303b><code class=language-bash data-lang=bash><span style=color:#bf616a>npm</span><span> install</span><span style=color:#bf616a> --save-dev</span><span> servbot
+</span></code></pre><p>Now let's modify our <code>scripts/dev.js</code>:<pre class=language-js data-lang=js style=color:#c0c5ce;background-color:#2b303b><code class=language-js data-lang=js><span style=color:#65737e>// scripts/dev.js
+</span><span style=color:#b48ead>import </span><span style=color:#bf616a>servbot </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>servbot</span><span>';
+</span><span style=color:#b48ead>import </span><span>{ </span><span style=color:#bf616a>bundle </span><span>} </span><span style=color:#b48ead>from </span><span>'</span><span style=color:#a3be8c>./bundle.js</span><span>';
+</span><span>
+</span><span style=color:#65737e>// create server
+</span><span style=color:#b48ead>const </span><span style=color:#bf616a>server </span><span>= </span><span style=color:#8fa1b3>servbot</span><span>({
+</span><span>  root: '</span><span style=color:#a3be8c>dist</span><span>',
+</span><span>  reload: </span><span style=color:#d08770>true</span><span>,
+</span><span>  fallback: '</span><span style=color:#a3be8c>index.html</span><span>' </span><span style=color:#65737e>// fallback to index.html for SPA routes
+</span><span>});
+</span><span>
+</span><span style=color:#65737e>// start our server at localhost:8000
+</span><span style=color:#bf616a>server</span><span>.</span><span style=color:#8fa1b3>listen</span><span>(</span><span style=color:#d08770>8000</span><span>);
+</span><span>
+</span><span style=color:#8fa1b3>bundle</span><span>({
+</span><span>  minify: </span><span style=color:#d08770>false</span><span>,
+</span><span>  sourcemap: </span><span style=color:#d08770>true</span><span>,
+</span><span>  watch: {
+</span><span>    </span><span style=color:#8fa1b3>onRebuild</span><span>(</span><span style=color:#bf616a>error</span><span>) {
+</span><span>      </span><span style=color:#b48ead>if </span><span>(</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>);
+</span><span>      </span><span style=color:#b48ead>else </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>log</span><span>('</span><span style=color:#a3be8c>Bundled!</span><span>');
+</span><span>      </span><span style=color:#bf616a>server</span><span>.</span><span style=color:#96b5b4>reload</span><span>(); </span><span style=color:#65737e>// &LT-- This will live reload on every rebuild
+</span><span>    }
+</span><span>  }
+</span><span>}).</span><span style=color:#96b5b4>catch</span><span>((</span><span style=color:#bf616a>error</span><span>) </span><span style=color:#b48ead>=> </span><span>{
+</span><span>  </span><span style=color:#ebcb8b>console</span><span>.</span><span style=color:#96b5b4>error</span><span>(</span><span style=color:#bf616a>error</span><span>)
+</span><span>  process.</span><span style=color:#96b5b4>exit</span><span>(</span><span style=color:#d08770>1</span><span>);
+</span><span>});
+</span></code></pre><p>Re-run <code>npm run dev</code> and we'll have our live-reloading dev server up:<pre class=language-bash data-lang=bash style=color:#c0c5ce;background-color:#2b303b><code class=language-bash data-lang=bash><span style=color:#bf616a>$</span><span> npm run dev
+</span><span>
+</span><span style=color:#bf616a>[servbot]</span><span> Server started: http://localhost:8000
+</span></code></pre><h2 id=conclusion><a aria-label="Anchor link for: conclusion" class=zola-anchor href=#conclusion>#</a>Conclusion</h2><p>If for whatever reason you've made it this far and are not convinced and maybe want a more batteries-included solution, I highly recommend <a href=https://vitejs.dev/>Vite</a> from Vue.js creator, Evan You. Vite actually uses esbuild for its own development mode to bundle vendor packages. Otherwise, I hope this has encouraged you to dig deeper into esbuild and to not be afraid to get your hands dirty in writing custom Node scripts to do your bundling. Sometimes what webpack and rollup do under the hood can seem like black magic since it's all abstracted away from you, basking in the comfort of a small config json file at the root of your project. You can cut away at a lot of that cruft by using simpler tools like esbuild, and get perf benefits and a better understanding of your tooling to boot!</article><footer class=mt2><small> <a href=#>return to top</a> </small></footer></div></main><script src=https://kevinfiol.com/js/dark-mode-switch.min.js></script>
