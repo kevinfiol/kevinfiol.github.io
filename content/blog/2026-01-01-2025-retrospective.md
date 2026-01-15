@@ -60,7 +60,7 @@ Here are some things I said I planned to do in 2025 that I did not get around to
 
 * **Install an irrigation system and place new sod in the backyard**. Unfortunately, the landscaping work we had planned for our backyard had to be put off until we had finished installing the pavers for our new patio. Now that that work has been completed, I hope to have this done in 2026.
 
-* **Deep-dive into Postgres**. I put this off in favor of doing a deep-dive into SQLite. For the moment, I'm content exploring SQLite for much of 2026 as well since it fits my needs for the moment.
+* **Deep-dive into Postgres**. I put this off in favor of doing a deep-dive into SQLite. I'm content exploring SQLite for much of 2026 as well since it fits my needs for the moment.
 
 * **Get back into gamedev**. This is the one that hurts the most. Game development has been the single most difficult study wishlist item for me to stick to. I intend to try to focus on a single tool (Godot) in 2026 to help me make progress on this, and may even spend some money on video courses with my tech budget allowance from work.
 
