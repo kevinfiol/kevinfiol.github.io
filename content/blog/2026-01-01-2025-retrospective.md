@@ -16,7 +16,7 @@ title = "2025 Retrospective"
 
 * **Did a rock-climbing course**. Last year, my wife bought us passes to ProjectROCK to help me conquer my fear of heights. After a lengthy introduction to belaying, we belayed for several hours. It was physically demanding and I'm not sure I'm in the best shape to rock climb, but we had a ton of fun and ended the night with some [Thai food](https://mas.to/@kevinf/113985618684957597).
 
-* **Got a new job**. Probably the biggest change of 2025 came with my new employment. In March 2025, I joined [Skylight](https://skylight.digital) to work on a project for the CDC, which I had the privilege of [visiting](https://mas.to/@kevinf/114262992758074301) in Atlanta. I'm very blessed to still have a career in government contracting, and to work among very intelligent and inspirational people at Skylight.
+* **Got a new job**. Probably the biggest change of 2025 came with my new employment. In March 2025, I joined [Skylight](https://skylight.digital) to work on a project for the CDC, which I had the privilege of [visiting](https://mas.to/@kevinf/114262992758074301) in Atlanta. I'm blessed to still have a career in government contracting, and to work among intelligent and inspirational people at Skylight.
 
 * **Got an old Sony Trinitron for my [retro CRT station](https://mas.to/@kevinf/113827181030129306)**. Along with getting a SummerCart64, I now have a dedicated little nook for CRT gaming in the office using an old CRT my uncle was throwing out.
 
@@ -26,7 +26,7 @@ title = "2025 Retrospective"
 
 * **Joined a run club and ran a 10K**. In early 2025, my wife found a local run club that meets at a park within walking distance of our house. The short walk made it hard to cheat going, so we began attending regularly to run 5Ks on each meet. After a few runs, I started to get addicted, and now I am a happy participant. I also enjoy the community that has formed around the club. In November, some club members informed us of a 10K, and after training for a couple of weeks, my wife and I successfully ran [our first 10K](https://mas.to/@kevinf/115574883843580588).
 
-* **Scored some retro goodies from Japan**. This is less something I did and more received -- but my father traveled to Japan this year, and brought several of my favorite games he found in bargain bins at thrift shops. [This made me feel like a kid again](https://mas.to/@kevinf/115595435011705701).
+* **Scored some retro goodies from Japan**. This is less something I did and more received -- but my father traveled to Japan this year, and brought several of my favorite games he found in bargain bins at used book shops. [This made me feel like a kid again](https://mas.to/@kevinf/115595435011705701).
 
 * **Laid new pavers in the backyard**. As part of our ongoing project to revitalize our backyard, we found a contractor through a family friend who helped remove a large slab of concrete where an old extension to the house used to stand. We replaced it using a combination of reused pavers and newly bought ones. While we were not completely happy with the job, it came at a significant discount, and overall, it's a major improvement.
 
