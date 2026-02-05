@@ -34,6 +34,13 @@ title = "2025 Retrospective"
 
 * **Switched my personal PC to Linux**. While I've used Linux-based operating systems on my work machines for years, I never made the switch on my personal PC due to my love of video games. In 2025, after much encouragement from some friends, I made the jump from Windows 10 LTSC to Fedora KDE and couldn't be happier. The transition has been overall smooth, and software development on my personal PC is finally a joy after years of fighting Windows.
 
+* **Built a mini homelab**. I've been using Raspberry Pis to self-host a myriad of applications on my local network, but they've always been scattered about on a shelf, and I never organized my setup scripts for them. Inspired by the "minirack" movement, but too cheap to commit to all of the parts and materials, I repurposed a [HARVMATTA letter tray from IKEA](https://www.ikea.com/us/en/p/harvmatta-letter-tray-anthracite-20578585/) by flipping all of the trays upside down and using magnets to attach my Pis, storage, network switch, and power. The result is what I call the [poor man's minirack](https://mas.to/@kevinf/116015494838265604). As for the software running on my minirack:
+  * Immich for myself and my wife to backup and view our photo collections
+  * Jellyfin Media Server that lets me listen to my music library from anywhere
+  * Paperless-ngx for document management and OCR
+  * OpenMediaVault as a general-use NAS
+  * Copyparty as a general-use file server
+
 ## Things I programmed in 2025
 
 2025 was not an eventful year in terms of starting new open-source projects, but there are a few developments I could mention.
@@ -71,4 +78,6 @@ Here are some things I said I planned to do in 2025 that I did not get around to
 * [ ] **Get back into gamedev.** As mentioned earlier, I hope 2026 is the year I finally get comfortable with game development as a hobby.
 
 * [ ] **Install irrigation system and place new sod**. As mentioned earlier, I hope 2026 is the year we can build the front/backyards of our dreams.
+
+* [ ] **Switch all of my servers/machines to NixOS/home-manager**. Although Nix is quite daunting to learn, the appeal of having one solution for a reproducible system/home folder and being able to track it with version control is appealing. This will also let me move away from my collection of messy Dockerfiles/compose files.
 
