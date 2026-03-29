@@ -10,3 +10,11 @@ content:
     fields:
       - name: title
         type: string
+    view: 
+      fields: [ title ]
+      sort: [ title ]
+      primary: title
+      default:
+        search: ''
+        sort: title
+        order: desc
