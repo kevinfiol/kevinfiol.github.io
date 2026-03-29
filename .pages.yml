@@ -10,8 +10,6 @@ content:
     fields:
       - name: title
         type: string
-      - name: date
-        type: date
     view: 
       fields: [ title, date ]
       sort: [ date, title ]
