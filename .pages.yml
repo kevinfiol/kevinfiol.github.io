@@ -7,7 +7,6 @@ content:
     path: content/blog
     type: collection
     format: toml
-    delimiters: +++
     fields:
       - name: title
         type: string
