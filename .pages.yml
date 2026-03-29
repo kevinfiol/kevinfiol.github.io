@@ -7,6 +7,8 @@ content:
     path: content/blog
     type: collection
     format: toml-frontmatter
+    exclude: ["_index.md"]
+    filename: "{year}-{month}-{day}-{primary}.md"
     fields:
       - name: title
         type: string
