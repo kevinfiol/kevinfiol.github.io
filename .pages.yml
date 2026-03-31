@@ -20,5 +20,5 @@ content:
       primary: title
       default:
         search: ''
-        sort: title
+        sort: date
         order: desc
