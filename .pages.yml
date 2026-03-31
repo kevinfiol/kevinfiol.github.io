@@ -15,8 +15,8 @@ content:
       - name: body
         type: rich-text
     view: 
-      fields: [ title ]
-      sort: [ title ]
+      fields: [ title, date ]
+      sort: [ date, title ]
       primary: title
       default:
         search: ''
