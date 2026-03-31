@@ -12,8 +12,8 @@ content:
     fields:
       - name: title
         type: string
-      - name: date
-        type: date
+      - name: body
+        type: rich-text
     view: 
       fields: [ title ]
       sort: [ title ]
