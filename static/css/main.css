@@ -114,7 +114,7 @@ p > code {
 }
 .page-content h1 {
     font-size: 1.75em;
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--line-color);
     padding-bottom: 1rem;
 }
 .page-content :where(p, table, ul) {
