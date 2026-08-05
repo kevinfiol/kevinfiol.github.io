@@ -1,0 +1,54 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #e0e0e0
+}
+
+a {
+  color: #373969;
+}
+
+ul {
+  padding-left: 11pt;
+}
+
+.resume {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11pt;
+  line-height: 16pt;
+  max-width: 920px;
+  margin: 3em auto
+}
+
+@media (max-width: 992px) {
+  .resume {
+    padding: 0 1em;
+    font-size: 10pt
+  }
+}
+
+@media print {
+  @page {
+    size: auto;
+    margin: 0
+  }
+  body {
+    background-color: none !important;
+    margin: 2rem 2rem 2rem 1rem !important;
+  }
+  .resume {
+    line-height: 12pt !important;
+    font-size: 9pt;
+  }
+  #work-experience + ul {
+    page-break-after: always;
+  }
+  #open-source {
+    margin-top: 2rem;
+  }
+}
