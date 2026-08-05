@@ -205,7 +205,7 @@ h1 > .zola-anchor {
 .line {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid var(--line-color);
+    border-bottom: 1px dashed var(--line-color);
 }
 hr {
     border-style: solid;
