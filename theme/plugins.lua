@@ -73,7 +73,7 @@ local function headings(pattern, options)
   }, pattern)
 end
 
--- Pretty URLs: "blog/2019-05-18-foo.html" -> "blog/foo/index.html" and sets `permalink` ("/blog/foo/")
+-- pretty URLs: "blog/2019-05-18-foo.html" -> "blog/foo/index.html" and sets `permalink` ("/blog/foo/")
 local function prettyPath(path)
   if string.match(path, "index%.html$") then return path end
   return (string.gsub(string.gsub(path, "%d+-%d+-%d+-([^/]+)$", "%1"), "%.html$", "/index.html"))
@@ -86,9 +86,8 @@ local function prettyUrls(pattern)
   }, pattern)
 end
 
--- Adds a directory of Scintillua lexers (e.g. "haxe.lua"), relative to the working directory, ahead of the built-in ones
+-- adds a directory of scintillua lexers ahead of the built-in ones
 local function addLexerPath(dir)
-  -- Scintillua derives its lexer path from package.path on first load
   package.path = dir .. "/?.lua;" .. package.path
 end
 
