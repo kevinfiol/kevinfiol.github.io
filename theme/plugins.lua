@@ -2,7 +2,16 @@ local months = {
   "January",
   "February",
   "March",
-"April", "May", "June", "July", "August", "September", "October", "November", "December" }
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+}
 
 -- "2025-01-06" -> "January 06, 2025"
 local function formatDate(date)
