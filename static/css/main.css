@@ -102,7 +102,16 @@ pre {
     line-height: var(--pre-line-height);
     padding: 1em;
     overflow-x: auto;
+    color: #c0c5ce;
+    background-color: #2b303b;
 }
+.hl-comment { color: #65737e; }
+.hl-keyword { color: #b48ead; }
+.hl-string, .hl-regex { color: #a3be8c; }
+.hl-number, .hl-constant { color: #d08770; }
+.hl-function, .hl-attribute { color: #8fa1b3; }
+.hl-type, .hl-class, .hl-label { color: #ebcb8b; }
+.hl-identifier, .hl-variable, .hl-tag { color: #bf616a; }
 p > code {
     font-size: var(--code-font-size);
     background-color: var(--code-bg-color);
@@ -133,7 +142,7 @@ p > code {
 .page-content video {
     max-width: var(--video-max-width);
 }
-.page-content a:not(.zola-anchor) {
+.page-content a:not(.heading-anchor) {
     font-weight: bold;
 }
 .page-content li {
@@ -148,18 +157,18 @@ p > code {
 .controls:hover {
     opacity: 1;
 }
-.zola-anchor {
+.heading-anchor {
     position: absolute;
     margin-left: -20px;
     opacity: 0.1;
     border-bottom: 0;
     box-shadow: 0 0 0;
 }
-h1 > .zola-anchor {
+h1 > .heading-anchor {
     display: none;
 }
-.zola-anchor:hover,
-:where(h2, h3, h4, h5, h6):hover > .zola-anchor {
+.heading-anchor:hover,
+:where(h2, h3, h4, h5, h6):hover > .heading-anchor {
     opacity: 1;
     border-bottom: 0;
     box-shadow: 0 0 0;

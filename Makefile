@@ -1,5 +1,7 @@
-build:
-	zola build
+.PHONY: build serve
 
-serve:
-	zola serve
+build:
+	luasmith theme.lua
+
+serve: build
+	sfz --cors --render-index public/

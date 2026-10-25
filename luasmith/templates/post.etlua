@@ -1,0 +1,39 @@
+    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F<%= file %>">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        <%= formatDate(date) %>
+    </small>
+
+    <aside>
+        <% for _, h1 in ipairs(toc) do -%>
+            <% if #h1.children > 0 then -%>
+                <div class="toc h5 py1">
+                    <div class="toc-header pb1">
+                        <div class="h3"><%- h1.title %></div>
+                        <span class="light-subdue">table of contents</span>
+                    </div>
+                <%- etlua.render(fs.readThemeFile("luasmith/templates/toc.etlua"), { nodes = h1.children }) %>
+                </div>
+            <% end -%>
+        <% end -%>
+    </aside>
+
+    <article class="page-content">
+        <%- content %>
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>

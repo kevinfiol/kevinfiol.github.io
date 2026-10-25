@@ -1,5 +1,5 @@
 +++
-title = '2025 Retrospective'
+title = "2025 Retrospective"
 +++
 # 2025 Retrospective
 

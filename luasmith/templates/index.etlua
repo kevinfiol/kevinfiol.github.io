@@ -1,13 +1,10 @@
-{% extends "base.html" %}
-
-{% block content %}
     <div class="controls p1">
         <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/new">new</a>
     </div>
 
     <header>
         <div style="width: 120px; height: 245px;">
-            <img class="fade-in" src="{{ get_url(path="img/space.gif") }}" alt="astronaut idle animation" />
+            <img class="fade-in" src="/img/space.gif" alt="astronaut idle animation" />
         </div>
         <h1 class="mb0" style="font-weight: 400">kevin f.</h1>
         <nav>
@@ -25,17 +22,9 @@
     <div class="line" aria-hidden="true"></div>
 
     <section>
-        {% set blog = get_section(path="blog/_index.md") %}
-        {% for post in blog.pages | slice(start=0, end=6) %}
-            <article class="archive-link">
-                <time datetime="{{ post.date | date(format="%Y-%m-%d", timezone="America/New_York") }}">{{ post.date | date(format="%Y.%m.%d", timezone="America/New_York") }}</time>
-                -
-                <header style="display: inline;"><a href="{{ post.permalink }}">{{ post.title }}</a></header>
-            </article>
-        {% endfor %}
+        <%- etlua.render(fs.readThemeFile("luasmith/templates/post-list.etlua"), { items = items, sortedPosts = sortedPosts, limit = 6 }) %>
     </section>
 
     <nav class="py1">
         <a href="/archive/">archive →</a>
     </nav>
-{% endblock content %}

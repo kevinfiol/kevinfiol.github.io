@@ -24,11 +24,11 @@ Note: On some Linux systems with Wine installed you might run into some issues r
 
 Right away, you'll notice a `data` directory created next to your executable. This is where all persisted data for BeanCMS is stored. BeanCMS uses SQLite as supported by Redbean, which means to back up your site data, all you have to do is copy the `data` folder.
 
-{{ img(src="https://github.com/user-attachments/assets/18ed9c08-6e1e-456b-89b4-4421aa34c2c4" alt="files screenshot") }}
+<img loading="lazy" src="https://github.com/user-attachments/assets/18ed9c08-6e1e-456b-89b4-4421aa34c2c4" alt="files screenshot" />
 
 Upon opening the site at `localhost:8080`, you'll see the welcome page. From here, new users can register, or existing users can log in.
 
-{{ img(src="https://github.com/user-attachments/assets/a21b2e28-971c-40a1-9d60-8784160ab11f" alt="welcome page") }}
+<img loading="lazy" src="https://github.com/user-attachments/assets/a21b2e28-971c-40a1-9d60-8784160ab11f" alt="welcome page" />
 
 ## User Page
 
@@ -64,7 +64,7 @@ Lastly, Atom feeds are enabled for all user blogs by appending `/feed` to a user
 
 BeanCMS comes with an included admin panel only accessible to a list of specified IP Addresses. By default, only `127.0.0.1` is allowed to access the admin panel, which provides information such as registered users, active sessions, uploaded images, and storage usage.
 
-{{ img(src="https://github.com/user-attachments/assets/75705555-24c5-41d7-a6f8-bbb41aebc56b" alt="admin page") }}
+<img loading="lazy" src="https://github.com/user-attachments/assets/75705555-24c5-41d7-a6f8-bbb41aebc56b" alt="admin page" />
 
 ## Try it out!
 

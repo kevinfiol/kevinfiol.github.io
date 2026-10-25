@@ -1,6 +1,6 @@
 name: deploy
 env:
-  ZOLA_VERSION: 0.19.2
+  LUASMITH_VERSION: "0.10"
 on:
   push:
     branches:
@@ -11,16 +11,16 @@ on:
         description: 'Description tag.'
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Download and Run Zola
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download and Run luasmith
         run: |
-          wget "https://github.com/getzola/zola/releases/download/v$ZOLA_VERSION/zola-v$ZOLA_VERSION-x86_64-unknown-linux-gnu.tar.gz" -O zola.tar.gz
-          tar -xf zola.tar.gz
-          ./zola build
+          wget "https://github.com/jaredkrinke/luasmith/releases/download/$LUASMITH_VERSION/luasmith-$LUASMITH_VERSION-linux-x86_64.tar.gz" -O luasmith.tar.gz
+          tar -xf luasmith.tar.gz
+          ./luasmith theme.lua
       - name: deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
         with:
           single-commit: true
           git-config-email: <>
