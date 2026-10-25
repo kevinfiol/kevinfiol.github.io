@@ -22,7 +22,7 @@
     <div class="line" aria-hidden="true"></div>
 
     <section>
-        <%- etlua.render(fs.readThemeFile("luasmith/templates/post-list.etlua"), { items = items, sortedPosts = sortedPosts, limit = 6 }) %>
+        <%- etlua.render(fs.readThemeFile("theme/templates/post-list.etlua"), { items = items, sortedPosts = sortedPosts, limit = 6 }) %>
     </section>
 
     <nav class="py1">

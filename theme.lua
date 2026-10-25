@@ -1,7 +1,7 @@
-local plugin = fs.doThemeFile("luasmith/plugins.lua")
+local plugin = fs.doThemeFile("theme/plugins.lua")
 
--- make luasmith/lexers/*.lua to highlightSyntax(), taking precedence over built-in lexers
-plugin.addLexerPath("luasmith/lexers")
+-- make theme/lexers/*.lua to highlightSyntax(), taking precedence over built-in lexers
+plugin.addLexerPath("theme/lexers")
 
 local site = {
   title = "kevin f.",
@@ -50,15 +50,15 @@ return {
   }),
 
   -- render the feed first, on its own, so the HTML templates below never apply to it
-  applyTemplates({ { "^atom%.xml$", fs.readThemeFile("luasmith/templates/atom.etlua") } }),
+  applyTemplates({ { "^atom%.xml$", fs.readThemeFile("theme/templates/atom.etlua") } }),
 
   -- render each page's body; the last matching pattern wins, so page.etlua is the default.
   applyTemplates({
-    { "%.html$", fs.readThemeFile("luasmith/templates/page.etlua") },
-    { "^blog/.+/index%.html$", fs.readThemeFile("luasmith/templates/post.etlua") },
-    { "^index%.html$", fs.readThemeFile("luasmith/templates/index.etlua") },
-    { "^archive/index%.html$", fs.readThemeFile("luasmith/templates/archive.etlua") },
-    { "^404%.html$", fs.readThemeFile("luasmith/templates/404.etlua") },
+    { "%.html$", fs.readThemeFile("theme/templates/page.etlua") },
+    { "^blog/.+/index%.html$", fs.readThemeFile("theme/templates/post.etlua") },
+    { "^index%.html$", fs.readThemeFile("theme/templates/index.etlua") },
+    { "^archive/index%.html$", fs.readThemeFile("theme/templates/archive.etlua") },
+    { "^404%.html$", fs.readThemeFile("theme/templates/404.etlua") },
 
     -- render the resume markdown directly without a template
     { "^resume/index%.html$", "<%- content %>" }
@@ -66,8 +66,8 @@ return {
 
   -- apply layout templates
   applyTemplates({
-    { "%.html$", fs.readThemeFile("luasmith/templates/base.etlua") },
-    { "^resume/index%.html$", fs.readThemeFile("luasmith/templates/resume.etlua") }
+    { "%.html$", fs.readThemeFile("theme/templates/base.etlua") },
+    { "^resume/index%.html$", fs.readThemeFile("theme/templates/resume.etlua") }
   }),
 
   -- write every item to public/ at its path

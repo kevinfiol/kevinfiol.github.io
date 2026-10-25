@@ -1,5 +1,0 @@
-    <h1>
-        <a href="/">kevin f.</a>
-    </h1>
-    <div class="line"></div>
-    <%- etlua.render(fs.readThemeFile("luasmith/templates/post-list.etlua"), self) %>

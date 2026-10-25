@@ -22,7 +22,7 @@
                         <div class="h3"><%- h1.title %></div>
                         <span class="light-subdue">table of contents</span>
                     </div>
-                <%- etlua.render(fs.readThemeFile("luasmith/templates/toc.etlua"), { nodes = h1.children }) %>
+                <%- etlua.render(fs.readThemeFile("theme/templates/toc.etlua"), { nodes = h1.children }) %>
                 </div>
             <% end -%>
         <% end -%>
