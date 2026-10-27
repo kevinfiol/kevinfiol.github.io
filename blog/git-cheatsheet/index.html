@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Git Cheatsheet</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2019-05-22-git-cheatsheet.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        May 22, 2019
+    </small>
+
+    <aside>
+                                    <div class="toc h5 py1">
+                    <div class="toc-header pb1">
+                        <div class="h3">Git Cheatsheet</div>
+                        <span class="light-subdue">table of contents</span>
+                    </div>
+                <ul>
+            <li>
+            <a href="#git-add-interactive-mode" title="Git Add Interactive Mode">Git Add Interactive Mode</a>
+                    </li>
+            <li>
+            <a href="#clone-repository--respective-branch" title="Clone repository / respective branch:">Clone repository / respective branch:</a>
+                    </li>
+            <li>
+            <a href="#delete-local-and-remote-branch" title="Delete Local and Remote Branch">Delete Local and Remote Branch</a>
+                    </li>
+            <li>
+            <a href="#merge-to-master" title="Merge to Master">Merge to Master</a>
+                    </li>
+            <li>
+            <a href="#merge-into-some-other-branch" title="Merge into some other branch">Merge into some other branch</a>
+                    </li>
+            <li>
+            <a href="#create-a-new-branch-and-push-it-to-the-remote-repo" title="Create a new branch and push it to the remote repo">Create a new branch and push it to the remote repo</a>
+                    </li>
+            <li>
+            <a href="#stashing-work-in-progress-wip-changes" title="Stashing Work In Progress (WIP) changes">Stashing Work In Progress (WIP) changes</a>
+                    </li>
+            <li>
+            <a href="#so-you-forked-a-repo-and-want-to-keep-your-fork-updated" title="So you forked a Repo and want to keep your fork updated">So you forked a Repo and want to keep your fork updated</a>
+                    </li>
+            <li>
+            <a href="#sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-dont-want-to-add-it-to-gitignore" title="Sometimes, you want to locally (or temporarily) ignore a file but don&#x27;t want to add it to .gitignore">Sometimes, you want to locally (or temporarily) ignore a file but don&#x27;t want to add it to .gitignore</a>
+                    </li>
+    </ul>
+
+                </div>
+                        </aside>
+
+    <article class="page-content">
+        <h1 id="git-cheatsheet"><a class="heading-anchor" href="#git-cheatsheet" aria-label="Anchor link for: git-cheatsheet">#</a>Git Cheatsheet</h1>
+<p>This is a collection of <code>git</code> commands that I use frequently. May or may not be useful to you, but it&#x27;s useful to me, dammit.</p>
+<h2 id="git-add-interactive-mode"><a class="heading-anchor" href="#git-add-interactive-mode" aria-label="Anchor link for: git-add-interactive-mode">#</a>Git Add Interactive Mode</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">add</span> <span class="hl-default">-i</span>
+</code></pre>
+<h2 id="clone-repository--respective-branch"><a class="heading-anchor" href="#clone-repository--respective-branch" aria-label="Anchor link for: clone-repository--respective-branch">#</a>Clone repository / respective branch:</h2>
+<pre><code class="language-bash"><span class="hl-operator">$</span> <span class="hl-identifier">git</span> <span class="hl-identifier">clone</span> <span class="hl-default">-b</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">branch</span> <span class="hl-identifier">name</span><span class="hl-operator">&gt;</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">host</span><span class="hl-operator">&gt;</span>
+</code></pre>
+<h2 id="delete-local-and-remote-branch"><a class="heading-anchor" href="#delete-local-and-remote-branch" aria-label="Anchor link for: delete-local-and-remote-branch">#</a>Delete Local and Remote Branch</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">push</span> <span class="hl-identifier">origin</span> <span class="hl-default">--delete</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">branch_name</span><span class="hl-operator">&gt;</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">branch</span> <span class="hl-default">-d</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">branch_name</span><span class="hl-operator">&gt;</span>
+</code></pre>
+<h2 id="merge-to-master"><a class="heading-anchor" href="#merge-to-master" aria-label="Anchor link for: merge-to-master">#</a>Merge to Master</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">checkout</span> <span class="hl-identifier">master</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">pull</span> <span class="hl-identifier">origin</span> <span class="hl-identifier">master</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">merge</span> <span class="hl-default">--no-ff</span> <span class="hl-function">test</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">push</span> <span class="hl-identifier">origin</span> <span class="hl-identifier">master</span>
+</code></pre>
+<h2 id="merge-into-some-other-branch"><a class="heading-anchor" href="#merge-into-some-other-branch" aria-label="Anchor link for: merge-into-some-other-branch">#</a>Merge into some other branch</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">checkout</span> <span class="hl-identifier">production</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">merge</span> <span class="hl-identifier">development</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">push</span> <span class="hl-identifier">origin</span> <span class="hl-identifier">production</span>
+</code></pre>
+<h2 id="create-a-new-branch-and-push-it-to-the-remote-repo"><a class="heading-anchor" href="#create-a-new-branch-and-push-it-to-the-remote-repo" aria-label="Anchor link for: create-a-new-branch-and-push-it-to-the-remote-repo">#</a>Create a new branch and push it to the remote repo</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">checkout</span> <span class="hl-default">-b</span> <span class="hl-identifier">myFeature</span> <span class="hl-identifier">dev</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">push</span> <span class="hl-identifier">origin</span> <span class="hl-identifier">myFeature</span>
+</code></pre>
+<h2 id="stashing-work-in-progress-wip-changes"><a class="heading-anchor" href="#stashing-work-in-progress-wip-changes" aria-label="Anchor link for: stashing-work-in-progress-wip-changes">#</a>Stashing Work In Progress (WIP) changes</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">stash</span>
+</code></pre>
+<p>And to get it back:</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">stash</span> <span class="hl-identifier">pop</span>
+</code></pre>
+<h2 id="so-you-forked-a-repo-and-want-to-keep-your-fork-updated"><a class="heading-anchor" href="#so-you-forked-a-repo-and-want-to-keep-your-fork-updated" aria-label="Anchor link for: so-you-forked-a-repo-and-want-to-keep-your-fork-updated">#</a>So you forked a Repo and want to keep your fork updated</h2>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">remote</span> <span class="hl-identifier">add</span> <span class="hl-identifier">upstream</span> <span class="hl-identifier">git</span><span class="hl-default">@</span><span class="hl-identifier">github</span><span class="hl-default">.</span><span class="hl-identifier">com</span><span class="hl-default">:</span><span class="hl-identifier">company</span><span class="hl-default">/</span><span class="hl-identifier">projectyourforkedfrom</span><span class="hl-default">.</span><span class="hl-identifier">git</span>
+</code></pre>
+<p>To update:</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">fetch</span> <span class="hl-identifier">upstream</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">rebase</span> <span class="hl-identifier">upstream</span><span class="hl-default">/</span><span class="hl-identifier">master</span>
+</code></pre>
+<p>If you have commit rights to the upstream repo, you can create a local <code>upstream</code> branch and do work that will go to upstream there.</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">checkout</span> <span class="hl-default">-b</span> <span class="hl-identifier">upstream</span> <span class="hl-identifier">upstream</span><span class="hl-default">/</span><span class="hl-identifier">master</span>
+</code></pre>
+<h2 id="sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-dont-want-to-add-it-to-gitignore"><a class="heading-anchor" href="#sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-dont-want-to-add-it-to-gitignore" aria-label="Anchor link for: sometimes-you-want-to-locally-or-temporarily-ignore-a-file-but-dont-want-to-add-it-to-gitignore">#</a>Sometimes, you want to locally (or temporarily) ignore a file but don&#x27;t want to add it to <code>.gitignore</code></h2>
+<p>Be careful with this, because if you ignore a file, and then do a <code>git pull</code> after the file was changed upstream, you&#x27;ll get a conflict. And you&#x27;ll be confused because Git will tell you to stash your changes, all the while <code>git status</code> is showing no changes.</p>
+<p>Ignore it:</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">update</span><span class="hl-default">-index</span> <span class="hl-default">--assume-unchanged</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">file</span><span class="hl-operator">&gt;</span>
+</code></pre>
+<p>Unignore it:</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">update</span><span class="hl-default">-index</span> <span class="hl-default">--no-assume-unchanged</span> <span class="hl-operator">&lt;</span><span class="hl-identifier">file</span><span class="hl-operator">&gt;</span>
+</code></pre>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

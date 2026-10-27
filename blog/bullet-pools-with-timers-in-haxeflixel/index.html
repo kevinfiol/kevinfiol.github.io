@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Bullet Pools with Timers in HaxeFlixel</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2019-05-18-bullet-pools-with-timers-in-haxeflixel.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        May 18, 2019
+    </small>
+
+    <aside>
+                                </aside>
+
+    <article class="page-content">
+        <h1 id="bullet-pools-with-timers-in-haxeflixel"><a class="heading-anchor" href="#bullet-pools-with-timers-in-haxeflixel" aria-label="Anchor link for: bullet-pools-with-timers-in-haxeflixel">#</a>Bullet Pools with Timers in HaxeFlixel</h1>
+<p>One of the more useful features of the flixel library is the inclusion of the <a href="http://api.haxeflixel.com/flixel/group/FlxTypedGroup.html">FlxTypedGroup</a> class, which makes it easier to organize, update, and render multiple instances of an FlxBasic object. A few getter methods provide useful information such as the length of the group, or an array of every member in an instantiated group.</p>
+<p>A practical application of FlxTypedGroup can be found in the <a href="https://github.com/HaxeFlixel/flixel-demos/tree/master/Arcade/FlxTeroids/source">&#x27;Asteroids&#x27; demo</a> available via the HaxeFlixel repository. FlxTypedGroup&#x27;s <code>recycle</code> method allows us to resuse bullet objects without having to destroy, recreate, and reallocate memory each time. Instead, bullets can be respawned from the queue after the pool has been &quot;expended.&quot;</p>
+<blockquote>
+<p>Note: In the demo example available in the HaxeFlixel repository, the properties of each bullet are initialized on the fly within <code>PlayState.hx</code>. For my example, I have created a separate <code>Bullet</code> class for the sake of convenience.</p>
+</blockquote>
+<p>In the current PlayState, we can create and initialize a pool called <code>bullets</code> which we will populate with bullet objects from which we can spawn bullets as we please. In this case, I will create a pool with a maximum size of 3.</p>
+<pre><code class="language-haxe"><span class="hl-keyword">class</span> <span class="hl-class">PlayState</span> <span class="hl-keyword">extends</span> <span class="hl-identifier">FlxState</span>
+<span class="hl-operator">{</span>
+    <span class="hl-keyword">public</span> <span class="hl-keyword">static</span> <span class="hl-keyword">var</span> <span class="hl-identifier">bullets</span><span class="hl-operator">:</span><span class="hl-identifier">FlxTypedGroup</span><span class="hl-operator">&lt;</span><span class="hl-identifier">Bullet</span><span class="hl-operator">&gt;</span><span class="hl-operator">;</span>
+    <span class="hl-keyword">override</span> <span class="hl-keyword">public</span> <span class="hl-keyword">function</span> <span class="hl-function">create</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">:</span><span class="hl-type">Void</span>
+    <span class="hl-operator">{</span>
+        <span class="hl-keyword">var</span> <span class="hl-identifier">poolSize</span><span class="hl-operator">:</span><span class="hl-type">Int</span> <span class="hl-operator">=</span> <span class="hl-number">3</span><span class="hl-operator">;</span>
+        <span class="hl-keyword">var</span> <span class="hl-identifier">bullet</span><span class="hl-operator">:</span><span class="hl-identifier">Bullet</span><span class="hl-operator">;</span>
+        <span class="hl-identifier">bullets</span> <span class="hl-operator">=</span> <span class="hl-keyword">new</span> <span class="hl-identifier">FlxTypedGroup</span><span class="hl-operator">&lt;</span><span class="hl-identifier">Bullet</span><span class="hl-operator">&gt;</span><span class="hl-operator">(</span><span class="hl-identifier">poolSize</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+    <span class="hl-operator">}</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<p>From here, we can write a simple loop to create new bullet objects and simply add them to the existing group.</p>
+<pre><code class="language-haxe"><span class="hl-operator">.</span><span class="hl-operator">.</span><span class="hl-operator">.</span>
+<span class="hl-keyword">override</span> <span class="hl-keyword">public</span> <span class="hl-keyword">function</span> <span class="hl-function">create</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">:</span><span class="hl-type">Void</span>
+<span class="hl-operator">{</span>
+    <span class="hl-keyword">var</span> <span class="hl-identifier">poolSize</span><span class="hl-operator">:</span><span class="hl-type">Int</span> <span class="hl-operator">=</span> <span class="hl-number">3</span><span class="hl-operator">;</span>
+    <span class="hl-keyword">var</span> <span class="hl-identifier">bullet</span><span class="hl-operator">:</span><span class="hl-identifier">Bullet</span><span class="hl-operator">;</span>
+    <span class="hl-identifier">bullets</span> <span class="hl-operator">=</span> <span class="hl-keyword">new</span> <span class="hl-identifier">FlxTypedGroup</span><span class="hl-operator">&lt;</span><span class="hl-identifier">Bullet</span><span class="hl-operator">&gt;</span><span class="hl-operator">(</span><span class="hl-identifier">poolSize</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+    <span class="hl-keyword">for</span> <span class="hl-operator">(</span><span class="hl-identifier">i</span> <span class="hl-keyword">in</span> <span class="hl-number">0</span><span class="hl-operator">.</span><span class="hl-operator">.</span><span class="hl-operator">.</span><span class="hl-identifier">poolSize</span><span class="hl-operator">)</span> <span class="hl-operator">{</span>
+        <span class="hl-identifier">bullet</span> <span class="hl-operator">=</span> <span class="hl-keyword">new</span> <span class="hl-function">Bullet</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+        <span class="hl-identifier">bullets</span><span class="hl-operator">.</span><span class="hl-function">add</span><span class="hl-operator">(</span><span class="hl-identifier">bullet</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+    <span class="hl-operator">}</span>
+<span class="hl-operator">}</span>
+<span class="hl-operator">.</span><span class="hl-operator">.</span><span class="hl-operator">.</span>
+</code></pre>
+<p>Within our Player class, we can then just reference the main PlayState&#x27;s <code>bullets</code> pool to recycle <code>bullet</code> objects.</p>
+<pre><code class="language-haxe"><span class="hl-keyword">if</span> <span class="hl-operator">(</span><span class="hl-identifier">FlxG</span><span class="hl-operator">.</span><span class="hl-identifier">keys</span><span class="hl-operator">.</span><span class="hl-identifier">justPressed</span><span class="hl-operator">.</span><span class="hl-identifier">Z</span><span class="hl-operator">)</span> <span class="hl-operator">{</span>
+    <span class="hl-keyword">var</span> <span class="hl-identifier">bullet</span><span class="hl-operator">:</span><span class="hl-identifier">Bullet</span> <span class="hl-operator">=</span> <span class="hl-identifier">PlayState</span><span class="hl-operator">.</span><span class="hl-identifier">bullets</span><span class="hl-operator">.</span><span class="hl-function">recycle</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+    <span class="hl-comment">// YOUR BULLET VELOCITY CODE GOES HERE</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<p>After this, we just add our standard logic that handles bullet velocity, acceleration, or how, when, and where your Sprite class may spawn bullet objects. As seen in the example below, only 3 bullets may be on the screen at one time, with the earliest spawned bullet being replaced.</p>
+<img loading="lazy" src="/img/blog/haxeflixel-bullet-timers/1.gif" alt="asteroids animation" />
+<p>Building on the example of the original Asteroids arcade game, we can give each bullet a limited lifetime, meaning if the bullet does not collide with another asteroid or enemy sprite, it should cease to exist after a certain period of time. Otherwise, it would continue travelling endlessly.</p>
+<p>I was able to do this using HaxeFlixel&#x27;s <a href="http://api.haxeflixel.com/flixel/util/FlxTimer.html">FlxTimer</a> class, however, you may also use the standard <a href="http://api.haxe.org/haxe/Timer.html">Timer</a> class included in the Haxe Toolkit.</p>
+<p>Within my <code>Bullet.hx</code> class, I declare <code>timer</code> and initialize it as an FlxTimer object in the class constructor.</p>
+<pre><code class="language-haxe"><span class="hl-keyword">class</span> <span class="hl-class">Bullet</span> <span class="hl-keyword">extends</span> <span class="hl-identifier">FlxSprite</span>
+<span class="hl-operator">{</span>
+    <span class="hl-keyword">public</span> <span class="hl-keyword">var</span> <span class="hl-identifier">timer</span><span class="hl-operator">:</span><span class="hl-identifier">FlxTimer</span><span class="hl-operator">;</span>
+    <span class="hl-keyword">public</span> <span class="hl-keyword">function</span> <span class="hl-keyword">new</span><span class="hl-operator">(</span><span class="hl-identifier">X</span><span class="hl-operator">:</span><span class="hl-type">Float</span> <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-operator">,</span> <span class="hl-identifier">Y</span><span class="hl-operator">:</span><span class="hl-type">Float</span> <span class="hl-operator">=</span> <span class="hl-number">0</span><span class="hl-operator">)</span> 
+    <span class="hl-operator">{</span>
+        <span class="hl-keyword">super</span><span class="hl-operator">(</span><span class="hl-identifier">X</span><span class="hl-operator">,</span> <span class="hl-identifier">Y</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+        <span class="hl-identifier">timer</span> <span class="hl-operator">=</span> <span class="hl-keyword">new</span> <span class="hl-function">FlxTimer</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+        <span class="hl-comment">//YOUR OBJECT PROPERTIES GO HERE</span>
+    <span class="hl-operator">}</span>
+    <span class="hl-keyword">override</span> <span class="hl-keyword">public</span> <span class="hl-keyword">function</span> <span class="hl-function">update</span><span class="hl-operator">(</span><span class="hl-identifier">elapsed</span><span class="hl-operator">:</span><span class="hl-type">Float</span><span class="hl-operator">)</span><span class="hl-operator">:</span><span class="hl-type">Void</span>
+    <span class="hl-operator">{</span>
+        <span class="hl-operator">.</span><span class="hl-operator">.</span><span class="hl-operator">.</span>
+    <span class="hl-operator">}</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<p>Instead of creating a new FlxTimer object each time a bullet is recycled, the existing one is simply reset when needed.</p>
+<p>Now back in the <code>Player.hx</code> class, we simply set and start the FlxTimer object for each bullet as they fire. The <code>start</code> method of an FlxTimer object <a href="http://api.haxeflixel.com/flixel/util/FlxTimer.html#start">takes three arguments</a>:</p>
+<pre><code class="language-haxe"><span class="hl-function">start</span><span class="hl-operator">(</span><span class="hl-identifier">Time</span><span class="hl-operator">:</span><span class="hl-type">Float</span> <span class="hl-operator">=</span> <span class="hl-number">1</span><span class="hl-operator">,</span> <span class="hl-operator">?</span><span class="hl-identifier">OnComplete</span><span class="hl-operator">:</span><span class="hl-identifier">FlxTimer</span><span class="hl-operator">-</span><span class="hl-operator">&gt;</span><span class="hl-type">Void</span><span class="hl-operator">,</span> <span class="hl-identifier">Loops</span><span class="hl-operator">:</span><span class="hl-type">Int</span> <span class="hl-operator">=</span> <span class="hl-number">1</span><span class="hl-operator">)</span><span class="hl-operator">:</span><span class="hl-identifier">FlxTimer</span>
+</code></pre>
+<blockquote>
+<p><strong>Time:Float</strong> How many seconds it takes for the timer to go off. If 0 then timer will fire OnComplete callback only once at the first call of update method (which means that Loops argument will be ignored).</p>
+</blockquote>
+<blockquote>
+<p><strong>OnComplete:FlxTimer-&gt;Void</strong> Optional, triggered whenever the time runs out, once for each loop. Callback should be formed &quot;onTimer(Timer:FlxTimer);&quot;</p>
+</blockquote>
+<blockquote>
+<p><strong>Loops:Int</strong> How many times the timer should go off. 0 means &quot;looping forever&quot;.</p>
+</blockquote>
+<p>In the example below, I pass <code>2.0</code> for <code>Time</code>, an anonymous function for <code>OnComplete</code> that switches the bullets <code>exists</code> flag to <code>false</code>, and <code>1</code> for <code>Loops</code> so that the function only triggers once.</p>
+<pre><code class="language-haxe"><span class="hl-keyword">if</span> <span class="hl-operator">(</span><span class="hl-identifier">FlxG</span><span class="hl-operator">.</span><span class="hl-identifier">keys</span><span class="hl-operator">.</span><span class="hl-identifier">justPressed</span><span class="hl-operator">.</span><span class="hl-identifier">Z</span><span class="hl-operator">)</span> <span class="hl-operator">{</span>
+    <span class="hl-keyword">var</span> <span class="hl-identifier">bullet</span><span class="hl-operator">:</span><span class="hl-identifier">Bullet</span> <span class="hl-operator">=</span> <span class="hl-identifier">PlayState</span><span class="hl-operator">.</span><span class="hl-identifier">bullets</span><span class="hl-operator">.</span><span class="hl-function">recycle</span><span class="hl-operator">(</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+    <span class="hl-identifier">bullet</span><span class="hl-operator">.</span><span class="hl-identifier">timer</span><span class="hl-operator">.</span><span class="hl-function">start</span><span class="hl-operator">(</span>
+        <span class="hl-number">2.0</span><span class="hl-operator">,</span>
+        <span class="hl-keyword">function</span> <span class="hl-operator">(</span><span class="hl-identifier">Timer</span><span class="hl-operator">:</span><span class="hl-identifier">FlxTimer</span><span class="hl-operator">)</span> <span class="hl-operator">{</span>
+            <span class="hl-identifier">bullet</span><span class="hl-operator">.</span><span class="hl-identifier">exists</span> <span class="hl-operator">=</span> <span class="hl-keyword">false</span><span class="hl-operator">;</span>
+        <span class="hl-operator">}</span><span class="hl-operator">,</span>
+        <span class="hl-number">1</span>
+    <span class="hl-operator">)</span><span class="hl-operator">;</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<p>So now, not only do you limit the amount of bullets that can be on the screen at once, but you can limit the duration for said bullets! It&#x27;s a very neat and useful mechanic for balancing your game that can be applied to any pool of FlxBasic objects you may need, whether it be enemies, ammunition, or environmental objects.</p>
+<img loading="lazy" src="/img/blog/haxeflixel-bullet-timers/2.gif" alt="asteroids animation" />
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2020-08-18-making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        August 18, 2020
+    </small>
+
+    <aside>
+                                </aside>
+
+    <article class="page-content">
+        <h1 id="making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox"><a class="heading-anchor" href="#making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox" aria-label="Anchor link for: making-your-numeric-keypad-work-on-a-xubuntu-2004-vm-virtualbox">#</a>Making your numeric keypad work on a Xubuntu 20.04 VM (VirtualBox)</h1>
+<p>I fought with this for a good 2 hours before I finally got it working. First step is to install <code>numlockx</code>, if it&#x27;s not already installed:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">apt</span> <span class="hl-identifier">update</span>
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">apt</span> <span class="hl-identifier">install</span> <span class="hl-identifier">numlockx</span>
+</code></pre>
+<p>Enable your Num Lock in your VM:</p>
+<pre><code class="language-bash"><span class="hl-identifier">numlockx</span> <span class="hl-identifier">on</span>
+</code></pre>
+<p>Now in Xubuntu, go to your Whisker Menu (or whatever launcher/menu you&#x27;re using) and navigate to <code>Settings -&gt; Accessibility -&gt; Mouse</code> and disable <code>Use mouse emulation</code>.</p>
+<p>If you&#x27;re on vanilla Ubuntu (GNOME), or a DE other than XFCE, you may be looking for a menu called <code>Universal Access</code>, wherein you&#x27;ll want to disable a feature called <code>Control the pointer using the keypad</code>.</p>
+<p>You may need to log out and back in to confirm this works.</p>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

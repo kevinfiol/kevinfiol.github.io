@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Deno LSP in Sublime Text 4</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2025-04-21-deno-lsp-in-sublime-text-4.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        April 21, 2025
+    </small>
+
+    <aside>
+                                </aside>
+
+    <article class="page-content">
+        <h1 id="deno-lsp-in-sublime-text-4"><a class="heading-anchor" href="#deno-lsp-in-sublime-text-4" aria-label="Anchor link for: deno-lsp-in-sublime-text-4">#</a>Deno LSP in Sublime Text 4</h1>
+<p>Using <a href="https://deno.com">Deno</a> with Sublime Text 4 can be surprisingly tricky. At the time of this writing, the <a href="https://lsp.sublimetext.io">SublimeLSP Docs</a> still recommend using the <code>LSP-Deno</code> package on packagecontrol.io. Unfortunately, the package is outdated, with its last update being before the release of Deno 2.</p>
+<p>Deno&#x27;s official docs include a section about using Deno LSP with <a href="https://docs.deno.com/runtime/getting_started/setup_your_environment/#sublime-text">Sublime Text</a>. The catch is it tries to encompass Sublime Text 3 and 4, and suggests using third-party <code>.sublime-syntax</code> files to enable the language server. This is unneeded in Sublime Text 4, which already includes syntax definitions for JavaScript, TypeScript, JSX, and TSX.</p>
+<p>Assuming you&#x27;re on Sublime Text 4, you can simply add this entry to your <code>LSP.sublime-settings</code> file:</p>
+<pre><code class="language-json"><span class="hl-default">/</span><span class="hl-default">/</span> <span class="hl-default">S</span><span class="hl-default">e</span><span class="hl-default">t</span><span class="hl-default">t</span><span class="hl-default">i</span><span class="hl-default">n</span><span class="hl-default">g</span><span class="hl-default">s</span> <span class="hl-default">i</span><span class="hl-default">n</span> <span class="hl-default">h</span><span class="hl-default">e</span><span class="hl-default">r</span><span class="hl-default">e</span> <span class="hl-default">o</span><span class="hl-default">v</span><span class="hl-default">e</span><span class="hl-default">r</span><span class="hl-default">r</span><span class="hl-default">i</span><span class="hl-default">d</span><span class="hl-default">e</span> <span class="hl-default">t</span><span class="hl-default">h</span><span class="hl-default">o</span><span class="hl-default">s</span><span class="hl-default">e</span> <span class="hl-default">i</span><span class="hl-default">n</span> <span class="hl-string">&quot;LSP/LSP.sublime-settings&quot;</span>
+<span class="hl-operator">{</span>
+  <span class="hl-string">&quot;clients&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">{</span>
+    <span class="hl-string">&quot;deno&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">{</span>
+      <span class="hl-string">&quot;command&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span><span class="hl-string">&quot;deno&quot;</span><span class="hl-operator">,</span> <span class="hl-string">&quot;lsp&quot;</span><span class="hl-operator">]</span><span class="hl-operator">,</span>
+      <span class="hl-string">&quot;initializationOptions&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">{</span>
+        <span class="hl-default">/</span><span class="hl-default">/</span> <span class="hl-string">&quot;config&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;&quot;</span><span class="hl-operator">,</span> <span class="hl-default">/</span><span class="hl-default">/</span> <span class="hl-default">S</span><span class="hl-default">e</span><span class="hl-default">t</span><span class="hl-default">s</span> <span class="hl-default">t</span><span class="hl-default">h</span><span class="hl-default">e</span> <span class="hl-default">p</span><span class="hl-default">a</span><span class="hl-default">t</span><span class="hl-default">h</span> <span class="hl-default">f</span><span class="hl-default">o</span><span class="hl-default">r</span> <span class="hl-default">t</span><span class="hl-default">h</span><span class="hl-default">e</span> <span class="hl-default">c</span><span class="hl-default">o</span><span class="hl-default">n</span><span class="hl-default">f</span><span class="hl-default">i</span><span class="hl-default">g</span> <span class="hl-default">f</span><span class="hl-default">i</span><span class="hl-default">l</span><span class="hl-default">e</span> <span class="hl-default">i</span><span class="hl-default">n</span> <span class="hl-default">y</span><span class="hl-default">o</span><span class="hl-default">u</span><span class="hl-default">r</span> <span class="hl-default">p</span><span class="hl-default">r</span><span class="hl-default">o</span><span class="hl-default">j</span><span class="hl-default">e</span><span class="hl-default">c</span><span class="hl-default">t</span>
+        <span class="hl-string">&quot;enable&quot;</span><span class="hl-operator">:</span> <span class="hl-keyword">false</span><span class="hl-operator">,</span>
+        <span class="hl-default">/</span><span class="hl-default">/</span> <span class="hl-string">&quot;importMap&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;&quot;</span><span class="hl-operator">,</span> <span class="hl-default">/</span><span class="hl-default">/</span> <span class="hl-default">S</span><span class="hl-default">e</span><span class="hl-default">t</span><span class="hl-default">s</span> <span class="hl-default">t</span><span class="hl-default">h</span><span class="hl-default">e</span> <span class="hl-default">p</span><span class="hl-default">a</span><span class="hl-default">t</span><span class="hl-default">h</span> <span class="hl-default">f</span><span class="hl-default">o</span><span class="hl-default">r</span> <span class="hl-default">t</span><span class="hl-default">h</span><span class="hl-default">e</span> <span class="hl-default">i</span><span class="hl-default">m</span><span class="hl-default">p</span><span class="hl-default">o</span><span class="hl-default">r</span><span class="hl-default">t</span><span class="hl-default">-</span><span class="hl-default">m</span><span class="hl-default">a</span><span class="hl-default">p</span> <span class="hl-default">i</span><span class="hl-default">n</span> <span class="hl-default">y</span><span class="hl-default">o</span><span class="hl-default">u</span><span class="hl-default">r</span> <span class="hl-default">p</span><span class="hl-default">r</span><span class="hl-default">o</span><span class="hl-default">j</span><span class="hl-default">e</span><span class="hl-default">c</span><span class="hl-default">t</span>
+        <span class="hl-string">&quot;lint&quot;</span><span class="hl-operator">:</span> <span class="hl-keyword">true</span><span class="hl-operator">,</span>
+        <span class="hl-string">&quot;unstable&quot;</span><span class="hl-operator">:</span> <span class="hl-keyword">false</span>
+      <span class="hl-operator">}</span><span class="hl-operator">,</span>
+      <span class="hl-string">&quot;enabled&quot;</span><span class="hl-operator">:</span> <span class="hl-keyword">true</span><span class="hl-operator">,</span>
+      <span class="hl-string">&quot;languages&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span>
+        <span class="hl-operator">{</span>
+          <span class="hl-string">&quot;languageId&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;javascript&quot;</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;scopes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span><span class="hl-string">&quot;source.js&quot;</span><span class="hl-operator">]</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;syntaxes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span>
+            <span class="hl-string">&quot;Packages/JavaScript/JavaScript.sublime-syntax&quot;</span>
+          <span class="hl-operator">]</span>
+        <span class="hl-operator">}</span><span class="hl-operator">,</span>
+        <span class="hl-operator">{</span>
+          <span class="hl-string">&quot;languageId&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;javascriptreact&quot;</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;scopes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span><span class="hl-string">&quot;source.jsx&quot;</span><span class="hl-operator">]</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;syntaxes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span>
+            <span class="hl-string">&quot;Packages/JavaScript/JSX.sublime-syntax&quot;</span>
+          <span class="hl-operator">]</span>
+        <span class="hl-operator">}</span><span class="hl-operator">,</span>
+        <span class="hl-operator">{</span>
+          <span class="hl-string">&quot;languageId&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;typescript&quot;</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;scopes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span><span class="hl-string">&quot;source.ts&quot;</span><span class="hl-operator">]</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;syntaxes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span>
+            <span class="hl-string">&quot;Packages/JavaScript/TypeScript.sublime-syntax&quot;</span>
+          <span class="hl-operator">]</span>
+        <span class="hl-operator">}</span><span class="hl-operator">,</span>
+        <span class="hl-operator">{</span>
+          <span class="hl-string">&quot;languageId&quot;</span><span class="hl-operator">:</span> <span class="hl-string">&quot;typescriptreact&quot;</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;scopes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span><span class="hl-string">&quot;source.tsx&quot;</span><span class="hl-operator">]</span><span class="hl-operator">,</span>
+          <span class="hl-string">&quot;syntaxes&quot;</span><span class="hl-operator">:</span> <span class="hl-operator">[</span>
+            <span class="hl-string">&quot;Packages/JavaScript/TSX.sublime-syntax&quot;</span>
+          <span class="hl-operator">]</span>
+        <span class="hl-operator">}</span>
+      <span class="hl-operator">]</span>
+    <span class="hl-operator">}</span>
+  <span class="hl-operator">}</span>
+<span class="hl-operator">}</span>
+</code></pre>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

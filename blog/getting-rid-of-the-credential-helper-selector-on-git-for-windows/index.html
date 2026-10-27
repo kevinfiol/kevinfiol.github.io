@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Getting rid of the Credential Helper Selector on Git for Windows</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2020-09-18-getting-rid-of-the-credential-helper-selector-on-git-for-windows.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        September 18, 2020
+    </small>
+
+    <aside>
+                                    <div class="toc h5 py1">
+                    <div class="toc-header pb1">
+                        <div class="h3">Getting rid of the Credential Helper Selector on Git for Windows</div>
+                        <span class="light-subdue">table of contents</span>
+                    </div>
+                <ul>
+            <li>
+            <a href="#how-to" title="How to">How to</a>
+                            <ul>
+            <li>
+            <a href="#unset-the-credential-helper-system-wide" title="Unset the credential helper system-wide">Unset the credential helper system-wide</a>
+                    </li>
+            <li>
+            <a href="#setting-your-credentials-on-an-individual-repository-basis" title="Setting your credentials on an individual repository basis">Setting your credentials on an individual repository basis</a>
+                    </li>
+    </ul>
+
+                    </li>
+            <li>
+            <a href="#why-are-you-using-windows" title="Why are you using Windows?">Why are you using Windows?</a>
+                    </li>
+    </ul>
+
+                </div>
+                        </aside>
+
+    <article class="page-content">
+        <h1 id="getting-rid-of-the-credential-helper-selector-on-git-for-windows"><a class="heading-anchor" href="#getting-rid-of-the-credential-helper-selector-on-git-for-windows" aria-label="Anchor link for: getting-rid-of-the-credential-helper-selector-on-git-for-windows">#</a>Getting rid of the Credential Helper Selector on Git for Windows</h1>
+<p>If you&#x27;ve ever been tormented by the following pop-up when trying to push or pull from an HTTPS Git origin:</p>
+<img loading="lazy" src="/img/blog/credential_helper/helper.jpg" alt="Windows Credential Helper Selector" />
+<p>There may be a way out of your misery. Initially I thought that if I added my Git credentials for the respective remote origin directly into my <code>.gitconfig</code> file, Git for Windows would stop prompting me every time I wanted to push or pull. Nope. And even more painful is that <strong>for some unknown reason</strong> the pop-up would appear <em>twice</em> no matter what -- even if I selected <code>Always use this from now on</code>.</p>
+<h2 id="how-to"><a class="heading-anchor" href="#how-to" aria-label="Anchor link for: how-to">#</a>How to</h2>
+<p>First off, you can simply choose to not install the Helper Selector by unchecking a box during the installation process of Git for Windows. This is assuming you are installing Git in this manner, and also that you are willing to reinstall Git for Windows entirely or re-run the installer. But what if this doesn&#x27;t apply to you?</p>
+<p>I installed Git using <a href="https://scoop.sh">scoop.sh</a>, so my installation process took place entirely via CLI. However, I guess this option also assumes you want the Credential Helper since I don&#x27;t remember ever specifying I wanted it. So what now?</p>
+<h3 id="unset-the-credential-helper-system-wide"><a class="heading-anchor" href="#unset-the-credential-helper-system-wide" aria-label="Anchor link for: unset-the-credential-helper-system-wide">#</a>Unset the credential helper system-wide</h3>
+<p>A simple way to disable any default system-wide helper is to run the following command</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">config</span> <span class="hl-default">--system</span> <span class="hl-default">--unset</span> <span class="hl-identifier">credential</span><span class="hl-default">.</span><span class="hl-identifier">helper</span>
+</code></pre>
+<h3 id="setting-your-credentials-on-an-individual-repository-basis"><a class="heading-anchor" href="#setting-your-credentials-on-an-individual-repository-basis" aria-label="Anchor link for: setting-your-credentials-on-an-individual-repository-basis">#</a>Setting your credentials on an individual repository basis</h3>
+<p>Now that you&#x27;ve disabled the system-wide helper, you can manage your credentials on a repository-basis. <a href="https://git-scm.com/docs/gitcredentials#_avoiding_repetition">Git provides two built-in solutions</a>. I chose to use the <code>store</code> helper on my repos.</p>
+<p>Navigate to your repository and run:</p>
+<pre><code class="language-bash"><span class="hl-identifier">git</span> <span class="hl-identifier">config</span> <span class="hl-identifier">credential</span><span class="hl-default">.</span><span class="hl-identifier">helper</span> <span class="hl-identifier">store</span>
+</code></pre>
+<p>This will then prompt you for your remote credentials. Now try running a <code>git pull</code> and marvel at not having to be bothered by a pop-up!</p>
+<h2 id="why-are-you-using-windows"><a class="heading-anchor" href="#why-are-you-using-windows" aria-label="Anchor link for: why-are-you-using-windows">#</a>Why are you using Windows?</h2>
+<p>I never claimed to make wise decisions. But yes, this issue is nonexistent on my Ubuntu-based laptop, and probably on your Macbook Pro too.</p>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

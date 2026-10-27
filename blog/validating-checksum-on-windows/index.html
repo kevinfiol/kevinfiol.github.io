@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Validating Checksum on Windows</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2019-06-04-validating-checksum-on-windows.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        June 04, 2019
+    </small>
+
+    <aside>
+                                </aside>
+
+    <article class="page-content">
+        <h1 id="validating-checksum-on-windows"><a class="heading-anchor" href="#validating-checksum-on-windows" aria-label="Anchor link for: validating-checksum-on-windows">#</a>Validating Checksum on Windows</h1>
+<p>This is a common command that I constantly seem to forget and have to look up over and over again. Posting it here so I never have to search for it again.</p>
+<pre><code class="language-bash"><span class="hl-identifier">certutil</span><span class="hl-default">.</span><span class="hl-identifier">exe</span> <span class="hl-default">-hashfile</span> <span class="hl-string">&quot;data.iso&quot;</span> <span class="hl-identifier">MD5</span>
+</code></pre>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Mithril.js + esbuild + JSX</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2021-03-18-mithriljs-esbuild-jsx.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        March 18, 2021
+    </small>
+
+    <aside>
+                                </aside>
+
+    <article class="page-content">
+        <h1 id="mithriljs--esbuild--jsx"><a class="heading-anchor" href="#mithriljs--esbuild--jsx" aria-label="Anchor link for: mithriljs--esbuild--jsx">#</a>Mithril.js + esbuild + JSX</h1>
+<p><strong>EDIT 7/18/2022:</strong> esbuild has since added support for <a href="https://github.com/evanw/esbuild/issues/1217">string literals as JSX fragments</a>, meaning much of what I wrote below is now unnecessary. To use JSX with Mithril and esbuild, all you need to do is set <code>jsxFragment: &#x27;&quot;[&quot;&#x27;</code> in your esbuild config. See <a href="https://github.com/kevinfiol/newt/blob/master/scripts/bundle.js">here</a> for an example.</p>
+<p>I recently bootstrapped a <a href="https://mithril.js.org">Mithril.js</a> project using <a href="https://esbuild.github.io/">esbuild</a> for my bundling purposes. If you don&#x27;t already know, esbuild is a next-gen bundler written in Go by <a href="https://github.com/evanw">Evan Wallace</a> that is magnitudes faster than rollup, webpack, or parcel (all of which are written in JS/TS).</p>
+<p>esbuild comes with JSX support out of the box. While I don&#x27;t normally use JSX, I decided to create a demo for <a href="https://mithril.netlify.app">mithril.netlify.app</a> showing off that JSX works just fine in a Mithril application. However, I ran into one major issue -- esbuild wasn&#x27;t compiling JSX fragments correctly when providing <code>m.fragment</code> as the JSX fragment pragma.</p>
+<p>After some digging around, I found <a href="https://gitter.im/mithriljs/mithril.js?at=5b98ce1c51a02e2a261ac656">this comment</a> by <a href="https://github.com/isiahmeadows">Claudia Meadows</a>.</p>
+<p>In short, there&#x27;s no support for Mithril fragments as Components currently. esbuild (as well as transpilers like Sucrase) compiles JSX using the provided jsx pragma + jsx fragment method in the form of:</p>
+<pre><code class="language-js"><span class="hl-identifier">React</span><span class="hl-operator">.</span><span class="hl-function">createElement</span><span class="hl-operator">(</span><span class="hl-identifier">React</span><span class="hl-operator">.</span><span class="hl-identifier">Fragment</span><span class="hl-operator">,</span> <span class="hl-keyword">null</span><span class="hl-operator">,</span> <span class="hl-string">&quot;Stuff&quot;</span><span class="hl-operator">)</span><span class="hl-operator">;</span>
+</code></pre>
+<p>See <a href="https://esbuild.github.io/api/#jsx-fragment">here</a> for more details.</p>
+<p>Which in Mithril&#x27;s case, can&#x27;t work with <code>m.fragment</code>. Following Claudia&#x27;s advice, defining a simple Fragment component as so worked for me. I just put this in my <code>index.js</code> file near the top:</p>
+<pre><code class="language-js"><span class="hl-identifier">m</span><span class="hl-operator">.</span><span class="hl-identifier">Fragment</span> <span class="hl-operator">=</span> <span class="hl-operator">{</span> <span class="hl-identifier">view</span><span class="hl-operator">:</span> <span class="hl-identifier">vnode</span> <span class="hl-operator">=</span><span class="hl-operator">&gt;</span> <span class="hl-identifier">vnode</span><span class="hl-operator">.</span><span class="hl-identifier">children</span> <span class="hl-operator">}</span><span class="hl-operator">;</span>
+</code></pre>
+<p>Then I just set <code>jsxFragment</code> to <code>m.Fragment</code> instead of <code>m.fragment</code> in my esbuild config and voilà! Fragments work as you&#x27;d expect.</p>
+<pre><code class="language-js"><span class="hl-keyword">var</span> <span class="hl-identifier">JSX</span> <span class="hl-operator">=</span> <span class="hl-operator">{</span>
+  <span class="hl-identifier">view</span><span class="hl-operator">:</span> <span class="hl-keyword">function</span><span class="hl-operator">(</span><span class="hl-operator">)</span> <span class="hl-operator">{</span>
+    <span class="hl-keyword">return</span> <span class="hl-operator">(</span>
+      <span class="hl-tag">&lt;</span><span class="hl-operator">&gt;</span>
+        <span class="hl-tag">&lt;h2</span><span class="hl-operator">&gt;</span><span class="hl-identifier">JSX</span><span class="hl-tag">&lt;/h2</span><span class="hl-operator">&gt;</span>
+        <span class="hl-tag">&lt;p</span><span class="hl-operator">&gt;</span><span class="hl-identifier">You</span> <span class="hl-identifier">could</span> <span class="hl-identifier">use</span> <span class="hl-identifier">JSX</span> <span class="hl-keyword">with</span> <span class="hl-identifier">Mithril</span><span class="hl-operator">.</span><span class="hl-identifier">js</span> <span class="hl-identifier">as</span> <span class="hl-identifier">well</span><span class="hl-operator">.</span><span class="hl-tag">&lt;/p</span><span class="hl-operator">&gt;</span>
+        <span class="hl-tag">&lt;p</span><span class="hl-operator">&gt;</span><span class="hl-identifier">Be</span> <span class="hl-identifier">aware</span> <span class="hl-identifier">that</span> <span class="hl-keyword">this</span> <span class="hl-identifier">requires</span> <span class="hl-identifier">a</span> <span class="hl-identifier">build</span><span class="hl-operator">-</span><span class="hl-identifier">step</span><span class="hl-operator">.</span><span class="hl-tag">&lt;/p</span><span class="hl-operator">&gt;</span>
+        <span class="hl-tag">&lt;p</span> <span class="hl-attribute">style</span><span class="hl-operator">=</span><span class="hl-operator">{</span><span class="hl-operator">{</span> <span class="hl-identifier">color</span><span class="hl-operator">:</span> <span class="hl-string">&apos;red&apos;</span> <span class="hl-operator">}</span><span class="hl-operator">}</span><span class="hl-operator">&gt;</span>
+            <span class="hl-identifier">Attributes</span> <span class="hl-identifier">work</span> <span class="hl-identifier">as</span> <span class="hl-identifier">expected</span><span class="hl-operator">.</span>
+        <span class="hl-tag">&lt;/p</span><span class="hl-operator">&gt;</span>
+        <span class="hl-tag">&lt;p</span><span class="hl-operator">&gt;</span><span class="hl-identifier">This</span> <span class="hl-identifier">application</span> <span class="hl-identifier">uses</span> <span class="hl-tag">&lt;a</span> <span class="hl-attribute">href</span><span class="hl-operator">=</span><span class="hl-string">&quot;https://esbuild.github.io/&quot;</span><span class="hl-operator">&gt;</span><span class="hl-identifier">esbuild</span><span class="hl-tag">&lt;/a</span><span class="hl-operator">&gt;</span> <span class="hl-identifier">to</span> <span class="hl-identifier">convert</span> <span class="hl-identifier">JSX</span><span class="hl-operator">.</span><span class="hl-tag">&lt;/p</span><span class="hl-operator">&gt;</span>
+      <span class="hl-tag">&lt;/</span><span class="hl-operator">&gt;</span>
+    <span class="hl-operator">)</span><span class="hl-operator">;</span>
+  <span class="hl-operator">}</span>
+<span class="hl-operator">}</span><span class="hl-operator">;</span>
+</code></pre>
+<p>For reference, you can see my full esbuild config and my bundle scripts <a href="https://github.com/kevinfiol/mithril-pres/tree/master/scripts">here</a>. Direct any questions to <a href="mailto:me@kevinfiol.com">me@kevinfiol.com</a> and I&#x27;d be happy to answer them.</p>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>

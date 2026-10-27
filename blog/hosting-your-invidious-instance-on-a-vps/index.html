@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="description" content="kevin f.'s personal site" />
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="alternate" type="application/atom+xml" title="feed" href="/atom.xml">
+        <title>Hosting Your Invidious Instance on a VPS</title>
+    </head>
+
+    <body>
+        <div class="dark-mode-container">
+            <input id="darkSwitch" type="checkbox" />
+            <label class="dark-mode-btn" for="darkSwitch">🌒</label>
+        </div>
+        <main class="main-content max-width-3 mx-auto">
+            <div>
+                    <div class="controls p1">
+        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/edit/content%2Fblog%2F2020-08-02-hosting-your-invidious-instance-on-a-vps.md">edit</a>
+    </div>
+
+    <header>
+        <nav>
+            <p class="h3">
+                <a href="/">kevin f.</a>
+            </p>
+        </nav>
+    </header>
+
+    <small class="h5 p0 m0 light-subdue">
+        August 02, 2020
+    </small>
+
+    <aside>
+                                    <div class="toc h5 py1">
+                    <div class="toc-header pb1">
+                        <div class="h3">Hosting Your Invidious Instance on a VPS</div>
+                        <span class="light-subdue">table of contents</span>
+                    </div>
+                <ul>
+            <li>
+            <a href="#1-pick-a-server" title="1. Pick a server">1. Pick a server</a>
+                    </li>
+            <li>
+            <a href="#2-get-a-domain-or-not" title="2. Get a domain (or not)">2. Get a domain (or not)</a>
+                    </li>
+            <li>
+            <a href="#3-pick-a-linux-distribution-for-your-vps" title="3. Pick a Linux Distribution for your VPS">3. Pick a Linux Distribution for your VPS</a>
+                    </li>
+            <li>
+            <a href="#4-pick-how-youre-going-to-install-invidious" title="4. Pick how you&#x27;re going to install Invidious">4. Pick how you&#x27;re going to install Invidious</a>
+                    </li>
+            <li>
+            <a href="#5-install-it" title="5. Install it!">5. Install it!</a>
+                    </li>
+            <li>
+            <a href="#6-optional-setting-up-nginx" title="6. (Optional) Setting up nginx">6. (Optional) Setting up nginx</a>
+                    </li>
+            <li>
+            <a href="#7-optional-enabling-https" title="7. (Optional) Enabling HTTPS">7. (Optional) Enabling HTTPS</a>
+                    </li>
+    </ul>
+
+                </div>
+                        </aside>
+
+    <article class="page-content">
+        <h1 id="hosting-your-invidious-instance-on-a-vps"><a class="heading-anchor" href="#hosting-your-invidious-instance-on-a-vps" aria-label="Anchor link for: hosting-your-invidious-instance-on-a-vps">#</a>Hosting Your Invidious Instance on a VPS</h1>
+<p><strong>Update 2022: This post is likely outdated. I recommend checking the official installation instructions found on the <a href="https://github.com/iv-org/invidious">Github repo</a>.</strong></p>
+<p><a href="https://github.com/iv-org/invidious">Invidious</a> is an alternative front-end to YouTube with an emphasis on privacy and low system resource usage. It is wonderful free software that not only does away with the annoyances of Google&#x27;s bloated, ad-ridden video site, but also adds plenty of QoL features.</p>
+<p>This weekend I spent some time setting up my own instance of Invidious to share with friends. Here&#x27;s a quick rundown on what I did:</p>
+<h2 id="1-pick-a-server"><a class="heading-anchor" href="#1-pick-a-server" aria-label="Anchor link for: 1-pick-a-server">#</a>1. Pick a server</h2>
+<p>I went with the $5/mo Nanode over at <a href="https://linode.com">Linode</a>. It&#x27;s packing a grand total 1GB of RAM, a single CPU, and 25GB of storage. More than enough to run our instance, but not enough to actually compile the damn codebase (we&#x27;ll get to this in a bit).</p>
+<h2 id="2-get-a-domain-or-not"><a class="heading-anchor" href="#2-get-a-domain-or-not" aria-label="Anchor link for: 2-get-a-domain-or-not">#</a>2. Get a domain (or not)</h2>
+<p>I wanted a simple and short domain name for myself and my buddies to be able to use instead of typing an IP address in the address bar every time. Getting a domain isn&#x27;t terribly important especially if you&#x27;re hosting this just for your own use.</p>
+<p>For the record, I used Namecheap to purchase my domain. I found <a href="https://web.archive.org/web/20200803032836/https://merelycurious.me/post/connecting-namecheap-domain-to-linode">this guide</a> particularly helpful in setting up my domain with my Linode VPS.</p>
+<h2 id="3-pick-a-linux-distribution-for-your-vps"><a class="heading-anchor" href="#3-pick-a-linux-distribution-for-your-vps" aria-label="Anchor link for: 3-pick-a-linux-distribution-for-your-vps">#</a>3. Pick a Linux Distribution for your VPS</h2>
+<p>Again, not terribly important what you pick. If you plan to use <a href="https://github.com/tmiland/Invidious-Updater">Invidious Updater</a>, know that it only supports Debian, Ubuntu, CentOS, Fedora, and Arch. Originally I attempted to use it on an Alpine Linux installation, but the script promptly failed.</p>
+<p>Also, the Invidious docs only provide installation instructions for Arch Linux and Debian/Ubuntu. I went with <strong>Arch Linux</strong>.</p>
+<h2 id="4-pick-how-youre-going-to-install-invidious"><a class="heading-anchor" href="#4-pick-how-youre-going-to-install-invidious" aria-label="Anchor link for: 4-pick-how-youre-going-to-install-invidious">#</a>4. Pick how you&#x27;re going to install Invidious</h2>
+<p>The <a href="https://github.com/iv-org/invidious/blob/master/README.md">README</a> provides 3 options:</p>
+<ul>
+<li>Install Invidious manually</li>
+<li>Use Invidious Updater (linked above)</li>
+<li>Use Docker</li>
+</ul>
+<p>All options are simple and easy to do. I went with <strong>1</strong>.</p>
+<h2 id="5-install-it"><a class="heading-anchor" href="#5-install-it" aria-label="Anchor link for: 5-install-it">#</a>5. Install it!</h2>
+<p>Install dependencies:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">pacman</span> <span class="hl-default">-Syu</span> <span class="hl-identifier">base</span><span class="hl-default">-devel</span> <span class="hl-identifier">shards</span> <span class="hl-identifier">crystal</span> <span class="hl-identifier">librsvg</span> <span class="hl-identifier">postgresql</span> <span class="hl-identifier">nano</span>
+</code></pre>
+<p>Create Invidious user:</p>
+<pre><code class="language-bash"><span class="hl-identifier">useradd</span> <span class="hl-default">-m</span> <span class="hl-identifier">invidious</span>
+<span class="hl-identifier">sudo</span> <span class="hl-default">-i</span> <span class="hl-default">-u</span> <span class="hl-identifier">invidious</span>
+<span class="hl-identifier">git</span> <span class="hl-identifier">clone</span> <span class="hl-identifier">https</span><span class="hl-default">:</span><span class="hl-default">/</span><span class="hl-default">/</span><span class="hl-identifier">github</span><span class="hl-default">.</span><span class="hl-identifier">com</span><span class="hl-default">/</span><span class="hl-identifier">iv</span><span class="hl-default">-org</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span>
+<span class="hl-function">exit</span>
+</code></pre>
+<p>Setup Postgres:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-function">enable</span> <span class="hl-identifier">postgresql</span>
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-identifier">start</span> <span class="hl-identifier">postgresql</span>
+<span class="hl-identifier">sudo</span> <span class="hl-default">-i</span> <span class="hl-default">-u</span> <span class="hl-identifier">postgres</span>
+<span class="hl-identifier">psql</span> <span class="hl-default">-c</span> <span class="hl-string">&quot;CREATE USER kemal WITH PASSWORD &apos;kemal&apos;;&quot;</span> <span class="hl-comment"># Change &apos;kemal&apos; here to a stronger password, and update `password` in config/config.yml</span>
+<span class="hl-identifier">createdb</span> <span class="hl-default">-O</span> <span class="hl-identifier">kemal</span> <span class="hl-identifier">invidious</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span>
+<span class="hl-function">exit</span>
+</code></pre>
+<p>I was only able to run the following commands as root. Make sure the postgresql service is running:</p>
+<pre><code class="language-bash"><span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">channels</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">videos</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">channel_videos</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">users</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">session_ids</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">nonces</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">annotations</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">playlists</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+<span class="hl-identifier">psql</span> <span class="hl-identifier">invidious</span> <span class="hl-identifier">kemal</span> <span class="hl-operator">&lt;</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">config</span><span class="hl-default">/</span><span class="hl-identifier">sql</span><span class="hl-default">/</span><span class="hl-identifier">playlist_videos</span><span class="hl-default">.</span><span class="hl-identifier">sql</span>
+</code></pre>
+<p>The next steps to install Invidious involve compiling the project code. On my measly 1GB of RAM, the compilation choked. In order to prepare for this, I used <code>systemd-swap</code> to create a swapfile. There are other ways to create a swapfile or a swap partition on Linux. See: <a href="https://wiki.archlinux.org/index.php/Swap">Swap on Arch Linux Wiki</a>. I found using <code>systemd-swap</code> the simplest. <a href="https://web.archive.org/web/20200803033711/https://ricostacruz.com/til/after-installing-arch-linux">This guide by Ricosta Cruz</a> was very helpful.</p>
+<p>I did as follows:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">pacman</span> <span class="hl-default">-Syu</span> <span class="hl-identifier">systemd</span><span class="hl-default">-swap</span>
+</code></pre>
+<p>Then I edited the config file to enable <code>zram_enabled=1</code> and <code>swapfc_enabled=1</code>:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">nano</span> <span class="hl-default">/</span><span class="hl-identifier">etc</span><span class="hl-default">/</span><span class="hl-identifier">systemd</span><span class="hl-default">/</span><span class="hl-identifier">swap</span><span class="hl-default">.</span><span class="hl-identifier">conf</span>
+</code></pre>
+<p>Then enable <code>systemd-swap.service</code>:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-function">enable</span> <span class="hl-default">--now</span> <span class="hl-identifier">systemd</span><span class="hl-default">-swap</span>
+</code></pre>
+<p>Finally add the swapfile to <code>/etc/fstab</code> so it&#x27;ll be used on every boot. Add this: <code>/swapfile none swap defaults 0 0</code> to the end of the file:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">nano</span> <span class="hl-default">/</span><span class="hl-identifier">etc</span><span class="hl-default">/</span><span class="hl-identifier">fstab</span>
+</code></pre>
+<p>Finally, you won&#x27;t run out of RAM to setup Invidious. Let&#x27;s go back and finally install it:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-default">-i</span> <span class="hl-default">-u</span> <span class="hl-identifier">invidious</span>
+<span class="hl-function">cd</span> <span class="hl-identifier">invidious</span>
+<span class="hl-identifier">shards</span> <span class="hl-identifier">update</span> <span class="hl-operator">&amp;</span><span class="hl-operator">&amp;</span> <span class="hl-identifier">shards</span> <span class="hl-identifier">install</span>
+<span class="hl-identifier">crystal</span> <span class="hl-identifier">build</span> <span class="hl-identifier">src</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">cr</span> <span class="hl-default">--release</span>
+<span class="hl-default">.</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span> <span class="hl-comment"># test compiled binary, stop with ctrl c</span>
+<span class="hl-function">exit</span>
+</code></pre>
+<p>It&#x27;s installed! Now some administrative stuff. Let&#x27;s setup the systemd service so that Invidious runs in the background:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">cp</span> <span class="hl-default">/</span><span class="hl-identifier">home</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">service</span> <span class="hl-default">/</span><span class="hl-identifier">etc</span><span class="hl-default">/</span><span class="hl-identifier">systemd</span><span class="hl-default">/</span><span class="hl-identifier">system</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">service</span>
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-function">enable</span> <span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">service</span>
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-identifier">start</span> <span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">service</span>
+</code></pre>
+<p>And lets rotate the logs so that they don&#x27;t balloon in size:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-function">echo</span> <span class="hl-string">&quot;/home/invidious/invidious/invidious.log {
+rotate 4
+weekly
+notifempty
+missingok
+compress
+minsize 1048576
+}&quot;</span> <span class="hl-operator">|</span> <span class="hl-identifier">tee</span> <span class="hl-default">/</span><span class="hl-identifier">etc</span><span class="hl-default">/</span><span class="hl-identifier">logrotate</span><span class="hl-default">.</span><span class="hl-identifier">d</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">logrotate</span>
+
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">chmod</span> <span class="hl-number">0644</span> <span class="hl-default">/</span><span class="hl-identifier">etc</span><span class="hl-default">/</span><span class="hl-identifier">logrotate</span><span class="hl-default">.</span><span class="hl-identifier">d</span><span class="hl-default">/</span><span class="hl-identifier">invidious</span><span class="hl-default">.</span><span class="hl-identifier">logrotate</span>
+</code></pre>
+<p>You now got a running Invidious instance! Navigate to your VPS&#x27;s IP address on port 3000 to see it up and running. Type <code>http://&lt;VPS_IP_ADDRESS&gt;:3000</code> into your browser&#x27;s address bar, and get to watching some videos!</p>
+<h2 id="6-optional-setting-up-nginx"><a class="heading-anchor" href="#6-optional-setting-up-nginx" aria-label="Anchor link for: 6-optional-setting-up-nginx">#</a>6. (Optional) Setting up nginx</h2>
+<p>When I bought my domain, I intended to use it for more than just Invidious. In my case, I wanted a subdomain to serve as my Invidious URL, while I can use the main domain to host a &quot;hub&quot; of sorts to other services.</p>
+<p>So for example:</p>
+<pre><code class="language-bash"><span class="hl-identifier">http</span><span class="hl-default">:</span><span class="hl-default">/</span><span class="hl-default">/</span><span class="hl-identifier">tube</span><span class="hl-default">.</span><span class="hl-identifier">mydomain</span><span class="hl-default">.</span><span class="hl-identifier">com</span> <span class="hl-default">-</span><span class="hl-operator">&gt;</span> <span class="hl-identifier">Invidious</span> <span class="hl-identifier">Service</span>
+<span class="hl-identifier">http</span><span class="hl-default">:</span><span class="hl-default">/</span><span class="hl-default">/</span><span class="hl-identifier">mydomain</span><span class="hl-default">.</span><span class="hl-identifier">com</span> <span class="hl-default">-</span><span class="hl-operator">&gt;</span> <span class="hl-identifier">Homepage</span>
+</code></pre>
+<p>I was able to do this easily using nginx reverse proxies. Here are the steps I took.</p>
+<p>Install nginx:</p>
+<pre><code class="language-bash"><span class="hl-identifier">pacman</span> <span class="hl-default">-Syu</span> <span class="hl-identifier">nginx</span><span class="hl-default">-mainline</span>
+</code></pre>
+<p>Enable and start nginx service:</p>
+<pre><code class="language-bash"><span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-function">enable</span> <span class="hl-identifier">nginx</span><span class="hl-default">.</span><span class="hl-identifier">service</span>
+<span class="hl-identifier">sudo</span> <span class="hl-identifier">systemctl</span> <span class="hl-identifier">start</span> <span class="hl-identifier">nginx</span><span class="hl-default">.</span><span class="hl-identifier">service</span>
+</code></pre>
+<p>Configure <code>/etc/nginx/nginx.conf</code>. Add this additional <code>server</code> entry somewhere under <code>http</code>:</p>
+<pre><code class="language-bash"><span class="hl-identifier">http</span> <span class="hl-operator">{</span>
+  <span class="hl-default">.</span><span class="hl-default">.</span><span class="hl-default">.</span>
+
+  <span class="hl-identifier">server</span> <span class="hl-operator">{</span>
+    <span class="hl-identifier">server_name</span> <span class="hl-identifier">tube</span><span class="hl-default">.</span><span class="hl-identifier">mydomain</span><span class="hl-default">.</span><span class="hl-identifier">com</span><span class="hl-operator">;</span>
+    <span class="hl-identifier">location</span> <span class="hl-default">/</span> <span class="hl-operator">{</span>
+      <span class="hl-identifier">proxy_pass</span> <span class="hl-identifier">http</span><span class="hl-default">:</span><span class="hl-default">/</span><span class="hl-default">/</span><span class="hl-number">127.0</span><span class="hl-number">.0</span><span class="hl-number">.1</span><span class="hl-default">:</span><span class="hl-number">3000</span><span class="hl-operator">;</span>
+    <span class="hl-operator">}</span>
+  <span class="hl-operator">}</span>
+  
+  <span class="hl-default">.</span><span class="hl-default">.</span><span class="hl-default">.</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<p>Next addition is completely optional if you want your root domain to point to a kind of homepage. This is what I wanted, so I&#x27;m putting it here partly to document it for myself. I changed the existing, default <code>http.server</code> entry to point to custom <code>html</code> I had written:</p>
+<pre><code class="language-bash"><span class="hl-identifier">http</span> <span class="hl-operator">{</span>
+  <span class="hl-identifier">server</span> <span class="hl-operator">{</span>
+    <span class="hl-identifier">server_name</span> <span class="hl-identifier">mydomain</span><span class="hl-default">.</span><span class="hl-identifier">com</span>
+
+    <span class="hl-identifier">location</span> <span class="hl-default">/</span> <span class="hl-operator">{</span>
+      <span class="hl-identifier">root</span> <span class="hl-default">/</span><span class="hl-identifier">sites</span><span class="hl-default">/</span><span class="hl-identifier">mydomain</span><span class="hl-default">.</span><span class="hl-identifier">com</span>
+      <span class="hl-identifier">index</span> <span class="hl-identifier">index</span><span class="hl-default">.</span><span class="hl-identifier">html</span> <span class="hl-identifier">index</span><span class="hl-default">.</span><span class="hl-identifier">htm</span>
+    <span class="hl-operator">}</span>
+
+    <span class="hl-default">.</span><span class="hl-default">.</span><span class="hl-default">.</span> <span class="hl-comment"># the rest remained unchanged from the default</span>
+  <span class="hl-operator">}</span>
+  
+  <span class="hl-default">.</span><span class="hl-default">.</span><span class="hl-default">.</span>
+<span class="hl-operator">}</span>
+</code></pre>
+<h2 id="7-optional-enabling-https"><a class="heading-anchor" href="#7-optional-enabling-https" aria-label="Anchor link for: 7-optional-enabling-https">#</a>7. (Optional) Enabling HTTPS</h2>
+<p>I used <a href="https://certbot.eff.org/">EFF&#x27;s Certbot for this</a>. It is painfully easy to use. Note that if you choose to, it <em>will</em> make modifications to your <code>nginx.conf</code> for you.</p>
+<p>You must enable an option in Invidious&#x27;s config if you want assets to only be transferred via HTTPS. More information can be found <a href="https://github.com/iv-org/invidious/wiki/Configuration">here</a>.</p>
+<hr>
+<p>That&#x27;s all. Hopefully you found this helpful. If you got any questions, shoot me an <a href="mailto:me@kevinfiol.com">email</a>. And always, if you liked this post, hit Like and Subscribe! (haha).</p>
+
+    </article>
+
+    <footer class="mt2">
+        <small>
+            <a href="#">return to top</a>
+        </small>
+    </footer>
+
+            </div>
+        </main>
+        <script src="/js/dark-mode-switch.min.js"></script>
+    </body>
+</html>
