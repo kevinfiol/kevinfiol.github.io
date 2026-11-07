@@ -1,30 +1,30 @@
-    <div class="controls p1">
-        <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/new">new</a>
-    </div>
+<div class="controls p1">
+  <a href="https://app.pagescms.org/kevinfiol/kevinfiol.github.io/master/collection/blog/new">new</a>
+</div>
 
-    <header>
-        <div style="width: 120px; height: 245px;">
-            <img class="fade-in" src="/img/space.gif" alt="astronaut idle animation" />
-        </div>
-        <h1 class="mb0" style="font-weight: 400">kevin f.</h1>
-        <nav>
-            <ul class="list-reset my1">
-                <li class="inline-block"><a href="/about">about</a></li>
-                <li class="inline-block"><a href="https://codeberg.org/kevinfiol">codeberg</a></li>
-                <li class="inline-block"><a href="https://github.com/kevinfiol">github</a></li>
-                <li class="inline-block"><a href="/resume">resume</a></li>
-            </ul>
-        </nav>
-        <p class="my1" style="font-size: 0.9em">contact: me [at] kevinfiol.com</p>
-        <p class="mb1 mt0 light-subdue"><small><em>spaceman mascot by <a href="https://haggle.omg.lol">haggle.omg.lol</a></em></small></p>
-    </header>
+<header>
+  <div style="width: 120px; height: 245px;">
+    <img class="fade-in" src="/img/space.gif" alt="astronaut idle animation" />
+  </div>
+  <h1 class="mb0" style="font-weight: 400">kevin f.</h1>
+  <nav>
+    <ul class="list-reset my1">
+      <li class="inline-block"><a href="/about">about</a></li>
+      <li class="inline-block"><a href="https://codeberg.org/kevinfiol">codeberg</a></li>
+      <li class="inline-block"><a href="https://github.com/kevinfiol">github</a></li>
+      <li class="inline-block"><a href="/resume">resume</a></li>
+    </ul>
+  </nav>
+  <p class="my1" style="font-size: 0.9em">contact: me [at] kevinfiol.com</p>
+  <p class="mb1 mt0 light-subdue"><small><em>spaceman mascot by <a href="https://haggle.omg.lol">haggle.omg.lol</a></em></small></p>
+</header>
 
-    <div class="line" aria-hidden="true"></div>
+<div class="line" aria-hidden="true"></div>
 
-    <section>
-        <%- etlua.render(fs.readThemeFile("theme/templates/post-list.etlua"), { items = items, sortedPosts = sortedPosts, limit = 6 }) %>
-    </section>
+<section>
+  <%- etlua.render(fs.readThemeFile("theme/templates/post-list.etlua"), { items = items, sortedPosts = sortedPosts, limit = 6 }) %>
+</section>
 
-    <nav class="py1">
-        <a href="/archive/">archive →</a>
-    </nav>
+<nav class="py1">
+  <a href="/archive/">archive →</a>
+</nav>
