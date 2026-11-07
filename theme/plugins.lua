@@ -45,27 +45,47 @@ local function headings(pattern, options)
 
   return deriveMetadata({
     toc = function (item)
+      -- add anchor links if options includes a filematch regex + and current file matches the regex
       local addAnchors = options.file_match and string.match(item.path, options.file_match)
 
-      -- `stack` is the chain of open headings, from a dummy level-0 root down to the last heading seen.
-      -- The root's children end up being the top-level headings.
+      -- level 0 is never used, level 1 would be h1 headings, level 2 -> h2, and so on
       local root = { level = 0, children = {} }
+
+      -- create the stack starting with the invisible root
       local stack = { root }
 
-      -- Visit every heading; processMarkdown() has already given each one an id
-      item.content = string.gsub(item.content, "<h(%d) id=\"(.-)\">(.-)</h%1>", function (level, id, inner)
-        local node = { level = string.toNumber(level), id = id, title = string.gsub(inner, "<.->", ""), children = {} }
+      -- for every heading in this .html file do:
+      -- grab the `id` already provided by processMarkdown()
+      item.content = string.gsub(item.content, "<h(%d) id=\"(.-)\">(.-)</h%1>", function (level, id, innerHTML)
+        -- build node for this given heading
+        local node = {
+          level = string.toNumber(level),
+          id = id,
+          -- get title to show in the table of contents from the innerHTML
+          -- remove any inner html tags
+          title = string.gsub(innerHTML, "<.->", ""),
+          children = {}
+        }
 
-        -- Pop headings at the same or deeper level so the top of the stack is this heading's parent
+        -- pop headings at the same or deeper level so the top of the stack is this heading's parent
         -- (e.g. an h2 that follows an h3 pops back up to the enclosing h1), then nest under it
-        while stack[#stack].level >= node.level do table.remove(stack) end
+        while stack[#stack].level >= node.level do
+          table.remove(stack)
+        end
+
+        -- puts the heading into the tree, under its parent
         table.insert(stack[#stack].children, node)
+
+        -- puts the heading on the stack, so it can become the parent of the next heading
         table.insert(stack, node)
 
         -- Returning nil leaves the heading unchanged
-        if not addAnchors then return nil end
+        if not addAnchors then
+          return nil
+        end
+
         local anchor = string.format("<a class=\"%s\" href=\"#%s\" aria-label=\"Anchor link for: %s\">#</a>", class_name, id, id)
-        return string.format("<h%s id=\"%s\">%s%s</h%s>", level, id, anchor, inner, level)
+        return string.format("<h%s id=\"%s\">%s%s</h%s>", level, id, anchor, innerHTML, level)
       end)
 
       return root.children
@@ -81,8 +101,13 @@ end
 
 local function prettyUrls(pattern)
   return deriveMetadata({
-    path = function (item) return prettyPath(item.path) end,
-    permalink = function (item) return "/" .. string.gsub(prettyPath(item.path), "index%.html$", "") end,
+    path = function (item)
+      return prettyPath(item.path)
+    end,
+
+    permalink = function (item)
+      return "/" .. string.gsub(prettyPath(item.path), "index%.html$", "")
+    end,
   }, pattern)
 end
 

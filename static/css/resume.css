@@ -45,9 +45,6 @@ ul {
     line-height: 12pt !important;
     font-size: 9pt;
   }
-  #work-experience + ul {
-    page-break-after: always;
-  }
   #open-source {
     margin-top: 2rem;
   }
