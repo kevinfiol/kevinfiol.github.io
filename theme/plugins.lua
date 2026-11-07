@@ -58,7 +58,10 @@ local function headings(pattern, options)
 
         -- Pop headings at the same or deeper level so the top of the stack is this heading's parent
         -- (e.g. an h2 that follows an h3 pops back up to the enclosing h1), then nest under it
-        while stack[#stack].level >= node.level do table.remove(stack) end
+        while stack[#stack].level >= node.level do
+          table.remove(stack)
+        end
+
         table.insert(stack[#stack].children, node)
         table.insert(stack, node)
 
